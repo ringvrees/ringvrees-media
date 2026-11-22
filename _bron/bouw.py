@@ -26,6 +26,9 @@ Elk artikel is één JSON-bestand in _bron/artikelen/ met deze velden:
   doorstuur   de doorstuur-regel uit de caption (bv. "Stuur door naar ...")
   seo_titel   optioneel, eigen <title> voor Google (max ~60 tekens); anders "<titel> | Ringvrees"
   seo_beschrijving optioneel, eigen meta description (max ~155 tekens); anders de lede
+  Interview-blokken (voor een fictief, anoniem interview):
+              {"interview": {"wie": "L.B. (34)", "waar": "Lauriergracht", "intro": "korte inleiding"}}
+              daarna afwisselend {"vraag": "..."} en {"antwoord": "...", "wie": "L.B."}
   bron        alleen bij eigen onderzoek of exclusief nieuws van één medium (zoals "Via @..." in de caption):
               naam van het medium, bv. "AT5". Toont onderaan "Bron: AT5". Bij algemeen nieuws weglaten.
   bron_url    optioneel, link naar het bronartikel
@@ -143,6 +146,15 @@ def blok(b):
         k = "".join(f"<th>{esc(x)}</th>" for x in t["kop"])
         r = "".join("<tr>" + "".join(f"<td>{esc(x)}</td>" for x in rij) + "</tr>" for rij in t["rijen"])
         return f"<div class='tabelwrap'><table><thead><tr>{k}</tr></thead><tbody>{r}</tbody></table></div>"
+    if "interview" in b:
+        iv = b["interview"]
+        return (f"<div class='iv-kop'><span class='kick'>Interview</span><h2 class='h'>{esc(iv['wie'])}</h2>"
+                f"<p class='meta'>{esc(iv.get('waar', ''))}</p>" + (f"<p>{iv['intro']}</p>" if iv.get('intro') else "") + "</div>")
+    if "vraag" in b:
+        return f"<p class='iv-v'>{esc(b['vraag'])}</p>"
+    if "antwoord" in b:
+        wie = f"<b>{esc(b['wie'])}:</b> " if b.get("wie") else ""
+        return f"<p class='iv-a'>{wie}{b['antwoord']}</p>"
     if "beeld" in b:
         return f"<figure><img src='{b['beeld']}' alt='{esc(b.get('alt', ''))}' loading='lazy'></figure>"
     raise ValueError(f"onbekend blok: {b}")
