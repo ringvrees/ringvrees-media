@@ -40,7 +40,7 @@ MAANDEN = ["januari", "februari", "maart", "april", "mei", "juni", "juli", "augu
            "september", "oktober", "november", "december"]
 DAGEN = ["maandag", "dinsdag", "woensdag", "donderdag", "vrijdag", "zaterdag", "zondag"]
 IG = "https://www.instagram.com/ringvrees/"
-FB = "https://www.facebook.com/122104674513551671"
+FB = "https://www.facebook.com/profile.php?id=122104674513551671"
 ORG = {"@type": "NewsMediaOrganization", "name": "Ringvrees", "alternateName": ["@ringvrees", "Ringvrees.nl"],
        "url": "https://ringvrees.nl/", "logo": {"@type": "ImageObject", "url": "https://ringvrees.nl/icon-512.png", "width": 512, "height": 512},
        "description": "Satirisch nieuwsplatform uit Amsterdam. Dagelijks echt Amsterdams nieuws, maar dan zoals het écht voelt binnen de ring A10.",
