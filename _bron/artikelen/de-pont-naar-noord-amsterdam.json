@@ -9,7 +9,7 @@
  "seo_beschrijving": "Alles over de pont naar Amsterdam-Noord: gratis, achter Centraal Station, dag en nacht naar de Buiksloterweg. Welke pont je neemt en hoe het werkt.",
  "lede": "De pont naar Noord is gratis, vertrekt achter Amsterdam Centraal en brengt je in een paar minuten naar de overkant van het IJ. Het mooiste is dat je ondertussen de ring niet verlaat: waar de pont aankomt, zit je nog gewoon binnen de A10. Een gids voor wie nog nooit heeft overgestoken.",
  "beeld": "/img/artikelen/de-pont-naar-noord-amsterdam.jpg",
- "beeld_alt": "Getekende witte pont op het blauwe water van het IJ in Amsterdam",
+ "beeld_alt": "Een witte pont vaart bij zonsondergang over het IJ in Amsterdam, met het Eye Filmmuseum op de achtergrond",
  "doorstuur": "Stuur door naar die vriend die denkt dat Noord buitenland is",
  "blokken": [
   {
@@ -76,7 +76,7 @@
    "tussenkop": "Mag mijn fiets, scooter of auto mee?"
   },
   {
-   "p": "Voetgangers, fietsers en brommers mogen mee. Auto's niet: de pont over het IJ is geen autoveer. Wie met de auto naar Noord wil, rijdt door de IJtunnel. Dat is voor ringvrezers overigens het enige bezwaar tegen Noord: je kunt er met de auto komen, en dan komen er dus ook mensen met de auto."
+   "p": "Voetgangers, fietsers en brommers mogen mee. Auto's niet: de pont over het IJ is geen autoveer. Wie met de auto naar Noord wil, rijdt door de IJtunnel en mag daarna <a href=\"/nieuws/parkeren-in-amsterdam-centrum/\">gaan zoeken naar een parkeerplek</a>. Dat is voor ringvrezers overigens het enige bezwaar tegen Noord: je kunt er met de auto komen, en dan komen er dus ook mensen met de auto."
   },
   {
    "tussenkop": "Wanneer is het druk op de pont?"
@@ -88,7 +88,7 @@
    "tussenkop": "Ligt Amsterdam-Noord binnen de ring?"
   },
   {
-   "p": "Voor een deel wel, en dat verrast veel Amsterdammers. De ring A10 loopt dwars door Noord. Het zuidelijke deel, waar de ponten aankomen, ligt binnen de ring: de Buiksloterweg, het IJplein, de NDSM-werf en de Van der Pekbuurt. Wijken boven de A10, zoals Buikslotermeer en de Banne, liggen erbuiten. Wie de pont neemt, steekt dus water over maar geen grens. Loop daarna alleen niet te ver door naar het noorden: een ringvrezer weet precies waar het viaduct begint."
+   "p": "Voor een deel wel, en dat verrast veel Amsterdammers. De ring A10 loopt dwars door Noord. Het zuidelijke deel, waar de ponten aankomen, ligt binnen de ring: de Buiksloterweg, het IJplein, de NDSM-werf en de Van der Pekbuurt. Wijken boven de A10, zoals Buikslotermeer en de Banne, liggen erbuiten. Wie de pont neemt, steekt dus water over maar geen grens. Loop daarna alleen niet te ver door naar het noorden: een ringvrezer weet precies waar het viaduct begint. Benieuwd hoe ver jij zelf van de ring woont? <a href=\"/afstand/\">Meet het met de Ring-afstandmeter</a>."
   },
   {
    "lijst": [
@@ -101,7 +101,8 @@
    "vinkjes": true
   },
   {
-   "p": "Kortom: de pont naar Noord is de makkelijkste, goedkoopste en mooiste manier om iets nieuws te zien zonder de veilige omarming van de A10 te verlaten. Ga staan aan de voorkant, kijk naar het water en zeg tegen jezelf dat je op reis bent. Over vijf minuten ben je er al."
+   "p": "Kortom: de pont naar Noord is de makkelijkste, goedkoopste en mooiste manier om iets nieuws te zien zonder de veilige omarming van de A10 te verlaten. Ga staan aan de voorkant, kijk naar het water en zeg tegen jezelf dat je op reis bent. Over vijf minuten ben je er al. Voel je bij de gedachte aan de overkant toch lichte paniek? Dan heb je misschien <a href=\"/nieuws/symptomen-van-ringvrees/\">ringvrees</a>."
   }
- ]
+ ],
+ "beeld_bron": "Foto: hoch3fotografie via Unsplash"
 }

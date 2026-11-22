@@ -32,6 +32,8 @@ Elk artikel is één JSON-bestand in _bron/artikelen/ met deze velden:
   bron        alleen bij eigen onderzoek of exclusief nieuws van één medium (zoals "Via @..." in de caption):
               naam van het medium, bv. "AT5". Toont onderaan "Bron: AT5". Bij algemeen nieuws weglaten.
   bron_url    optioneel, link naar het bronartikel
+  bijgewerkt  optioneel "YYYY-MM-DD": bij tijdloze artikelen de datum van de laatste inhoudelijke update
+              (de site toont dan "Bijgewerkt op ..."; zonder dit veld geldt de datum)
   instagram   optioneel, url van de Instagram-post
 """
 import json, html, pathlib, datetime, re, unicodedata
@@ -184,7 +186,7 @@ def blok(b):
 
 def kaart(a, groot=False):
     d = datetime.date.fromisoformat(a["datum"])
-    meta = "Tijdloos" if a["type"] == "tijdloos" else nl_datum(d)
+    meta = ("Bijgewerkt " + nl_datum(datetime.date.fromisoformat(a.get("bijgewerkt") or a["datum"])) + " " + (a.get("bijgewerkt") or a["datum"])[:4]) if a["type"] == "tijdloos" else nl_datum(d)
     if groot:
         return f"""<div class="hero">
     <a class="heroimg" href="{url_van(a)}"><img src="{a['beeld']}" alt="{esc(a['beeld_alt'])}" width="1600" height="900" fetchpriority="high"></a>
@@ -215,7 +217,7 @@ def artikel_pagina(a, alle, vandaag):
     tijd = a.get("tijd") or "12:00"
     pub = datetime.datetime.fromisoformat(f"{a['datum']}T{tijd}").replace(tzinfo=ZoneInfo("Europe/Amsterdam")).isoformat()
     ld = {"@context": "https://schema.org", "@type": "NewsArticle", "headline": a["titel"][:110],
-          "description": a["lede"], "image": [SITE + a["beeld"]], "datePublished": pub, "dateModified": pub,
+          "description": a["lede"], "image": [SITE + a["beeld"]], "datePublished": pub, "dateModified": (a.get("bijgewerkt") + "T12:00:00+01:00") if a.get("bijgewerkt") else pub,
           "inLanguage": "nl-NL", "genre": "satire", "articleSection": a["rubriek"], "url": SITE + url,
           "mainEntityOfPage": SITE + url, "isAccessibleForFree": True,
           "contentLocation": {"@type": "Place", "name": "Amsterdam"},
@@ -236,7 +238,7 @@ def artikel_pagina(a, alle, vandaag):
     if meer:
         meer_html = "<div class='wrap'><div class='sec'><h2 class='h'>Meer van binnen de ring</h2></div><div class='grid'>" + "".join(kaart(x) for x in meer) + "</div></div>"
     beeldbron = f"<figcaption>{esc(a['beeld_bron'])}</figcaption>" if a.get("beeld_bron") else ""
-    meta = "Tijdloos" if a["type"] == "tijdloos" else nl_datum(d, True)
+    meta = ("Bijgewerkt op " + nl_datum(datetime.date.fromisoformat(a.get("bijgewerkt") or a["datum"])) + " " + (a.get("bijgewerkt") or a["datum"])[:4]) if a["type"] == "tijdloos" else nl_datum(d, True)
     return (kop(a.get("seo_titel") or f"{a['titel']} | Ringvrees", a.get("seo_beschrijving") or a["lede"], url, a["beeld"], extra) + balk(vandaag) + f"""
 <article class="art">
   <a class="kick" href="{rubriek_url(a['rubriek'])}">{esc(a['rubriek'])}</a>
