@@ -4,34 +4,38 @@
  "tijd": "21:50",
  "type": "tijdloos",
  "rubriek": "Gids",
- "titel": "De pont naar Amsterdam-Noord: zo werkt het gratis pontje over het IJ (en waarom je er nooit uit hoeft)",
+ "titel": "De pont naar Amsterdam-Noord: gratis het IJ over zonder de ring te verlaten",
  "seo_titel": "De pont naar Noord: gratis pont over het IJ uitgelegd | Ringvrees",
  "seo_beschrijving": "Alles over de pont naar Amsterdam-Noord: gratis, achter Centraal Station, dag en nacht naar de Buiksloterweg. Welke pont je neemt en hoe het werkt.",
- "lede": "De pont naar Noord is gratis, vertrekt achter Amsterdam Centraal en brengt je in een paar minuten naar de overkant van het IJ. Het mooiste is dat je ondertussen de ring niet verlaat: waar de pont aankomt, zit je nog gewoon binnen de A10. Een gids voor wie nog nooit heeft overgestoken.",
+ "lede": "De pont naar Noord is gratis, vertrekt achter Amsterdam Centraal en is in vijf minuten aan de overkant. Voor de meeste Amsterdammers is dat een boottochtje. Voor ringvrezers is het de verste reis die ze ooit zullen maken, en zelfs dan blijven ze netjes binnen de A10.",
  "beeld": "/img/artikelen/de-pont-naar-noord-amsterdam.jpg",
  "beeld_alt": "Een witte pont vaart bij zonsondergang over het IJ in Amsterdam, met het Eye Filmmuseum op de achtergrond",
  "doorstuur": "Stuur door naar die vriend die denkt dat Noord buitenland is",
  "blokken": [
   {
-   "p": "Wie in Amsterdam ‘de pont’ zegt, bedoelt de veerponten van het GVB die over het IJ varen, tussen het centrum en Amsterdam-Noord. Het zijn platte, open boten waar je met de fiets op rijdt, een paar minuten staat te kijken naar het water en er aan de overkant weer af rijdt. Voor Amsterdammers is het een gewoonte. Voor bezoekers is het het mooiste gratis uitje van de stad. Voor ringvrezers is het iets bijzonders: de enige oversteek die voelt als een reis, terwijl je de A10 geen moment uit gaat."
+   "p": "Elke dag staan er toeristen achter het Centraal Station verbaasd naar het water te kijken. Ze zien een platte boot vol fietsers vertrekken, zonder kaartje, zonder poortje en zonder uitleg, naar een plek die ze niet op hun lijstje hadden gezet. Dat is de pont. Voor wie hier nooit is geweest, voor wie net verhuisd is en voor die ene collega uit Hoofddorp: een gids."
   },
   {
    "tussenkop": "Is de pont naar Noord gratis?"
   },
   {
-   "p": "Ja. De pont over het IJ is gratis voor iedereen en je hoeft niet in of uit te checken. Dat is geen actie die volgende maand afloopt: de Amsterdamse gemeenteraad maakte de oversteek op 6 mei 1912 gratis en zo is het sindsdien gebleven. Het is daarmee een van de weinige dingen in Amsterdam die al ruim honderd jaar niets kosten. Geniet ervan, want je koffie aan de overkant kost wel gewoon zes euro."
+   "p": "Ja, helemaal. Je hoeft niet in of uit te checken en er is geen poortje. De gemeenteraad maakte de oversteek op 6 mei 1912 gratis en sindsdien heeft niemand het aangedurfd om er alsnog geld voor te vragen. Het is daarmee het enige in Amsterdam dat al ruim honderd jaar niet duurder is geworden. Je cappuccino aan de overkant is dat wel."
+  },
+  {
+   "getal": "1912",
+   "tekst": "Sinds 6 mei 1912 is de pont over het IJ gratis. Niet te hard zeggen, straks hoort de gemeente het."
   },
   {
    "tussenkop": "Waar vertrekt de pont naar Noord?"
   },
   {
-   "p": "De ponten naar Noord vertrekken achter Amsterdam Centraal, aan de IJ-kant van het station. Loop door de stationshal naar de achterkant (de kant van het water) en je ziet de aanlegsteigers vanzelf liggen, met borden waarop staat welke pont waarheen gaat. Fietsers rijden er via de fietsenstalling en de kade naartoe. Je hoeft niets te kopen of te reserveren: je wacht achter het hek tot de klep opengaat en rijdt erop."
+   "p": "Achter Amsterdam Centraal, aan de kant van het IJ. Loop door de stationshal naar de achterkant, voorbij de broodjeszaken en de mensen die naar het vertrekbord van de trein naar Almere kijken alsof het een rouwkaart is. Daar liggen de steigers, met borden waarop staat welke pont waarheen gaat. Kopen of reserveren hoeft niet: je wacht achter het hek tot de klep opengaat en dan begint het dringen."
   },
   {
    "tussenkop": "Welke pont moet ik hebben?"
   },
   {
-   "p": "Er varen zeven veerponten over het IJ. Vanaf Centraal Station zijn er drie die de meeste mensen gebruiken:"
+   "p": "Er varen zeven veerponten over het IJ. Vanaf Centraal zijn dit de drie die je moet kennen:"
   },
   {
    "tabel": {
@@ -44,64 +48,64 @@
      [
       "F3",
       "Centraal Station – Buiksloterweg",
-      "Eye Filmmuseum, A'DAM Toren, Noorderpark. Vaart dag en nacht."
+      "Het Eye, de A'DAM Toren en mensen die ‘even naar Noord’ zeggen alsof het Bali is. Vaart dag en nacht."
      ],
      [
       "F2",
       "Centraal Station – IJplein",
-      "Oostelijk Noord, de Van der Pekbuurt en het IJplein"
+      "Het IJplein en de Van der Pekbuurt. Rustiger, dus voor kenners."
      ],
      [
       "F4",
       "Centraal Station – NDSM-werf",
-      "De NDSM-werf, festivals, loodsen en de vlooienmarkt"
+      "Loodsen, festivals, de vlooienmarkt en mensen in een overall die geen klusser zijn."
      ]
     ]
    }
   },
   {
-   "p": "Daarnaast varen er ponten die niet bij het station beginnen: de F6 tussen de Distelweg en de Pontsteiger in de Houthavens, de F7 tussen de Pontsteiger en de NDSM-werf, de F1 (het Oostveer) tussen de Zamenhofstraat en het Azartplein op het KNSM-eiland en de F9 tussen Sporenburg en het Zeeburgereiland. Kijk voor de actuele vertrektijden altijd in de GVB-app of op gvb.nl: de dienstregeling verandert weleens en bij drukte of personeelstekort vaart er soms een pont minder."
+   "p": "Daarnaast varen er ponten die niet bij het station beginnen: de F6 tussen de Distelweg en de Pontsteiger in de Houthavens, de F7 tussen de Pontsteiger en de NDSM-werf, de F1 (het Oostveer) tussen de Zamenhofstraat en het Azartplein op het KNSM-eiland en de F9 tussen Sporenburg en het Zeeburgereiland. Kijk voor de actuele tijden altijd in de GVB-app of op gvb.nl: door een tekort aan schippers vaart er weleens een pont minder. Dan wacht je gewoon op de volgende. Binnen de ring noemen we dat onthaasten."
   },
   {
    "tussenkop": "Hoe lang duurt de overtocht en hoe vaak vaart hij?"
   },
   {
-   "p": "De pont naar de Buiksloterweg (F3) doet er ongeveer vijf minuten over en is de kortste en drukste oversteek. Overdag vertrekt hij heel vaak, ongeveer elke zes minuten, dus een dienstregeling uit je hoofd leren is niet nodig. Hij vaart als een van de twee ponten ook ’s nachts. De ponten naar de NDSM-werf doen er langer over en varen minder vaak, dus check daar wel even hoe laat de volgende gaat."
+   "p": "De pont naar de Buiksloterweg doet er ongeveer vijf minuten over en vertrekt overdag zo'n beetje elke zes minuten. Een dienstregeling uit je hoofd leren is dus zinloos: zie je de pont wegvaren, dan ligt de volgende al bijna klaar. Hij vaart ook ’s nachts, als een van de twee ponten die dat doen. De pont naar de NDSM-werf doet er langer over en gaat minder vaak, dus daar kijk je wel even op je telefoon. Vijf minuten is overigens precies lang genoeg om een selfie met het IJ te maken en te beseffen dat je nog nooit zo ver van huis bent geweest."
   },
   {
-   "getal": "1912",
-   "tekst": "Sinds 6 mei 1912 is de pont over het IJ gratis. Ouder dan de meeste grachtenpanden die nog niet verbouwd zijn tot hotel."
+   "citaat": "Ik steek al veertig jaar elke dag over. Ik ben nog nooit buiten de ring geweest, maar ik heb wel heel veel water gezien.",
+   "door": "R.K. (63), Buiksloterweg"
   },
   {
-   "tussenkop": "Mag mijn fiets, scooter of auto mee?"
+   "tussenkop": "Mag mijn fiets, scooter of auto mee op de pont?"
   },
   {
-   "p": "Voetgangers, fietsers en brommers mogen mee. Auto's niet: de pont over het IJ is geen autoveer. Wie met de auto naar Noord wil, rijdt door de IJtunnel en mag daarna <a href=\"/nieuws/parkeren-in-amsterdam-centrum/\">gaan zoeken naar een parkeerplek</a>. Dat is voor ringvrezers overigens het enige bezwaar tegen Noord: je kunt er met de auto komen, en dan komen er dus ook mensen met de auto."
+   "p": "Voetgangers, fietsers en brommers mogen mee. Auto's niet: de pont is geen autoveer en dat is precies de charme. Wie met de auto naar Noord wil, rijdt door de IJtunnel en mag daarna <a href=\"/nieuws/parkeren-in-amsterdam-centrum/\">gaan zoeken naar een parkeerplek</a>. Wij raden de fiets aan. Zet hem alleen niet te dicht bij de klep, tenzij je wilt dat hij als eerste aan land gaat."
   },
   {
    "tussenkop": "Wanneer is het druk op de pont?"
   },
   {
-   "p": "In de ochtend- en avondspits is het dringen, vooral op de pont tussen Centraal en de Buiksloterweg. Fietsers staan dan zo dicht op elkaar dat de klep soms met moeite dicht kan. Wie het rustig wil hebben, gaat buiten de spits of pakt een andere pont. Tijdens grote evenementen zoals Sail en Koningsdag kan de dienstregeling afwijken. En als de ponten niet kunnen varen, door een staking of door ijs, gaat er een buis van de IJtunnel open voor voetgangers en fietsers, zodat Noord bereikbaar blijft."
+   "p": "In de ochtend- en avondspits staat de pont zo vol fietsers dat de klep soms met moeite dicht gaat. Bewoners van Noord roepen al jaren ‘Brug now!’, wat binnen de ring vooral wordt opgevat als een interessante nieuwe lifestyletrend. Wil je rust, ga dan buiten de spits of neem een andere pont. Tijdens Sail en Koningsdag kan de dienstregeling afwijken. Kunnen de ponten niet varen, door een staking of door ijs, dan gaat er een buis van de IJtunnel open voor voetgangers en fietsers. Noord blijft dus altijd bereikbaar, ook als je liever had gehad van niet."
   },
   {
    "tussenkop": "Ligt Amsterdam-Noord binnen de ring?"
   },
   {
-   "p": "Voor een deel wel, en dat verrast veel Amsterdammers. De ring A10 loopt dwars door Noord. Het zuidelijke deel, waar de ponten aankomen, ligt binnen de ring: de Buiksloterweg, het IJplein, de NDSM-werf en de Van der Pekbuurt. Wijken boven de A10, zoals Buikslotermeer en de Banne, liggen erbuiten. Wie de pont neemt, steekt dus water over maar geen grens. Loop daarna alleen niet te ver door naar het noorden: een ringvrezer weet precies waar het viaduct begint. Benieuwd hoe ver jij zelf van de ring woont? <a href=\"/afstand/\">Meet het met de Ring-afstandmeter</a>."
+   "p": "Voor een deel, en dat verrast veel Amsterdammers. De ring A10 loopt dwars door Noord. Het zuidelijke deel, waar de ponten aankomen, ligt erbinnen: de Buiksloterweg, het IJplein, de NDSM-werf en de Van der Pekbuurt. Wijken boven de A10, zoals Buikslotermeer en de Banne, liggen erbuiten. Wie de pont neemt, steekt dus water over maar geen grens. Loop daarna alleen niet te ver door naar het noorden: een ringvrezer weet precies waar het viaduct begint. Benieuwd waar jij zelf woont? <a href=\"/afstand/\">Meet het met de Ring-afstandmeter</a>."
   },
   {
    "lijst": [
     "Gratis, al sinds 1912",
     "Vertrekt achter Amsterdam Centraal",
-    "F3 naar de Buiksloterweg vaart dag en nacht",
-    "Fiets en brommer mogen mee, de auto niet",
-    "Je komt aan binnen de ring"
+    "De F3 naar de Buiksloterweg vaart dag en nacht",
+    "Fiets en brommer mee, de auto blijft thuis",
+    "Je komt aan binnen de ring. Wat je daarna doet, is je eigen verantwoordelijkheid"
    ],
    "vinkjes": true
   },
   {
-   "p": "Kortom: de pont naar Noord is de makkelijkste, goedkoopste en mooiste manier om iets nieuws te zien zonder de veilige omarming van de A10 te verlaten. Ga staan aan de voorkant, kijk naar het water en zeg tegen jezelf dat je op reis bent. Over vijf minuten ben je er al. Voel je bij de gedachte aan de overkant toch lichte paniek? Dan heb je misschien <a href=\"/nieuws/symptomen-van-ringvrees/\">ringvrees</a>."
+   "p": "Kortom: de pont is de goedkoopste wereldreis van Nederland. Vijf minuten, geen paspoort, geen jetlag. Ga aan de voorkant staan, voel de wind en zeg hardop dat je op avontuur bent. Aan de overkant mag je gewoon weer omdraaien. Word je van de gedachte aan de overkant toch een beetje onrustig? Dan heb je misschien <a href=\"/nieuws/symptomen-van-ringvrees/\">ringvrees</a>."
   }
  ],
  "beeld_bron": "Foto: hoch3fotografie via Unsplash"
