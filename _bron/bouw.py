@@ -165,7 +165,7 @@ def artikel_pagina(a, alle, vandaag):
     if a.get("bron"):
         b = f"<a href='{a['bron_url']}'>{esc(a['bron'])}</a>" if a.get("bron_url") else esc(a["bron"])
         bron = f"<p class='src'>Bron: {b}</p>"
-    ig = f"<a class='igpost' href='{a['instagram']}'>Bekijk de post op Instagram →</a>" if a.get("instagram") else ""
+    ig = ""
     meer = [x for x in alle if x["slug"] != a["slug"]][:3]
     meer_html = ""
     if meer:
