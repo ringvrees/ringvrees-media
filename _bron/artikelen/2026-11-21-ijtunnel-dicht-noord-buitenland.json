@@ -10,14 +10,17 @@
  "beeld_alt": "Getekend matrixbord met de tekst IJtunnel dicht, Noord weg, fijne dag",
  "blokken": [
   {
-   "p": "Bij werkzaamheden aan de Dijksgracht in Oost raakte een elektriciteitskabel los. Dat gaf een flinke spanningspiek, die de verouderde tunnelinstallaties beschadigde. Gevolg: de IJtunnel en de Arenatunnel gingen dicht."
+   "p": "Bij werkzaamheden aan de Dijksgracht in Oost raakte een elektriciteitskabel los. Dat klinkt klein, maar het leverde een flinke spanningspiek op. Die beschadigde de verouderde installaties in de tunnels en dus gingen zowel de IJtunnel als de Arenatunnel dicht. Eén losse kabel, een halve stad op slot."
   },
   {
-   "tussenkop": "Waar je niet langs kunt"
+   "p": "De IJtunnel blijft dicht tot het camerasysteem weer werkt. Zonder camera’s kan de verkeersleiding niet meekijken en mag er niemand door. Hoe lang dat duurt? Weet de gemeente niet. Dat is eerlijk gezegd het meest Amsterdamse antwoord dat je op deze vraag kunt krijgen."
+  },
+  {
+   "tussenkop": "Waar je deze week niet langs kunt"
   },
   {
    "lijst": [
-    "<b>IJtunnel:</b> dicht tot het camerasysteem weer werkt. Hoe lang dat duurt? Weet de gemeente niet.",
+    "<b>IJtunnel:</b> dicht tot het camerasysteem weer werkt.",
     "<b>Arenatunnel:</b> gaat binnenkort deels open, één rijstrook per richting.",
     "<b>Brug C. van Eesterenlaan:</b> dicht tot en met 11 december.",
     "<b>Surinameplein:</b> werkzaamheden tot oktober 2027."
@@ -28,10 +31,19 @@
    "tekst": "uur waren Amsterdamse tunnels de afgelopen drie jaar dicht door storingen. Gemiddeld duurde zo’n storing vijf uur."
   },
   {
+   "tussenkop": "Noord is even weer buitenland"
+  },
+  {
+   "p": "Voor Amsterdammers binnen de ring is het een vertrouwd gevoel. Noord ligt er ineens weer bij als een ver land aan de overkant van het water: je weet dat het er is, je kent iemand die er woont, maar je gaat er niet zomaar heen. Binnen de ring wordt het nieuws met opvallend veel rust ontvangen."
+  },
+  {
    "tussenkop": "Snelste route naar Noord"
   },
   {
-   "p": "Via de IJtunnel: geen route gevonden. Via de Coentunnel en de A10: kan, maar deze route verlaat de ring. Met de pont over het IJ: een paar minuten, maar dan ben je wél in Noord. Thuisblijven: nul minuten, geen files en geen Noord. De keuze was snel gemaakt."
+   "p": "Wie toch naar Noord moet, heeft vier opties. Via de IJtunnel: geen route gevonden. Via de Coentunnel en de A10: kan, maar deze route verlaat de ring. Met de pont over het IJ: een paar minuten, maar dan ben je wél in Noord. Thuisblijven: nul minuten, geen files en geen Noord."
+  },
+  {
+   "p": "De routeplanner van Ringvrees adviseert optie vier. Die is volgens onze berekeningen ook bij een werkende IJtunnel de snelste."
   }
  ],
  "doorstuur": "Stuur door naar die ene vriend in Noord die nu vastzit",

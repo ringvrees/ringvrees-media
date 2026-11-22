@@ -5,10 +5,13 @@
  "type": "tijdloos",
  "rubriek": "Bijsluiter",
  "titel": "Ringvrees: de aanhoudende angst om de ring te verlaten. Herkent u de symptomen?",
- "lede": "Ringvrees (de; v.) is de aanhoudende angst om de ring te verlaten. Herkent u er drie of meer? Dan heeft u het. Geen paniek: u hoeft er de deur niet voor uit.",
+ "lede": "Ringvrees (de; v.) is de aanhoudende angst om de ring te verlaten. Het treft vooral mensen die binnen de A10 wonen en daar een prima reden voor zien. Herkent u er drie of meer? Dan heeft u het.",
  "beeld": "/img/artikelen/symptomen-van-ringvrees.jpg",
  "beeld_alt": "Getekende kaart van de Amsterdamse ring A10 met de tekst U bent hier, blijf hier",
  "blokken": [
+  {
+   "p": "Ringvrees is geen officiële diagnose, maar iedereen die binnen de A10 woont, kent het. Je hebt alles in de buurt: je bakker, je koffie, je kapper en je vrienden. Waarom zou je dan nog de ring uit gaan? Bij een gezonde dosis is dat een prima levenshouding. Bij ringvrees is het een vaste overtuiging geworden."
+  },
   {
    "tussenkop": "Symptomen"
   },
@@ -25,10 +28,13 @@
    "vinkjes": true
   },
   {
+   "p": "Herkent u er drie of meer? Dan heeft u het. Geen paniek: u hoeft er de deur niet voor uit."
+  },
+  {
    "tussenkop": "Enige bekende uitzondering"
   },
   {
-   "p": "Een ringvrezer verlaat de A10 maar op één manier: op tien kilometer hoogte. Van binnen de ring naar alles behalve Amstelveen, via Schiphol. Dat ligt helaas buiten de ring, dus ogen dicht tot de startbaan."
+   "p": "Een ringvrezer verlaat de A10 maar op één manier: op tien kilometer hoogte. Van binnen de ring naar alles behalve Amstelveen, via Schiphol. Dat ligt helaas buiten de ring, dus het advies is: ogen dicht tot de startbaan. Op de terugweg geldt hetzelfde, al voelt de taxi vanaf de luchthaven dan wel als een thuiskomst."
   },
   {
    "tussenkop": "Behandeling"

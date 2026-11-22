@@ -23,11 +23,12 @@ Elk artikel is één JSON-bestand in _bron/artikelen/ met deze velden:
                 {"tabel": {"kop": ["", "GTA VI", "Amsterdam"], "rijen": [["Bouwtijd","8 jaar","15 jaar"], ...]}}
                 {"beeld": "/img/artikelen/x.jpg", "alt": "..."}
   doorstuur   de doorstuur-regel uit de caption (bv. "Stuur door naar ...")
-  bron        optioneel, bv. "AT5" (dan: "Gebaseerd op echt nieuws van AT5")
+  bron        alleen bij eigen onderzoek of exclusief nieuws van één medium (zoals "Via @..." in de caption):
+              naam van het medium, bv. "AT5". Toont onderaan "Bron: AT5". Bij algemeen nieuws weglaten.
   bron_url    optioneel, link naar het bronartikel
   instagram   optioneel, url van de Instagram-post
 """
-import json, html, pathlib, datetime
+import json, html, pathlib, datetime, re, unicodedata
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
 SITE = "https://ringvrees.nl"
@@ -40,6 +41,15 @@ IG = "https://www.instagram.com/ringvrees/"
 def nl_datum(d, dag=False):
     s = f"{d.day} {MAANDEN[d.month - 1]}"
     return (DAGEN[d.weekday()].capitalize() + " " + s) if dag else s
+
+
+def rslug(s):
+    s = unicodedata.normalize("NFKD", s).encode("ascii", "ignore").decode().lower()
+    return re.sub(r"[^a-z0-9]+", "-", s).strip("-")
+
+
+def rubriek_url(r):
+    return f"/rubriek/{rslug(r)}/"
 
 
 def esc(s):
@@ -79,7 +89,7 @@ def balk(vandaag):
 </div></header>"""
 
 
-VOET = """<footer><div class="wrap"><span>Ringvrees is satire. Alles is gebaseerd op echt nieuws, maar dan zoals het écht voelt binnen de A10.</span><span><a id="m" href="#">HALLO [AT] RINGVREES [PUNT] NL</a></span></div></footer>
+VOET = """<footer><div class="wrap"><span>Ringvrees is satire. Alles is gebaseerd op echt nieuws, maar dan zoals het écht voelt binnen de A10.</span><span><a href="/rubrieken/">Alle rubrieken</a> · <a id="m" href="#">HALLO [AT] RINGVREES [PUNT] NL</a></span></div></footer>
 <script>(function(){var u="hallo",d=["ringvrees","nl"].join("."),a=document.getElementById("m");a.textContent=u+"@"+d;a.href="mai"+"lto:"+u+"@"+d;})();</script>
 </body>
 </html>
@@ -124,22 +134,22 @@ def kaart(a, groot=False):
     d = datetime.date.fromisoformat(a["datum"])
     meta = "Tijdloos" if a["type"] == "tijdloos" else nl_datum(d)
     if groot:
-        return f"""<a class="hero" href="{url_van(a)}">
-    <img src="{a['beeld']}" alt="{esc(a['beeld_alt'])}">
+        return f"""<div class="hero">
+    <a class="heroimg" href="{url_van(a)}"><img src="{a['beeld']}" alt="{esc(a['beeld_alt'])}"></a>
     <div>
-      <span class="kick">{esc(a['rubriek'])}</span><span class="sat">Satire</span>
-      <h1 class="h">{esc(a['titel'])}</h1>
-      <p>{esc(a['lede'])}</p>
+      <a class="kick" href="{rubriek_url(a['rubriek'])}">{esc(a['rubriek'])}</a>
+      <a href="{url_van(a)}"><h1 class="h">{esc(a['titel'])}</h1>
+      <p>{esc(a['lede'])}</p></a>
       <div class="meta">{meta}</div>
     </div>
-  </a>"""
-    return f"""<a class="card" href="{url_van(a)}">
-      <img src="{a['beeld']}" alt="{esc(a['beeld_alt'])}" loading="lazy">
-      <span class="kick">{esc(a['rubriek'])}</span>
-      <h3 class="h">{esc(a['titel'])}</h3>
-      <p>{esc(a['lede'])}</p>
+  </div>"""
+    return f"""<div class="card">
+      <a href="{url_van(a)}"><img src="{a['beeld']}" alt="{esc(a['beeld_alt'])}"></a>
+      <a class="kick" href="{rubriek_url(a['rubriek'])}">{esc(a['rubriek'])}</a>
+      <a href="{url_van(a)}"><h3 class="h">{esc(a['titel'])}</h3>
+      <p>{esc(a['lede'])}</p></a>
       <div class="meta">{meta}</div>
-    </a>"""
+    </div>"""
 
 
 def artikel_pagina(a, alle, vandaag):
@@ -154,7 +164,7 @@ def artikel_pagina(a, alle, vandaag):
     bron = ""
     if a.get("bron"):
         b = f"<a href='{a['bron_url']}'>{esc(a['bron'])}</a>" if a.get("bron_url") else esc(a["bron"])
-        bron = f"Gebaseerd op echt nieuws van {b}. "
+        bron = f"<p class='src'>Bron: {b}</p>"
     ig = f"<a class='igpost' href='{a['instagram']}'>Bekijk de post op Instagram →</a>" if a.get("instagram") else ""
     meer = [x for x in alle if x["slug"] != a["slug"]][:3]
     meer_html = ""
@@ -164,7 +174,7 @@ def artikel_pagina(a, alle, vandaag):
     meta = "Tijdloos" if a["type"] == "tijdloos" else nl_datum(d, True)
     return (kop(f"{a['titel']} | Ringvrees", a["lede"], url, a["beeld"], extra) + balk(vandaag) + f"""
 <article class="art">
-  <span class="kick">{esc(a['rubriek'])}</span><span class="sat">Satire</span>
+  <a class="kick" href="{rubriek_url(a['rubriek'])}">{esc(a['rubriek'])}</a>
   <h1 class="h">{esc(a['titel'])}</h1>
   <p class="lede">{esc(a['lede'])}</p>
   <div class="meta">{meta} · Redactie Ringvrees</div>
@@ -173,7 +183,7 @@ def artikel_pagina(a, alle, vandaag):
 <article class="art body">
   {''.join(blok(b) for b in a['blokken'])}
   <div class="share"><b>{esc(a.get('doorstuur', 'Stuur door naar je huisgenoot'))}</b><a href="https://wa.me/?text={esc(a['titel'] + ' ' + SITE + url)}">WhatsApp</a>{ig}</div>
-  <p class="src">{bron}Ringvrees is satire: de feiten kloppen, de rest voelt alleen zo.</p>
+  {bron}
 </article>
 """ + meer_html + band("Morgen om 17:00 weer vers nieuws van binnen de ring.") + VOET)
 
@@ -202,6 +212,30 @@ def home(alle, vandaag):
     return "\n".join(delen)
 
 
+def lijst_pagina(titel, intro, url, items, vandaag):
+    return (kop(f"{titel} | Ringvrees", intro, url) + balk(vandaag) + f"""
+<main class="wrap"><div class="sec" style="margin-top:44px"><h1 class="h" style="font-size:44px">{esc(titel)}</h1></div>
+<p class="intro">{esc(intro)}</p>
+{items}
+</main>""" + band("Liever ook nooit de ring uit? Volg het nieuws waar je het al leest.") + VOET)
+
+
+def rubrieken(alle, vandaag):
+    per = {}
+    for a in alle:
+        per.setdefault(a["rubriek"], []).append(a)
+    for r, arts in per.items():
+        d = ROOT / "rubriek" / rslug(r); d.mkdir(parents=True, exist_ok=True)
+        grid = "<div class='grid'>" + "".join(kaart(a) for a in arts) + "</div>"
+        (d / "index.html").write_text(lijst_pagina(r, f"Al het nieuws van binnen de ring in de rubriek {r}.", rubriek_url(r), grid, vandaag), encoding="utf-8")
+    tegels = "<div class='rubrieken'>" + "".join(
+        f"<a href='{rubriek_url(r)}'><span class='kick'>{esc(r)}</span><b>{len(v)} {'artikel' if len(v) == 1 else 'artikelen'}</b></a>"
+        for r, v in sorted(per.items(), key=lambda x: (-len(x[1]), x[0]))) + "</div>"
+    d = ROOT / "rubrieken"; d.mkdir(exist_ok=True)
+    (d / "index.html").write_text(lijst_pagina("Rubrieken", "Alle onderwerpen van binnen de A10 op een rij.", "/rubrieken/", tegels, vandaag), encoding="utf-8")
+    return ["/rubrieken/"] + [rubriek_url(r) for r in per]
+
+
 def main():
     vandaag = datetime.date.today()
     alle = [json.loads(p.read_text(encoding="utf-8")) for p in sorted((ROOT / "_bron/artikelen").glob("*.json"))]
@@ -215,7 +249,8 @@ def main():
         d = ROOT / "nieuws" / a["slug"]
         d.mkdir(parents=True, exist_ok=True)
         (d / "index.html").write_text(artikel_pagina(a, alle, vandaag), encoding="utf-8")
-    urls = [("/", vandaag.isoformat())] + [(url_van(a), a["datum"]) for a in alle]
+    extra = rubrieken(alle, vandaag)
+    urls = [("/", vandaag.isoformat())] + [(u, vandaag.isoformat()) for u in extra] + [(url_van(a), a["datum"]) for a in alle]
     sm = "".join(f"  <url><loc>{SITE}{u}</loc><lastmod>{m}</lastmod></url>\n" for u, m in urls)
     (ROOT / "sitemap.xml").write_text(f'<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n{sm}</urlset>\n', encoding="utf-8")
     print(f"gebouwd: {len(alle)} artikelen")
