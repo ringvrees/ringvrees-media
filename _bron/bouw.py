@@ -13,7 +13,8 @@ Elk artikel is één JSON-bestand in _bron/artikelen/ met deze velden:
   lede        1 à 2 zinnen intro
   beeld       pad naar header-afbeelding 1600x900 (bv. "/img/artikelen/<slug>.jpg"), zonder slide-info
   beeld_alt   korte feitelijke omschrijving van het beeld
-  beeld_bron  optioneel, fotograaf + licentie (bv. "Foto: Naam via Unsplash")
+  beeld_bron  bij een foto verplicht en beginnend met "Foto:" (dan toont de site hem in kaartjes als zwevende afdruk);
+              bij een getekende graphic weglaten. Noem de fotograaf en licentie (bv. "Foto: Naam via Unsplash")
   blokken     lijst van blokken, elk één van:
                 {"p": "alinea"}                     (mag <b>, <i>, <a> bevatten)
                 {"tussenkop": "tekst"}
@@ -144,7 +145,7 @@ def kaart(a, groot=False):
     </div>
   </div>"""
     return f"""<div class="card">
-      <a href="{url_van(a)}"><img src="{a['beeld']}" alt="{esc(a['beeld_alt'])}"></a>
+      <a class="beeld{' foto' if a.get('beeld_bron', '').startswith('Foto') else ''}" href="{url_van(a)}"><img src="{a['beeld']}" alt="{esc(a['beeld_alt'])}"></a>
       <a class="kick" href="{rubriek_url(a['rubriek'])}">{esc(a['rubriek'])}</a>
       <a href="{url_van(a)}"><h3 class="h">{esc(a['titel'])}</h3>
       <p>{esc(a['lede'])}</p></a>

@@ -32,7 +32,10 @@ p{text-wrap:pretty}
 .sec{display:flex;justify-content:space-between;align-items:baseline;margin:40px 0 18px}
 .sec h2{font-size:30px}
 .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:28px;padding-bottom:56px}
-.card img{width:100%;aspect-ratio:16/10;object-fit:cover;display:block;margin-bottom:14px}
+.card img{width:100%;aspect-ratio:16/10;object-fit:cover;display:block}
+.card .beeld{display:flex;aspect-ratio:16/10;align-items:center;justify-content:center;margin-bottom:14px}
+.card .beeld.foto img{width:84%;aspect-ratio:16/9;border:8px solid #fff;box-shadow:0 14px 28px rgba(17,16,18,.22);transform:rotate(-1.5deg);transition:transform .2s}
+.card .beeld.foto:hover img{transform:rotate(0deg) scale(1.02)}
 .card h3{font-size:25px;margin:10px 0 8px}
 .card p{font-size:15px;line-height:1.5;color:#2b2a2e}
 
