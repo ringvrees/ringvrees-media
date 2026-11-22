@@ -101,9 +101,9 @@ def balk(vandaag, home=False):
     return f"""<div class="strip"><div class="wrap"><span>{nl_datum(vandaag, True)}</span><span><b>Satire</b> · Nieuws van binnen de A10</span></div></div>
 <header class="top"><div class="wrap">
   {logo}
-  <nav class="nav"><a class="hide" href="/#nieuws">Nieuws</a><a class="hide" href="/#tijdloos">Tijdloos</a><a class="hide" href="/rubrieken/">Rubrieken</a><a class="hide" href="/over/">Over</a><a class="ig" href="{IG}">Instagram →</a>
+  <nav class="nav"><a class="hide" href="/#nieuws">Nieuws</a><a class="hide" href="/#tijdloos">Tijdloos</a><a class="hide" href="/rubrieken/">Rubrieken</a><a class="hide" href="/over/">Over</a><a class="ig" href="/test/">Doe de test →</a>
   <details class="menu"><summary aria-label="Menu"><span></span><span></span><span></span></summary>
-   <div class="menu-paneel" onclick="this.parentNode.removeAttribute('open')"><a href="/#nieuws">Nieuws</a><a href="/#tijdloos">Tijdloos</a><a href="/rubrieken/">Rubrieken</a><a href="/over/">Over Ringvrees</a><a href="{IG}">Instagram</a><a href="{FB}">Facebook</a></div>
+   <div class="menu-paneel" onclick="this.parentNode.removeAttribute('open')"><a href="/#nieuws">Nieuws</a><a href="/#tijdloos">Tijdloos</a><a href="/rubrieken/">Rubrieken</a><a href="/over/">Over Ringvrees</a><a href="/test/">Heb jij ringvrees? De test</a><a href="{IG}">Instagram</a><a href="{FB}">Facebook</a></div>
   </details></nav>
 </div></header>"""
 
@@ -273,6 +273,15 @@ def over(vandaag):
     return ["/over/"]
 
 
+def test_pagina(vandaag):
+    d = ROOT / "test"; d.mkdir(exist_ok=True)
+    inhoud = (ROOT / "_bron" / "test.html").read_text(encoding="utf-8")
+    (d / "index.html").write_text(kop("Heb jij ringvrees? Doe de test | Ringvrees",
+        "Tien vragen, één minuut: hoe erg is jouw angst om de Amsterdamse ring A10 te verlaten? Doe de ringvrees-test en deel je uitslag.",
+        "/test/") + balk(vandaag) + inhoud + band("Liever ook nooit de ring uit?<br>Volg het nieuws waar je het al leest.") + VOET, encoding="utf-8")
+    return ["/test/"]
+
+
 def rubrieken(alle, vandaag):
     per = {}
     for a in alle:
@@ -302,7 +311,7 @@ def main():
         d = ROOT / "nieuws" / a["slug"]
         d.mkdir(parents=True, exist_ok=True)
         (d / "index.html").write_text(artikel_pagina(a, alle, vandaag), encoding="utf-8")
-    extra = rubrieken(alle, vandaag) + over(vandaag)
+    extra = rubrieken(alle, vandaag) + over(vandaag) + test_pagina(vandaag)
     urls = [("/", vandaag.isoformat())] + [(u, vandaag.isoformat()) for u in extra] + [(url_van(a), a["datum"]) for a in alle]
     sm = "".join(f"  <url><loc>{SITE}{u}</loc><lastmod>{m}</lastmod></url>\n" for u, m in urls)
     (ROOT / "sitemap.xml").write_text(f'<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n{sm}</urlset>\n', encoding="utf-8")

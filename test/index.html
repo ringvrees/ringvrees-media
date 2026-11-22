@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Heb jij ringvrees? Doe de test | Ringvrees</title>
+<meta name="description" content="Tien vragen, één minuut: hoe erg is jouw angst om de Amsterdamse ring A10 te verlaten? Doe de ringvrees-test en deel je uitslag.">
+<link rel="canonical" href="https://ringvrees.nl/test/">
+<meta property="og:title" content="Heb jij ringvrees? Doe de test | Ringvrees">
+<meta property="og:description" content="Tien vragen, één minuut: hoe erg is jouw angst om de Amsterdamse ring A10 te verlaten? Doe de ringvrees-test en deel je uitslag.">
+<meta property="og:site_name" content="Ringvrees">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="nl_NL">
+<meta name="twitter:card" content="summary_large_image">
+<meta property="og:url" content="https://ringvrees.nl/test/">
+<meta property="og:image" content="https://ringvrees.nl/icon-512.png">
+<meta name="theme-color" content="#E1251B">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/style.css">
+</head>
+<body><div class="strip"><div class="wrap"><span>Zondag 22 november</span><span><b>Satire</b> · Nieuws van binnen de A10</span></div></div>
+<header class="top"><div class="wrap">
+  <a class="logo" href="/">RINGVREES</a>
+  <nav class="nav"><a class="hide" href="/#nieuws">Nieuws</a><a class="hide" href="/#tijdloos">Tijdloos</a><a class="hide" href="/rubrieken/">Rubrieken</a><a class="hide" href="/over/">Over</a><a class="ig" href="/test/">Doe de test →</a>
+  <details class="menu"><summary aria-label="Menu"><span></span><span></span><span></span></summary>
+   <div class="menu-paneel" onclick="this.parentNode.removeAttribute('open')"><a href="/#nieuws">Nieuws</a><a href="/#tijdloos">Tijdloos</a><a href="/rubrieken/">Rubrieken</a><a href="/over/">Over Ringvrees</a><a href="/test/">Heb jij ringvrees? De test</a><a href="https://www.instagram.com/ringvrees/">Instagram</a><a href="https://www.facebook.com/Ringvrees">Facebook</a></div>
+  </details></nav>
+</div></header><style>
+#ringtest{max-width:640px;margin:0 auto;padding:34px 20px 60px}
+#ringtest .kick{display:inline-block;background:var(--red);color:var(--paper);font:700 12px Inter;letter-spacing:.16em;text-transform:uppercase;padding:6px 10px}
+#ringtest h1{font:400 46px/1.02 'DM Serif Display',serif;margin:16px 0 14px}
+#ringtest h2{font:400 32px/1.1 'DM Serif Display',serif;margin:14px 0 22px}
+#ringtest .lede{font:500 18px/1.5 Inter;color:#2b2a2e;margin-bottom:26px}
+#ringtest .btn{display:inline-block;border:0;cursor:pointer;background:var(--red);color:var(--paper);font:700 15px Inter;letter-spacing:.06em;text-transform:uppercase;padding:15px 22px;transform:rotate(-1.5deg);box-shadow:4px 4px 0 var(--ink)}
+#ringtest .btn.ghost{background:var(--paper);color:var(--ink);border:2px solid var(--ink);box-shadow:none;transform:none}
+#ringtest .meta{font:600 12px Inter;letter-spacing:.12em;text-transform:uppercase;color:var(--mute)}
+#ringtest .bar{height:6px;background:var(--line);margin:10px 0 26px}
+#ringtest .bar i{display:block;height:100%;background:var(--red);transition:width .3s}
+#ringtest .opt{display:block;width:100%;text-align:left;background:#F7F2E9;border:2px solid var(--ink);padding:16px 18px;margin-bottom:12px;font:500 17px/1.35 Inter;color:var(--ink);cursor:pointer;transition:transform .12s,background .12s}
+#ringtest .opt:hover{background:#fff;transform:translateX(4px)}
+#ringtest .opt b{display:inline-block;width:28px;font-weight:800;color:var(--red)}
+#ringtest .verborgen{display:none}
+#ringtest .res-img{width:100%;max-width:340px;display:block;margin:6px auto 22px;box-shadow:8px 8px 0 var(--ink);border:2px solid var(--ink)}
+#ringtest .knoppen{display:flex;gap:14px;flex-wrap:wrap;justify-content:center;margin-top:8px}
+#ringtest .uitleg{font:400 15px/1.6 Georgia,serif;color:#2b2a2e;margin:0 0 22px}
+#ringtest .klein{font:500 13px Inter;color:var(--mute);text-align:center;margin-top:18px}
+#ringtest .stamp{display:inline-block;border:3px solid var(--red);color:var(--red);font:900 13px Inter;letter-spacing:.14em;text-transform:uppercase;padding:6px 10px;transform:rotate(-4deg);margin-bottom:6px}
+</style>
+<main id="ringtest">
+  <section id="start">
+    <span class="kick">De test</span>
+    <h1>Heb jij ringvrees?</h1>
+    <p class="lede">Tien vragen. Eerlijk antwoorden. Aan het eind weet je hoe erg het is, en of je ooit nog naar Almere kunt.</p>
+    <button class="btn" onclick="begin()">Start de test →</button>
+    <p class="klein" style="text-align:left;margin-top:26px">Duurt één minuut. Je hoeft er de deur niet voor uit.</p>
+  </section>
+
+  <section id="vraag" class="verborgen">
+    <div class="meta" id="teller">Vraag 1 van 10</div>
+    <div class="bar"><i id="voortgang" style="width:0%"></i></div>
+    <h2 id="vraagtekst"></h2>
+    <div id="opties"></div>
+  </section>
+
+  <section id="uitslag" class="verborgen" style="text-align:center">
+    <span class="stamp">Uitslag</span>
+    <h1 id="diagnose" style="font-size:40px"></h1>
+    <p class="uitleg" id="omschrijving"></p>
+    <img class="res-img" id="storybeeld" alt="Jouw uitslag van de ringvrees-test">
+    <div class="knoppen">
+      <button class="btn" onclick="deel()">Deel in je story</button>
+      <button class="btn ghost" onclick="begin()">Opnieuw</button>
+    </div>
+    <p class="klein" id="deelmelding">Op je telefoon opent dit direct het deelmenu, zodat je de uitslag in je Instagram-story zet.</p>
+  </section>
+</main>
+<script>
+const VRAGEN = [
+ ["Een vriend verhuist naar Almere. Je…", ["helpt met de verhuisdozen","stuurt een kaartje","houdt een minuut stilte","verwijdert zijn nummer"]],
+ ["Hoe vaak ben je dit jaar buiten de A10 geweest?", ["Elke week","Een paar keer, voor werk","Eén keer, per ongeluk de verkeerde tram","Schiphol telt niet"]],
+ ["Iemand zegt: “Amstelveen is eigenlijk ook Amsterdam.” Je…", ["knikt, klopt","zegt: “technisch gezien…”","lacht beleefd en verandert van onderwerp","beëindigt de vriendschap"]],
+ ["Er is een feestje in Zaandam. Je…", ["pakt de trein, twaalf minuten","gaat, maar klaagt de hele reis","zegt ja en meldt je om 21:45 ziek","Zaandam bestaat niet"]],
+ ["Je Google Maps-tijdlijn ziet eruit als…", ["een wereldkaart","heel Nederland","een rondje","één stip met een koffiekopje"]],
+ ["Wat neem je mee naar een weekendje Utrecht?", ["een weekendtas","je paspoort, voor de zekerheid","een noodrantsoen stroopwafels","een testament"]],
+ ["Het woord ‘knooppunt’ geeft je…", ["niks","lichte spanning","koude handen","flashbacks"]],
+ ["Een collega gaat naar Haarlem verhuizen, “want daar is meer ruimte”. Je…", ["zegt: “goed plan!”","vraagt: “ruimte voor wát dan?”","klapt langzaam je laptop dicht","zet haar op stil"]],
+ ["Waar ligt Sloterdijk?", ["Ik weet het precies","Ergens bij een station","Te ver","In het buitenland"]],
+ ["De IJtunnel is dicht. Je reactie:", ["“Balen, dan ga ik met de pont”","“Dan neem ik de Coentunnel”","“Gelukkig hoefde ik er toch niet heen”","“Welke tunnel? Er is daar niks”"]]
+];
+const UITSLAGEN = [
+ [0,7,"Buitenringer","Jij gaat vrijwillig naar Almere en noemt dat ‘een leuk dagje’. Geen ringvrees gevonden. Wel zorgwekkend."],
+ [8,15,"Lichte ringvrees","Je komt nog weleens buiten de A10, maar je hart blijft thuis. Vroeg ontdekt. Met een goede fiets en veel koffie is er nog hoop."],
+ [16,23,"Chronische ringvrees","Amstelveen is voor jou buitenland en een verjaardag in Purmerend een expeditie. Je bent niet alleen: de hele grachtengordel herkent zich in je."],
+ [24,30,"Terminale ringvrees","Je verlaat de ring alleen op tien kilometer hoogte, en dan nog met je ogen dicht tot de startbaan. Er is geen genezing. Wel dit account."]
+];
+let i = 0, score = 0;
+const $ = id => document.getElementById(id);
+function toon(id){ ["start","vraag","uitslag"].forEach(s => $(s).classList.toggle("verborgen", s !== id)); window.scrollTo(0,0); }
+function begin(){ i = 0; score = 0; toon("vraag"); vraag(); }
+function vraag(){
+  const [q, opts] = VRAGEN[i];
+  $("teller").textContent = `Vraag ${i+1} van ${VRAGEN.length}`;
+  $("voortgang").style.width = (i/VRAGEN.length*100) + "%";
+  $("vraagtekst").textContent = q;
+  $("opties").innerHTML = "";
+  opts.forEach((o, n) => {
+    const b = document.createElement("button");
+    b.className = "opt"; b.innerHTML = `<b>${"ABCD"[n]}</b>${o}`;
+    b.onclick = () => { score += n; i++; i < VRAGEN.length ? vraag() : uitslag(); };
+    $("opties").appendChild(b);
+  });
+}
+let blobUitslag = null;
+async function uitslag(){
+  const u = UITSLAGEN.find(([a,b]) => score >= a && score <= b);
+  $("diagnose").textContent = u[2];
+  $("omschrijving").textContent = u[3];
+  toon("uitslag");
+  await document.fonts.ready;
+  const c = maakBeeld(u[2], score);
+  $("storybeeld").src = c.toDataURL("image/png");
+  c.toBlob(b => blobUitslag = b, "image/png");
+}
+function regels(ctx, tekst, max){
+  const woorden = tekst.split(" "), uit = []; let r = "";
+  for (const w of woorden){ const t = r ? r + " " + w : w; if (ctx.measureText(t).width > max && r){ uit.push(r); r = w; } else r = t; }
+  if (r) uit.push(r); return uit;
+}
+function maakBeeld(diagnose, score){
+  const c = document.createElement("canvas"); c.width = 1080; c.height = 1920;
+  const x = c.getContext("2d");
+  x.fillStyle = "#E1251B"; x.fillRect(0,0,1080,1920);
+  // A10-ring als decor (echte vorm uit a10_ring.svg)
+  const A10 = new Path2D("M410 52 C397 64 399 99 388 120 C377 141 360 162 345 180 C330 198 311 208 300 225 C289 242 283 259 278 281 C273 303 270 332 270 358 C270 384 273 413 278 435 C283 457 287 476 301 492 C315 508 340 521 364 531 C388 541 417 547 442 550 C467 553 490 552 513 550 C536 548 561 544 583 537 C605 530 624 520 646 505 C668 490 695 467 716 447 C737 427 755 405 771 383 C787 361 806 336 810 313 C814 290 805 263 794 242 C783 221 761 203 743 185 C725 167 708 149 685 133 C662 117 633 100 607 88 C581 76 552 69 528 63 C504 57 486 52 466 50 C446 48 423 40 410 52Z");
+  x.save(); x.translate(540,1000); x.scale(1.62,1.62); x.translate(-542,-296.5);
+  x.strokeStyle = "rgba(17,16,18,.22)"; x.lineWidth = 9; x.lineJoin = "round"; x.stroke(A10); x.restore();
+  x.fillStyle = "#F2ECE1"; x.textAlign = "center";
+  x.font = "900 40px Inter"; x.letterSpacing = "10px"; x.fillText("RINGVREES", 540, 210);
+  x.letterSpacing = "0px";
+  // stempel
+  x.save(); x.translate(540,400); x.rotate(-0.06);
+  x.strokeStyle = "#F2ECE1"; x.lineWidth = 6; x.strokeRect(-260,-50,520,100);
+  x.font = "900 44px Inter"; x.fillText("OFFICIËLE UITSLAG", 0, 16); x.restore();
+  x.font = "400 128px 'DM Serif Display'";
+  const r = regels(x, diagnose, 900); let y = 960 - (r.length-1)*65;
+  r.forEach(l => { x.fillText(l, 540, y); y += 135; });
+  x.font = "600 44px Inter"; x.fillText(`Score: ${score} van 30`, 540, y + 40);
+  // label onderin
+  x.save(); x.translate(540,1620); x.rotate(-0.03);
+  x.fillStyle = "#111012"; x.fillRect(-380,-55,760,110);
+  x.fillStyle = "#F2ECE1"; x.font = "700 40px Inter"; x.fillText("Doe de test op ringvrees.nl/test", 0, 14); x.restore();
+  x.fillStyle = "#F2ECE1"; x.font = "700 40px Inter"; x.fillText("@ringvrees", 540, 1760);
+  return c;
+}
+async function deel(){
+  const melding = $("deelmelding");
+  try {
+    const f = new File([blobUitslag], "mijn-ringvrees-uitslag.png", {type:"image/png"});
+    if (navigator.canShare && navigator.canShare({files:[f]})) { await navigator.share({files:[f], text:"Heb jij ringvrees? ringvrees.nl/test"}); return; }
+    const a = document.createElement("a"); a.href = URL.createObjectURL(blobUitslag); a.download = f.name; a.click();
+    melding.textContent = "Je uitslag is opgeslagen. Zet hem in je story en tag @ringvrees.";
+  } catch(e) {
+    melding.textContent = "Delen lukte niet. Hou het plaatje ingedrukt om het op te slaan en zet het in je story.";
+  }
+}
+</script>
+<section class="band"><div class="wrap">
+  <div class="h">Liever ook nooit de ring uit?<br>Volg het nieuws waar je het al leest.</div>
+  <a href="https://www.instagram.com/ringvrees/">Volg @ringvrees →</a>
+</div></section><footer><div class="wrap"><span>Ringvrees is satire. Alles is gebaseerd op echt nieuws, maar dan zoals het écht voelt binnen de A10.</span></div></footer>
+</body>
+</html>
