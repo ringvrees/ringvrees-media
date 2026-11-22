@@ -26,9 +26,9 @@ Elk artikel is één JSON-bestand in _bron/artikelen/ met deze velden:
   doorstuur   de doorstuur-regel uit de caption (bv. "Stuur door naar ...")
   seo_titel   optioneel, eigen <title> voor Google (max ~60 tekens); anders "<titel> | Ringvrees"
   seo_beschrijving optioneel, eigen meta description (max ~155 tekens); anders de lede
-  Interview-blokken (voor een fictief, anoniem interview):
-              {"interview": {"wie": "L.B. (34)", "waar": "Lauriergracht", "intro": "korte inleiding"}}
-              daarna afwisselend {"vraag": "..."} en {"antwoord": "...", "wie": "L.B."}
+  Interview (fictief, anoniem, als lopende tekst):
+              {"interview": {"wie": "L.B. (34)", "waar": "Lauriergracht"}} als kopje,
+              daarna gewone p- en tussenkop-blokken met de quotes erdoorheen geweven
   bron        alleen bij eigen onderzoek of exclusief nieuws van één medium (zoals "Via @..." in de caption):
               naam van het medium, bv. "AT5". Toont onderaan "Bron: AT5". Bij algemeen nieuws weglaten.
   bron_url    optioneel, link naar het bronartikel
