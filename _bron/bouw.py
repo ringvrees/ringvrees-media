@@ -68,7 +68,8 @@ def kop(titel, beschrijving, url, beeld=None, extra=""):
 <meta name="description" content="{esc(beschrijving)}">
 <link rel="canonical" href="{SITE}{url}">
 <meta property="og:title" content="{esc(titel)}">
-<meta property="og:description" content="{esc(beschrijving)}">
+<meta property="og:description" content="Satire · {esc(beschrijving)}">
+<meta property="og:site_name" content="Ringvrees (satire)">
 <meta property="og:url" content="{SITE}{url}">{img}
 <meta name="theme-color" content="#E1251B">
 <link rel="icon" href="/favicon.ico" sizes="any">
