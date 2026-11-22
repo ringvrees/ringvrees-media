@@ -1,3 +1,5 @@
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Inter:wght@600;700;800;900&display=swap" rel="stylesheet">
+<script type="text/plain" id="a10pad">M410 52 C397 64 399 99 388 120 C377 141 360 162 345 180 C330 198 311 208 300 225 C289 242 283 259 278 281 C273 303 270 332 270 358 C270 384 273 413 278 435 C283 457 287 476 301 492 C315 508 340 521 364 531 C388 541 417 547 442 550 C467 553 490 552 513 550 C536 548 561 544 583 537 C605 530 624 520 646 505 C668 490 695 467 716 447 C737 427 755 405 771 383 C787 361 806 336 810 313 C814 290 805 263 794 242 C783 221 761 203 743 185 C725 167 708 149 685 133 C662 117 633 100 607 88 C581 76 552 69 528 63 C504 57 486 52 466 50 C446 48 423 40 410 52Z</script>
 <style>
 #ringtest{max-width:640px;margin:0 auto;padding:34px 20px 60px}
 #ringtest .kick{display:inline-block;background:var(--red);color:var(--paper);font:700 12px Inter;letter-spacing:.16em;text-transform:uppercase;padding:6px 10px}
@@ -89,6 +91,7 @@ async function uitslag(){
   $("diagnose").textContent = u[2];
   $("omschrijving").textContent = u[3];
   toon("uitslag");
+  await Promise.all([document.fonts.load("400 60px 'DM Serif Display'"),document.fonts.load("italic 60px 'DM Serif Display'"),document.fonts.load("900 30px Inter"),document.fonts.load("800 30px Inter")]).catch(()=>{});
   await document.fonts.ready;
   const c = maakBeeld(u[2], score);
   $("storybeeld").src = c.toDataURL("image/png");
@@ -99,30 +102,62 @@ function regels(ctx, tekst, max){
   for (const w of woorden){ const t = r ? r + " " + w : w; if (ctx.measureText(t).width > max && r){ uit.push(r); r = w; } else r = t; }
   if (r) uit.push(r); return uit;
 }
+const KORT = ["Gaat vrijwillig naar Almere. Zorgwekkend.","Komt nog buiten de ring, maar het hart blijft thuis.","Amstelveen is buitenland. Purmerend een expeditie.","Verlaat de ring alleen op tien kilometer hoogte."];
 function maakBeeld(diagnose, score){
-  const c = document.createElement("canvas"); c.width = 1080; c.height = 1920;
-  const x = c.getContext("2d");
-  x.fillStyle = "#E1251B"; x.fillRect(0,0,1080,1920);
-  // A10-ring als decor (echte vorm uit a10_ring.svg)
-  const A10 = new Path2D("M410 52 C397 64 399 99 388 120 C377 141 360 162 345 180 C330 198 311 208 300 225 C289 242 283 259 278 281 C273 303 270 332 270 358 C270 384 273 413 278 435 C283 457 287 476 301 492 C315 508 340 521 364 531 C388 541 417 547 442 550 C467 553 490 552 513 550 C536 548 561 544 583 537 C605 530 624 520 646 505 C668 490 695 467 716 447 C737 427 755 405 771 383 C787 361 806 336 810 313 C814 290 805 263 794 242 C783 221 761 203 743 185 C725 167 708 149 685 133 C662 117 633 100 607 88 C581 76 552 69 528 63 C504 57 486 52 466 50 C446 48 423 40 410 52Z");
-  x.save(); x.translate(540,1000); x.scale(1.62,1.62); x.translate(-542,-296.5);
-  x.strokeStyle = "rgba(17,16,18,.22)"; x.lineWidth = 9; x.lineJoin = "round"; x.stroke(A10); x.restore();
-  x.fillStyle = "#F2ECE1"; x.textAlign = "center";
-  x.font = "900 40px Inter"; x.letterSpacing = "10px"; x.fillText("RINGVREES", 540, 210);
-  x.letterSpacing = "0px";
-  // stempel
-  x.save(); x.translate(540,400); x.rotate(-0.06);
-  x.strokeStyle = "#F2ECE1"; x.lineWidth = 6; x.strokeRect(-260,-50,520,100);
-  x.font = "900 44px Inter"; x.fillText("OFFICIËLE UITSLAG", 0, 16); x.restore();
-  x.font = "400 128px 'DM Serif Display'";
-  const r = regels(x, diagnose, 900); let y = 960 - (r.length-1)*65;
-  r.forEach(l => { x.fillText(l, 540, y); y += 135; });
-  x.font = "600 44px Inter"; x.fillText(`Score: ${score} van 30`, 540, y + 40);
-  // label onderin
-  x.save(); x.translate(540,1620); x.rotate(-0.03);
-  x.fillStyle = "#111012"; x.fillRect(-380,-55,760,110);
-  x.fillStyle = "#F2ECE1"; x.font = "700 40px Inter"; x.fillText("Doe de test op ringvrees.nl/test", 0, 14); x.restore();
-  x.fillStyle = "#F2ECE1"; x.font = "700 40px Inter"; x.fillText("@ringvrees", 540, 1760);
+  const W=1080,H=1920,c=document.createElement("canvas"); c.width=W; c.height=H;
+  const x=c.getContext("2d"), RED="#E1251B", INK="#111012", PAP="#F7F2E9";
+  const niveau=UITSLAGEN.findIndex(([a,b])=>score>=a&&score<=b);
+  // achtergrond: rood met fijne korrel
+  x.fillStyle=RED; x.fillRect(0,0,W,H);
+  for(let n=0;n<9000;n++){x.fillStyle=Math.random()<.5?"rgba(0,0,0,.05)":"rgba(255,255,255,.04)";x.fillRect(Math.random()*W,Math.random()*H,2,2);}
+  // kaart
+  const cx=110,cy=250,cw=860,ch=1330;
+  x.save(); x.translate(W/2,cy+ch/2); x.rotate(-0.022); x.translate(-W/2,-(cy+ch/2));
+  x.fillStyle=INK; x.fillRect(cx+18,cy+18,cw,ch);
+  x.fillStyle=PAP; x.fillRect(cx,cy,cw,ch);
+  x.strokeStyle=INK; x.lineWidth=3; x.strokeRect(cx+26,cy+26,cw-52,ch-52);
+  x.lineWidth=1.5; x.strokeRect(cx+36,cy+36,cw-72,ch-72);
+  const A10=new Path2D(document.getElementById("a10pad").textContent);
+  x.textAlign="center"; x.fillStyle=INK;
+  // kop
+  x.font="900 34px Inter"; x.letterSpacing="12px"; x.fillText("RINGVREES",W/2+6,cy+120); x.letterSpacing="0px";
+  x.font="600 22px Inter"; x.letterSpacing="5px"; x.fillStyle="#6b6660";
+  const d=new Date(), datum=d.toLocaleDateString("nl-NL",{day:"numeric",month:"long",year:"numeric"}).toUpperCase();
+  x.fillText("MEDISCH ATTEST · "+datum,W/2,cy+168); x.letterSpacing="0px";
+  x.fillStyle=INK; x.fillRect(cx+90,cy+200,cw-180,3); x.fillRect(cx+90,cy+210,cw-180,1.5);
+  // label diagnose
+  x.fillStyle=RED; x.fillRect(W/2-120,cy+290,240,52);
+  x.fillStyle=PAP; x.font="800 26px Inter"; x.letterSpacing="7px"; x.fillText("DIAGNOSE",W/2+4,cy+326); x.letterSpacing="0px";
+  // diagnose
+  x.fillStyle=INK; x.font="400 118px 'DM Serif Display'";
+  const r=regels(x,diagnose,cw-160); let y=cy+530-(r.length-1)*55;
+  r.forEach(l=>{x.fillText(l,W/2,y); y+=120;});
+  // korte regel
+  x.font="italic 40px 'DM Serif Display'"; x.fillStyle="#2b2a2e";
+  regels(x,KORT[niveau],cw-200).forEach(l=>{x.fillText(l,W/2,y+10); y+=52;});
+  // meter
+  const my=cy+890, mx=cx+110, mw=cw-220, seg=(mw-30)/4, namen=["Buiten","Licht","Chronisch","Terminaal"];
+  for(let k=0;k<4;k++){
+    const sx=mx+k*(seg+10);
+    x.fillStyle=k<=niveau?RED:"#e3dccf"; x.fillRect(sx,my,seg,22);
+    x.fillStyle=k===niveau?INK:"#8a847b"; x.font=(k===niveau?"800 ":"600 ")+"22px Inter"; x.letterSpacing="2px";
+    x.fillText(namen[k].toUpperCase(),sx+seg/2,my+62); x.letterSpacing="0px";
+  }
+  x.font="700 30px Inter"; x.fillStyle=INK; x.fillText(`Score ${score} van 30`,W/2,my+130);
+  // handtekening en stempel
+  x.textAlign="left"; x.font="italic 58px 'DM Serif Display'"; x.fillStyle=INK; x.fillText("dr. R. Vrees",cx+110,cy+1170);
+  x.fillRect(cx+110,cy+1190,330,2); x.font="600 20px Inter"; x.fillStyle="#6b6660"; x.letterSpacing="3px";
+  x.fillText("BEHANDELEND ARTS",cx+110,cy+1226); x.letterSpacing="0px";
+  x.save(); x.translate(cx+cw-215,cy+1150); x.rotate(-0.18);
+  x.save(); x.scale(0.42,0.42); x.translate(-542,-296.5); x.strokeStyle=RED; x.lineWidth=16; x.lineJoin="round"; x.stroke(A10); x.restore();
+  x.fillStyle=RED; x.textAlign="center"; x.font="900 30px Inter"; x.fillText("GEKEURD",0,4);
+  x.font="800 15px Inter"; x.letterSpacing="3px"; x.fillText("BINNEN DE A10",2,32); x.letterSpacing="0px"; x.restore();
+  x.restore();
+  // onder de kaart
+  x.textAlign="center"; x.fillStyle=PAP; x.font="400 54px 'DM Serif Display'";
+  x.fillText("Heb jij het ook?",W/2,1715);
+  x.font="700 34px Inter"; x.fillText("Doe de test op ringvrees.nl/test",W/2,1775);
+  x.font="900 28px Inter"; x.letterSpacing="8px"; x.fillText("@RINGVREES",W/2+4,1840); x.letterSpacing="0px";
   return c;
 }
 async function deel(){
