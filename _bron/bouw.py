@@ -101,7 +101,10 @@ def balk(vandaag, home=False):
     return f"""<div class="strip"><div class="wrap"><span>{nl_datum(vandaag, True)}</span><span><b>Satire</b> · Nieuws van binnen de A10</span></div></div>
 <header class="top"><div class="wrap">
   {logo}
-  <nav class="nav"><a class="hide" href="/#nieuws">Nieuws</a><a class="hide" href="/#tijdloos">Tijdloos</a><a class="hide" href="/rubrieken/">Rubrieken</a><a class="ig" href="{IG}">Instagram →</a></nav>
+  <nav class="nav"><a class="hide" href="/#nieuws">Nieuws</a><a class="hide" href="/#tijdloos">Tijdloos</a><a class="hide" href="/rubrieken/">Rubrieken</a><a class="ig" href="{IG}">Instagram →</a>
+  <details class="menu"><summary aria-label="Menu"><span></span><span></span><span></span></summary>
+   <div class="menu-paneel" onclick="this.parentNode.removeAttribute('open')"><a href="/#nieuws">Nieuws</a><a href="/#tijdloos">Tijdloos</a><a href="/rubrieken/">Rubrieken</a><a href="/over/">Over Ringvrees</a><a href="{IG}">Instagram</a><a href="{FB}">Facebook</a></div>
+  </details></nav>
 </div></header>"""
 
 
