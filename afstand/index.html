@@ -50,6 +50,15 @@
 #afstand .res-img{width:100%;max-width:340px;display:block;margin:6px auto 22px;box-shadow:8px 8px 0 #111012;border:2px solid #111012}
 #afstand .knoppen{display:flex;gap:14px;flex-wrap:wrap;justify-content:center}
 #afstand .stamp{display:inline-block;border:3px solid #E1251B;color:#E1251B;font:900 13px Inter;letter-spacing:.14em;text-transform:uppercase;padding:6px 10px;transform:rotate(-4deg)}
+
+#afstand .promo{display:flex;gap:18px;align-items:center;border:2px solid #111012;background:#F7F2E9;padding:16px 18px;margin-top:30px;box-shadow:6px 6px 0 #111012;transform:rotate(-.6deg);text-decoration:none;color:#111012;text-align:left;transition:transform .15s}
+#afstand .promo svg{width:92px;height:88px;flex:none}
+#afstand .promo-t{display:flex;flex-direction:column;gap:5px}
+#afstand .promo-k{font:800 11px Inter;letter-spacing:.16em;text-transform:uppercase;color:#E1251B}
+#afstand .promo b{font:400 24px/1.1 'DM Serif Display',serif}
+#afstand .promo-t>span:not(#afstand .promo-k):not(#afstand .promo-btn){font:500 14px/1.4 Inter;color:#4a4744}
+#afstand .promo-btn{align-self:flex-start;margin-top:4px;background:#111012;color:#F2ECE1;font:700 12px Inter;letter-spacing:.08em;text-transform:uppercase;padding:7px 10px}
+@media (hover:hover){#afstand .promo:hover{transform:rotate(0) translateY(-2px)}}
 </style>
 <script type="text/plain" id="a10pad">M410 52 C397 64 399 99 388 120 C377 141 360 162 345 180 C330 198 311 208 300 225 C289 242 283 259 278 281 C273 303 270 332 270 358 C270 384 273 413 278 435 C283 457 287 476 301 492 C315 508 340 521 364 531 C388 541 417 547 442 550 C467 553 490 552 513 550 C536 548 561 544 583 537 C605 530 624 520 646 505 C668 490 695 467 716 447 C737 427 755 405 771 383 C787 361 806 336 810 313 C814 290 805 263 794 242 C783 221 761 203 743 185 C725 167 708 149 685 133 C662 117 633 100 607 88 C581 76 552 69 528 63 C504 57 486 52 466 50 C446 48 423 40 410 52Z</script>
 <main id="afstand">
@@ -69,7 +78,10 @@
     <img class="res-img" id="beeld" alt="Jouw ring-afstand">
     <div class="knoppen"><button class="btn" id="deelknop">Deel in je story</button><button class="btn ghost" id="opnieuw">Andere postcode</button></div>
     <p class="klein" id="melding">Op je telefoon opent dit direct het deelmenu, zodat je het plaatje in je Instagram-story zet.</p>
-    <p class="klein"><a href="/test/" style="text-decoration:underline">Doe ook de ringvrees-test →</a></p>
+    <a class="promo" href="/test/">
+      <svg viewBox="250 20 584 553" aria-hidden="true"><path d="M410 52 C397 64 399 99 388 120 C377 141 360 162 345 180 C330 198 311 208 300 225 C289 242 283 259 278 281 C273 303 270 332 270 358 C270 384 273 413 278 435 C283 457 287 476 301 492 C315 508 340 521 364 531 C388 541 417 547 442 550 C467 553 490 552 513 550 C536 548 561 544 583 537 C605 530 624 520 646 505 C668 490 695 467 716 447 C737 427 755 405 771 383 C787 361 806 336 810 313 C814 290 805 263 794 242 C783 221 761 203 743 185 C725 167 708 149 685 133 C662 117 633 100 607 88 C581 76 552 69 528 63 C504 57 486 52 466 50 C446 48 423 40 410 52Z" fill="#EDE5D6" stroke="#111012" stroke-width="12" stroke-linejoin="round"/><circle cx="540" cy="300" r="26" fill="#E1251B" stroke="#F7F2E9" stroke-width="8"/></svg>
+      <span class="promo-t"><span class="promo-k">Nog een test</span><b>Heb jij ringvrees?</b><span>Tien vragen, één minuut. Met een officieel medisch attest als uitslag.</span><span class="promo-btn">Doe de test →</span></span>
+    </a>
   </section>
 </main>
 <script>

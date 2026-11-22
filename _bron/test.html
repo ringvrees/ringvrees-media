@@ -11,8 +11,8 @@
 #ringtest .meta{font:600 12px Inter;letter-spacing:.12em;text-transform:uppercase;color:var(--mute)}
 #ringtest .bar{height:6px;background:var(--line);margin:10px 0 26px}
 #ringtest .bar i{display:block;height:100%;background:var(--red);transition:width .3s}
-#ringtest .opt{display:block;width:100%;text-align:left;background:#F7F2E9;border:2px solid var(--ink);padding:16px 18px;margin-bottom:12px;font:500 17px/1.35 Inter;color:var(--ink);cursor:pointer;transition:transform .12s,background .12s}
-#ringtest .opt:hover{background:#fff;transform:translateX(4px)}
+#ringtest .opt{-webkit-tap-highlight-color:transparent;outline:none;display:block;width:100%;text-align:left;background:#F7F2E9;border:2px solid var(--ink);padding:16px 18px;margin-bottom:12px;font:500 17px/1.35 Inter;color:var(--ink);cursor:pointer;transition:transform .12s,background .12s}
+@media (hover:hover){#ringtest .opt:hover{background:#fff;transform:translateX(4px)}}
 #ringtest .opt b{display:inline-block;width:28px;font-weight:800;color:var(--red)}
 #ringtest .verborgen{display:none}
 #ringtest .res-img{width:100%;max-width:340px;display:block;margin:6px auto 22px;box-shadow:8px 8px 0 var(--ink);border:2px solid var(--ink)}
@@ -20,6 +20,15 @@
 #ringtest .uitleg{font:400 15px/1.6 Georgia,serif;color:#2b2a2e;margin:0 0 22px}
 #ringtest .klein{font:500 13px Inter;color:var(--mute);text-align:center;margin-top:18px}
 #ringtest .stamp{display:inline-block;border:3px solid var(--red);color:var(--red);font:900 13px Inter;letter-spacing:.14em;text-transform:uppercase;padding:6px 10px;transform:rotate(-4deg);margin-bottom:6px}
+
+#ringtest .promo{display:flex;gap:18px;align-items:center;border:2px solid #111012;background:#F7F2E9;padding:16px 18px;margin-top:30px;box-shadow:6px 6px 0 #111012;transform:rotate(-.6deg);text-decoration:none;color:#111012;text-align:left;transition:transform .15s}
+#ringtest .promo svg{width:92px;height:88px;flex:none}
+#ringtest .promo-t{display:flex;flex-direction:column;gap:5px}
+#ringtest .promo-k{font:800 11px Inter;letter-spacing:.16em;text-transform:uppercase;color:#E1251B}
+#ringtest .promo b{font:400 24px/1.1 'DM Serif Display',serif}
+#ringtest .promo-t>span:not(#ringtest .promo-k):not(#ringtest .promo-btn){font:500 14px/1.4 Inter;color:#4a4744}
+#ringtest .promo-btn{align-self:flex-start;margin-top:4px;background:#111012;color:#F2ECE1;font:700 12px Inter;letter-spacing:.08em;text-transform:uppercase;padding:7px 10px}
+@media (hover:hover){#ringtest .promo:hover{transform:rotate(0) translateY(-2px)}}
 </style>
 <main id="ringtest">
   <section id="start">
@@ -28,7 +37,10 @@
     <p class="lede">Tien vragen. Eerlijk antwoorden. Aan het eind weet je hoe erg het is, en of je ooit nog naar Almere kunt.</p>
     <button class="btn" onclick="begin()">Start de test →</button>
     <p class="klein" style="text-align:left;margin-top:26px">Duurt één minuut. Je hoeft er de deur niet voor uit.</p>
-    <p class="klein" style="text-align:left"><a href="/afstand/" style="text-decoration:underline">Of meet hoe ver jij van de ring woont →</a></p>
+    <a class="promo" href="/afstand/">
+      <svg viewBox="240 10 600 640" aria-hidden="true"><path d="M410 52 C397 64 399 99 388 120 C377 141 360 162 345 180 C330 198 311 208 300 225 C289 242 283 259 278 281 C273 303 270 332 270 358 C270 384 273 413 278 435 C283 457 287 476 301 492 C315 508 340 521 364 531 C388 541 417 547 442 550 C467 553 490 552 513 550 C536 548 561 544 583 537 C605 530 624 520 646 505 C668 490 695 467 716 447 C737 427 755 405 771 383 C787 361 806 336 810 313 C814 290 805 263 794 242 C783 221 761 203 743 185 C725 167 708 149 685 133 C662 117 633 100 607 88 C581 76 552 69 528 63 C504 57 486 52 466 50 C446 48 423 40 410 52Z" fill="#EDE5D6" stroke="#111012" stroke-width="12" stroke-linejoin="round"/><circle cx="560" cy="615" r="26" fill="#E1251B" stroke="#F7F2E9" stroke-width="8"/></svg>
+      <span class="promo-t"><span class="promo-k">Nog een test</span><b>Hoe ver woon jij van de ring?</b><span>Vul je postcode in en wij meten het. Met een officieel plaatje voor je story.</span><span class="promo-btn">Meet het →</span></span>
+    </a>
   </section>
 
   <section id="vraag" class="verborgen">
@@ -48,6 +60,10 @@
       <button class="btn ghost" onclick="begin()">Opnieuw</button>
     </div>
     <p class="klein" id="deelmelding">Op je telefoon opent dit direct het deelmenu, zodat je de uitslag in je Instagram-story zet.</p>
+    <a class="promo" href="/afstand/">
+      <svg viewBox="240 10 600 640" aria-hidden="true"><path d="M410 52 C397 64 399 99 388 120 C377 141 360 162 345 180 C330 198 311 208 300 225 C289 242 283 259 278 281 C273 303 270 332 270 358 C270 384 273 413 278 435 C283 457 287 476 301 492 C315 508 340 521 364 531 C388 541 417 547 442 550 C467 553 490 552 513 550 C536 548 561 544 583 537 C605 530 624 520 646 505 C668 490 695 467 716 447 C737 427 755 405 771 383 C787 361 806 336 810 313 C814 290 805 263 794 242 C783 221 761 203 743 185 C725 167 708 149 685 133 C662 117 633 100 607 88 C581 76 552 69 528 63 C504 57 486 52 466 50 C446 48 423 40 410 52Z" fill="#EDE5D6" stroke="#111012" stroke-width="12" stroke-linejoin="round"/><circle cx="560" cy="615" r="26" fill="#E1251B" stroke="#F7F2E9" stroke-width="8"/></svg>
+      <span class="promo-t"><span class="promo-k">Nog een test</span><b>Hoe ver woon jij van de ring?</b><span>Vul je postcode in en wij meten het. Met een officieel plaatje voor je story.</span><span class="promo-btn">Meet het →</span></span>
+    </a>
   </section>
 </main>
 <script>
@@ -82,7 +98,7 @@ function vraag(){
   opts.forEach((o, n) => {
     const b = document.createElement("button");
     b.className = "opt"; b.innerHTML = `<b>${"ABCD"[n]}</b>${o}`;
-    b.onclick = () => { score += n; i++; i < VRAGEN.length ? vraag() : uitslag(); };
+    b.onclick = () => { b.blur(); if (document.activeElement) document.activeElement.blur(); score += n; i++; i < VRAGEN.length ? vraag() : uitslag(); };
     $("opties").appendChild(b);
   });
 }
