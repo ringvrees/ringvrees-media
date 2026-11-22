@@ -15,6 +15,14 @@
 #ringtest .opt b{display:inline-block;width:28px;font-weight:800;color:var(--red)}
 #ringtest .verborgen{display:none}
 #ringtest{isolation:isolate}
+#ringtest .alleen-breed{display:none}
+@media (min-width:900px) and (hover:hover) and (pointer:fine){
+ #ringtest .alleen-mobiel{display:none!important}
+ #ringtest .alleen-breed{display:block}
+ #ringtest:has(#uitslag:not(.verborgen)){max-width:1040px}
+ #ringtest .res-breed{width:100%;height:auto;margin:14px auto 24px}
+ #ringtest #uitslag .promo{max-width:620px;margin-left:auto;margin-right:auto}
+}
 #ringtest .res-img{width:100%;max-width:340px;display:block;margin:6px auto 22px;box-shadow:8px 8px 0 var(--ink);border:2px solid var(--ink)}
 #ringtest .knoppen{display:flex;gap:14px;flex-wrap:wrap;justify-content:center;margin-top:8px}
 #ringtest .uitleg{font:400 15px/1.6 Georgia,serif;color:#2b2a2e;margin:0 0 22px}
@@ -52,14 +60,15 @@
 
   <section id="uitslag" class="verborgen" style="text-align:center">
     <span class="stamp">Uitslag</span>
-    <h1 id="diagnose" style="font-size:40px"></h1>
-    <p class="uitleg" id="omschrijving"></p>
-    <img class="res-img" id="storybeeld" alt="Jouw uitslag van de ringvrees-test">
+    <h1 id="diagnose" class="alleen-mobiel" style="font-size:40px"></h1>
+    <p class="uitleg alleen-mobiel" id="omschrijving"></p>
+    <img class="res-img alleen-mobiel" id="storybeeld" alt="Jouw uitslag van de ringvrees-test">
+    <img class="res-breed alleen-breed" id="breedbeeld" width="1600" height="900" alt="Jouw medisch attest van de ringvrees-test">
     <div class="knoppen">
-      <button class="btn" onclick="deel()">Deel in je story</button>
+      <button class="btn alleen-mobiel" onclick="deel()">Deel in je story</button>
       <button class="btn ghost" onclick="begin()">Opnieuw</button>
     </div>
-    <p class="klein" id="deelmelding">Op je telefoon opent dit direct het deelmenu, zodat je de uitslag in je Instagram-story zet.</p>
+    <p class="klein alleen-mobiel" id="deelmelding">Op je telefoon opent dit direct het deelmenu, zodat je de uitslag in je Instagram-story zet.</p>
     <a class="promo" href="/afstand/">
       <svg viewBox="240 10 600 640" aria-hidden="true"><path d="M410 52 C397 64 399 99 388 120 C377 141 360 162 345 180 C330 198 311 208 300 225 C289 242 283 259 278 281 C273 303 270 332 270 358 C270 384 273 413 278 435 C283 457 287 476 301 492 C315 508 340 521 364 531 C388 541 417 547 442 550 C467 553 490 552 513 550 C536 548 561 544 583 537 C605 530 624 520 646 505 C668 490 695 467 716 447 C737 427 755 405 771 383 C787 361 806 336 810 313 C814 290 805 263 794 242 C783 221 761 203 743 185 C725 167 708 149 685 133 C662 117 633 100 607 88 C581 76 552 69 528 63 C504 57 486 52 466 50 C446 48 423 40 410 52Z" fill="#EDE5D6" stroke="#111012" stroke-width="12" stroke-linejoin="round"/><circle cx="560" cy="615" r="26" fill="#E1251B" stroke="#F7F2E9" stroke-width="8"/></svg>
       <span class="promo-t"><span class="promo-k">Nog een test</span><b>Hoe ver woon jij van de ring?</b><span>Vul je postcode in en wij meten het.</span><span class="promo-btn">Meet het →</span></span>
@@ -110,6 +119,7 @@ async function uitslag(){
   toon("uitslag");
   await Promise.all([document.fonts.load("400 60px 'DM Serif Display'"),document.fonts.load("italic 60px 'DM Serif Display'"),document.fonts.load("900 30px Inter"),document.fonts.load("800 30px Inter")]).catch(()=>{});
   await document.fonts.ready;
+  if (BREED.matches) { $("breedbeeld").src = maakBreed(u, score).toDataURL("image/png"); return; }
   const c = maakBeeld(u[2], score);
   $("storybeeld").src = c.toDataURL("image/png");
   c.toBlob(b => blobUitslag = b, "image/png");
@@ -175,6 +185,48 @@ function maakBeeld(diagnose, score){
   x.fillText("Heb jij het ook?",W/2,1715);
   x.font="700 34px Inter"; x.fillText("Doe de test op ringvrees.nl/test",W/2,1775);
   x.font="900 28px Inter"; x.letterSpacing="8px"; x.fillText("@RINGVREES",W/2+4,1840); x.letterSpacing="0px";
+  return c;
+}
+const BREED = matchMedia("(min-width:900px) and (hover:hover) and (pointer:fine)");
+function maakBreed(u, score){
+  const W=1600,H=900,c=document.createElement("canvas"); c.width=W; c.height=H;
+  const x=c.getContext("2d"), RED="#E1251B", INK="#111012", PAP="#F7F2E9";
+  const niveau=UITSLAGEN.findIndex(([a,b])=>score>=a&&score<=b);
+  const cx=20,cy=20,cw=W-62,ch=H-62;
+  x.fillStyle=INK; x.fillRect(cx+20,cy+20,cw,ch); x.fillStyle=PAP; x.fillRect(cx,cy,cw,ch);
+  x.strokeStyle=INK; x.lineWidth=3; x.strokeRect(cx+24,cy+24,cw-48,ch-48); x.lineWidth=1.5; x.strokeRect(cx+34,cy+34,cw-68,ch-68);
+  const A10=new Path2D(document.getElementById("a10pad").textContent);
+  const L=110, R=cx+cw-90;
+  x.textAlign="left"; x.fillStyle=INK; x.font="900 30px Inter"; x.letterSpacing="11px"; x.fillText("RINGVREES",L,128); x.letterSpacing="0px";
+  const datum=new Date().toLocaleDateString("nl-NL",{day:"numeric",month:"long",year:"numeric"}).toUpperCase();
+  x.textAlign="right"; x.font="600 20px Inter"; x.letterSpacing="5px"; x.fillStyle="#6b6660"; x.fillText("MEDISCH ATTEST · "+datum,R,126); x.letterSpacing="0px";
+  x.fillStyle=INK; x.fillRect(L,152,R-L,3); x.fillRect(L,161,R-L,1.5);
+  // linkerkolom
+  x.textAlign="left"; x.fillStyle=RED; x.fillRect(L,205,200,46);
+  x.fillStyle=PAP; x.font="800 22px Inter"; x.letterSpacing="7px"; x.fillText("DIAGNOSE",L+24,237); x.letterSpacing="0px";
+  const kol=880; let y=350;
+  x.fillStyle=INK; x.font="400 96px 'DM Serif Display'";
+  regels(x,u[2],kol).forEach(l=>{x.fillText(l,L,y); y+=96;});
+  y+=4; x.font="italic 34px 'DM Serif Display'"; x.fillStyle="#2b2a2e";
+  regels(x,KORT[niveau],kol).forEach(l=>{x.fillText(l,L,y); y+=44;});
+  y+=14; x.font="500 23px Inter"; x.fillStyle="#4a4744";
+  regels(x,u[3],kol-40).forEach(l=>{x.fillText(l,L,y); y+=34;});
+  // meter
+  const my=Math.max(y+30,690), seg=(kol-30)/4, namen=["Buiten","Licht","Chronisch","Terminaal"];
+  x.textAlign="center";
+  for(let k=0;k<4;k++){ const sx=L+k*(seg+10);
+    x.fillStyle=k<=niveau?RED:"#e3dccf"; x.fillRect(sx,my,seg,18);
+    x.fillStyle=k===niveau?INK:"#8a847b"; x.font=(k===niveau?"800 ":"600 ")+"18px Inter"; x.letterSpacing="2px";
+    x.fillText(namen[k].toUpperCase(),sx+seg/2,my+48); x.letterSpacing="0px"; }
+  x.textAlign="left"; x.font="700 22px Inter"; x.fillStyle=INK; x.fillText(`Score ${score} van 30`,L,my+90);
+  // rechterkolom: stempel en handtekening
+  const rx=1245;
+  x.save(); x.translate(rx,390); x.rotate(-0.16);
+  x.save(); x.scale(0.6,0.6); x.translate(-542,-296.5); x.strokeStyle=RED; x.lineWidth=14; x.lineJoin="round"; x.stroke(A10); x.restore();
+  x.fillStyle=RED; x.textAlign="center"; x.font="900 42px Inter"; x.fillText("GEKEURD",0,6);
+  x.font="800 20px Inter"; x.letterSpacing="4px"; x.fillText("BINNEN DE A10",3,44); x.letterSpacing="0px"; x.restore();
+  x.textAlign="center"; x.font="italic 54px 'DM Serif Display'"; x.fillStyle=INK; x.fillText("dr. R. Vrees",rx,700);
+  x.fillRect(rx-170,722,340,2); x.font="600 18px Inter"; x.fillStyle="#6b6660"; x.letterSpacing="3px"; x.fillText("BEHANDELEND ARTS",rx,756); x.letterSpacing="0px";
   return c;
 }
 async function deel(){
