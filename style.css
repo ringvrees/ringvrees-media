@@ -139,3 +139,25 @@ footer a{text-decoration:underline}
 .body .iv-kop p{font-size:17px;color:#2b2a2e}
 .body .iv-v{font:700 18px/1.45 Inter;color:var(--ink);margin:26px 0 8px;padding-left:16px;border-left:4px solid var(--red)}
 .body .iv-a{margin-top:0}
+
+.band-grid{display:grid !important;grid-template-columns:1fr 1fr;align-items:center}
+.band-l{display:flex;flex-direction:column;align-items:flex-start;gap:26px}
+.band a.band-ig{display:inline-block}
+.band-r{display:flex;flex-direction:column;gap:10px}
+.bk-kop{font:800 12px Inter;letter-spacing:.16em;text-transform:uppercase;opacity:.85}
+.bk-svg{width:100%;height:auto;display:block}
+.bk-p{cursor:pointer;outline:none}
+.bk-p text{font:800 24px Inter;fill:#F2ECE1;text-anchor:middle;paint-order:stroke;stroke:#E1251B;stroke-width:8px;letter-spacing:.03em}
+.bk-dot{fill:#F2ECE1;stroke:#E1251B;stroke-width:4;transition:r .15s}
+.bk-uit text{font-style:italic;font-weight:700;opacity:.9}
+.bk-p.aan .bk-dot{fill:#111012;r:15}
+.bk-p.aan text{fill:#111012;stroke:#F2ECE1}
+@media (hover:hover){.bk-p:hover .bk-dot{r:15}}
+.bk-kaart{background:var(--paper);color:var(--ink);padding:14px 16px;box-shadow:5px 5px 0 var(--ink);display:flex;flex-direction:column;gap:4px;min-height:86px;transform:rotate(-.5deg)}
+.bk-kaart b{font:400 22px 'DM Serif Display',serif}
+.bk-kaart span{font:500 14px/1.45 Inter}
+.weer{background:#F7F2E9;border-bottom:1px solid var(--line)}
+.weer .wrap{display:flex;gap:14px;align-items:baseline;flex-wrap:wrap;padding:10px 24px;font:600 14px Inter}
+.weer-k{font:800 11px Inter;letter-spacing:.16em;text-transform:uppercase;color:var(--red)}
+.weer-b{color:var(--mute);font-weight:500;font-style:italic}
+@media (max-width:820px){.band-grid{grid-template-columns:1fr}.weer .wrap{padding:9px 20px;gap:6px 12px;font-size:13px}}
