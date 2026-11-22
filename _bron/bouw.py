@@ -127,7 +127,7 @@ WEER = """<div class="weer" id="weer" hidden><a class="wrap weer-in" href="/weer
   <span class="weer-meer">Komende dagen →</span>
 </a></div>
 <script>(function(){
-var I={zon:'<circle cx="16" cy="16" r="6"/><path d="M16 3v4M16 25v4M3 16h4M25 16h4M6.8 6.8l2.8 2.8M22.4 22.4l2.8 2.8M6.8 25.2l2.8-2.8M22.4 9.6l2.8-2.8"/>',
+var I={maan:'<path d="M22 20.5A9 9 0 0 1 11.5 8a9.5 9.5 0 1 0 10.5 12.5z"/>',zon:'<circle cx="16" cy="16" r="6"/><path d="M16 3v4M16 25v4M3 16h4M25 16h4M6.8 6.8l2.8 2.8M22.4 22.4l2.8 2.8M6.8 25.2l2.8-2.8M22.4 9.6l2.8-2.8"/>',
 wolk:'<path d="M9 24h14a5 5 0 0 0 0-10 7 7 0 0 0-13.5 1.5A4.3 4.3 0 0 0 9 24z"/>',
 regen:'<path d="M9 19h14a5 5 0 0 0 0-10 7 7 0 0 0-13.5 1.5A4.3 4.3 0 0 0 9 19z"/><path d="M11 23l-1.5 4M16 23l-1.5 4M21 23l-1.5 4"/>',
 mist:'<path d="M5 12h22M8 17h19M5 22h22M9 27h15"/>',
@@ -135,7 +135,7 @@ sneeuw:'<path d="M9 19h14a5 5 0 0 0 0-10 7 7 0 0 0-13.5 1.5A4.3 4.3 0 0 0 9 19z"
 onweer:'<path d="M9 18h14a5 5 0 0 0 0-10 7 7 0 0 0-13.5 1.5A4.3 4.3 0 0 0 9 18z"/><path d="M17 20l-3 5h4l-3 5"/>'};
 var t={0:["Zonnig","zon","Waarschijnlijk ook zon, maar wie gaat dat checken?","Niet gecontroleerd"],1:["Licht bewolkt","wolk","Buiten de ring hebben ze vast ook iets van weer.","Niet relevant"],2:["Half bewolkt","wolk","Buiten de ring hebben ze vast ook iets van weer.","Niet relevant"],3:["Bewolkt","wolk","Buiten de ring schijnt het grijzer te zijn. Zeggen ze.","Niet relevant"],45:["Mist","mist","Buiten de ring zie je nu helemaal niks. Dus niks veranderd.","Niet zichtbaar"],48:["Mist","mist","Buiten de ring zie je nu helemaal niks. Dus niks veranderd.","Niet zichtbaar"],51:["Motregen","regen","Buiten de ring regent het harder. Wij gaan niet kijken.","Niet gemeten"],61:["Regen","regen","Buiten de ring regent het harder. Wij gaan niet kijken.","Niet gemeten"],71:["Sneeuw","sneeuw","Buiten de ring zijn de wegen onbegaanbaar. Ook zonder sneeuw.","Onbegaanbaar"],80:["Buien","regen","Blijf binnen. Binnen de ring, bedoelen we.","Niet gemeten"],95:["Onweer","onweer","Blijf binnen. Binnen de ring, bedoelen we.","Afgeraden"]};
 function zoek(c){var k=[95,80,71,61,51,48,45,3,2,1,0];for(var i=0;i<k.length;i++){if(c>=k[i])return t[k[i]];}return t[3];}
-fetch("https://api.open-meteo.com/v1/forecast?latitude=52.37&longitude=4.89&current=temperature_2m,weather_code,wind_speed_10m&timezone=Europe%2FAmsterdam").then(function(r){return r.json()}).then(function(j){var c=j.current,w=zoek(c.weather_code),zin=w[2];if(c.wind_speed_10m>38)zin="Harde wind. De pont naar Noord is nu een avontuur.";
+fetch("https://api.open-meteo.com/v1/forecast?latitude=52.37&longitude=4.89&current=temperature_2m,weather_code,wind_speed_10m,is_day&timezone=Europe%2FAmsterdam").then(function(r){return r.json()}).then(function(j){var c=j.current,w=zoek(c.weather_code).slice(),zin=w[2];if(!c.is_day&&c.weather_code<=1){w[0]="Heldere nacht";w[1]="maan";}if(c.wind_speed_10m>38)zin="Harde wind. De pont naar Noord is nu een avontuur.";
 document.getElementById("weerIc").innerHTML='<svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">'+I[w[1]]+'</svg>';
 document.getElementById("weerT").textContent=Math.round(c.temperature_2m)+"°";document.getElementById("weerC").textContent=w[0];document.getElementById("weerU").textContent=w[3];document.getElementById("weer").hidden=false;}).catch(function(){});
 })();</script>"""
