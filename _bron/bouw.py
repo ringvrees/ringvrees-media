@@ -92,7 +92,8 @@ def kop(titel, beschrijving, url, beeld=None, extra=""):
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/style.css">{extra}
+<link rel="stylesheet" href="/style.css">
+<link rel="alternate" type="application/rss+xml" title="Ringvrees" href="/feed.xml">{extra}
 </head>
 <body>"""
 
@@ -186,7 +187,7 @@ def kaart(a, groot=False):
     meta = "Tijdloos" if a["type"] == "tijdloos" else nl_datum(d)
     if groot:
         return f"""<div class="hero">
-    <a class="heroimg" href="{url_van(a)}"><img src="{a['beeld']}" alt="{esc(a['beeld_alt'])}"></a>
+    <a class="heroimg" href="{url_van(a)}"><img src="{a['beeld']}" alt="{esc(a['beeld_alt'])}" width="1600" height="900" fetchpriority="high"></a>
     <div>
       <a class="kick" href="{rubriek_url(a['rubriek'])}">{esc(a['rubriek'])}</a>
       <a href="{url_van(a)}"><h1 class="h">{esc(a['titel'])}</h1>
@@ -195,7 +196,7 @@ def kaart(a, groot=False):
     </div>
   </div>"""
     return f"""<div class="card">
-      <a class="beeld{' foto' if a.get('beeld_bron', '').startswith('Foto') else ''}" href="{url_van(a)}"><img src="{a['beeld']}" alt="{esc(a['beeld_alt'])}"></a>
+      <a class="beeld{' foto' if a.get('beeld_bron', '').startswith('Foto') else ''}" href="{url_van(a)}"><img src="{a['beeld']}" alt="{esc(a['beeld_alt'])}" width="1600" height="900" loading="lazy" decoding="async"></a>
       <a class="kick" href="{rubriek_url(a['rubriek'])}">{esc(a['rubriek'])}</a>
       <a href="{url_van(a)}"><h3 class="h">{esc(a['titel'])}</h3>
       <p>{esc(a['lede'])}</p></a>
@@ -220,7 +221,11 @@ def artikel_pagina(a, alle, vandaag):
           "contentLocation": {"@type": "Place", "name": "Amsterdam"},
           "author": {"@type": "Organization", "name": "Redactie Ringvrees", "url": SITE + "/over/"},
           "publisher": ORG}
-    extra = f'\n<script type="application/ld+json">{json.dumps(ld, ensure_ascii=False)}</script>'
+    kruimel = {"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [
+        {"@type": "ListItem", "position": 1, "name": "Ringvrees", "item": SITE + "/"},
+        {"@type": "ListItem", "position": 2, "name": a["rubriek"], "item": SITE + rubriek_url(a["rubriek"])},
+        {"@type": "ListItem", "position": 3, "name": a["titel"]}]}
+    extra = f'\n<script type="application/ld+json">{json.dumps(ld, ensure_ascii=False)}</script>\n<script type="application/ld+json">{json.dumps(kruimel, ensure_ascii=False)}</script>'
     bron = ""
     if a.get("bron"):
         b = f"<a href='{a['bron_url']}'>{esc(a['bron'])}</a>" if a.get("bron_url") else esc(a["bron"])
@@ -239,7 +244,7 @@ def artikel_pagina(a, alle, vandaag):
   <p class="lede">{esc(a['lede'])}</p>
   <div class="meta">{meta} · Redactie Ringvrees</div>
 </article>
-<figure class="kopbeeld"><img src="{a['beeld']}" alt="{esc(a['beeld_alt'])}">{beeldbron}</figure>
+<figure class="kopbeeld"><img src="{a['beeld']}" alt="{esc(a['beeld_alt'])}" width="1600" height="900" fetchpriority="high">{beeldbron}</figure>
 <article class="art body">
   {''.join(blok(b) for b in a['blokken'])}
   <div class="share"><b>{esc(a.get('doorstuur', 'Stuur door naar je huisgenoot'))}</b><a href="https://wa.me/?text={esc(a['titel'] + ' ' + SITE + url)}">WhatsApp</a>{ig}</div>
@@ -339,6 +344,53 @@ def weer_pagina(vandaag):
     return ["/weer/"]
 
 
+def pagina_404(vandaag):
+    inhoud = """<section class="wrap" style="padding:70px 24px 80px;max-width:760px">
+  <span class="kick">Fout 404</span>
+  <h1 class="h" style="font-size:52px;margin:18px 0 16px">Deze pagina ligt buiten de ring</h1>
+  <p style="font:500 19px/1.55 Inter;color:#2b2a2e;margin-bottom:28px">Wij gaan er ook niet heen. Misschien is de link verhuisd, misschien heeft hij nooit bestaan. Hoe dan ook: binnen de ring is genoeg te lezen.</p>
+  <p style="display:flex;gap:12px;flex-wrap:wrap"><a class="kick" style="font-size:14px;padding:12px 16px" href="/">Terug naar het nieuws →</a><a class="kick" style="font-size:14px;padding:12px 16px;background:var(--ink)" href="/test/">Doe de ringvrees-test →</a></p>
+</section>"""
+    html = kop("Pagina niet gevonden | Ringvrees", "Deze pagina ligt buiten de ring.", "/404.html",
+               extra='\n<meta name="robots" content="noindex">') + balk(vandaag) + inhoud + VOET
+    (ROOT / "404.html").write_text(html, encoding="utf-8")
+
+
+def feed(alle):
+    from email.utils import format_datetime
+    items = ""
+    for a in alle[:20]:
+        dt = datetime.datetime.fromisoformat(f"{a['datum']}T{a.get('tijd') or '12:00'}").replace(tzinfo=ZoneInfo("Europe/Amsterdam"))
+        items += (f"<item><title>{esc(a['titel'])}</title><link>{SITE}{url_van(a)}</link><guid>{SITE}{url_van(a)}</guid>"
+                  f"<pubDate>{format_datetime(dt)}</pubDate><category>{esc(a['rubriek'])}</category>"
+                  f"<description>{esc(a['lede'])}</description>"
+                  f"<enclosure url=\"{SITE}{a['beeld']}\" type=\"image/jpeg\" length=\"{(ROOT / a['beeld'].lstrip('/')).stat().st_size}\"/></item>\n")
+    (ROOT / "feed.xml").write_text(f"""<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel>
+<title>Ringvrees</title><link>{SITE}/</link><language>nl-nl</language>
+<description>Satirisch Amsterdams nieuws zoals het écht voelt binnen de A10.</description>
+<atom:link href="{SITE}/feed.xml" rel="self" type="application/rss+xml"/>
+{items}</channel></rss>
+""", encoding="utf-8")
+
+
+def eerlijke_datum(urls, vandaag):
+    """Lastmod verandert alleen als de inhoud echt veranderde (de datum in de balk telt niet mee)."""
+    import hashlib, re as _re
+    f = ROOT / "_bron" / "lastmod.json"
+    oud = json.loads(f.read_text()) if f.exists() else {}
+    nieuw = {}
+    for u in urls:
+        p = ROOT / u.lstrip("/") / "index.html"
+        if not p.exists():
+            continue
+        t = _re.sub(r'<div class="strip">.*?</div></div>', "", p.read_text(encoding="utf-8"), flags=_re.S)
+        h = hashlib.sha1(t.encode()).hexdigest()[:12]
+        nieuw[u] = oud[u] if u in oud and oud[u][0] == h else [h, vandaag.isoformat()]
+    f.write_text(json.dumps(nieuw, indent=1, ensure_ascii=False))
+    return {u: v[1] for u, v in nieuw.items()}
+
+
 def rubrieken(alle, vandaag):
     per = {}
     for a in alle:
@@ -371,7 +423,10 @@ def main():
     extra = rubrieken(alle, vandaag) + over(vandaag) + test_pagina(vandaag) + afstand_pagina(vandaag) + weer_pagina(vandaag)
     beelden = {url_van(a): [a["beeld"]] for a in alle}
     beelden["/"] = [a["beeld"] for a in alle[:10]]
-    urls = [("/", vandaag.isoformat())] + [(u, vandaag.isoformat()) for u in extra] + [(url_van(a), a["datum"]) for a in alle]
+    pagina_404(vandaag)
+    feed(alle)
+    datums = eerlijke_datum(["/"] + extra, vandaag)
+    urls = [(u, datums.get(u, vandaag.isoformat())) for u in ["/"] + extra] + [(url_van(a), a["datum"]) for a in alle]
     img = lambda u: "".join(f"<image:image><image:loc>{SITE}{b}</image:loc></image:image>" for b in beelden.get(u, []))
     sm = "".join(f"  <url><loc>{SITE}{u}</loc><lastmod>{m}</lastmod>{img(u)}</url>\n" for u, m in urls)
     (ROOT / "sitemap.xml").write_text(f'<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">\n{sm}</urlset>\n', encoding="utf-8")

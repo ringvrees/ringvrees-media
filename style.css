@@ -176,3 +176,6 @@ footer a{text-decoration:underline}
 .def{margin:26px 0 0;padding:16px 18px;background:#fff;border-left:4px solid var(--red);font:500 15px/1.55 Inter;color:#2b2a2e}
 .def b{font:400 20px 'DM Serif Display',serif;color:var(--ink)}
 .def a{display:inline-block;margin-top:6px;font-weight:700;color:var(--red);text-decoration:underline;text-underline-offset:3px}
+
+/* vaste afmetingen op beelden, hoogte volgt de css */
+.card img[width],.kopbeeld img[width]{height:auto}
