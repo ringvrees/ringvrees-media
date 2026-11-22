@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ringvrees</title>
+<meta name="description" content="Het Amsterdamse nieuws zoals het écht voelt binnen de A10. Buiten de ring? Nooit van gehoord.">
+<meta property="og:title" content="Ringvrees">
+<meta property="og:description" content="Het Amsterdamse nieuws zoals het écht voelt binnen de A10.">
+<meta name="theme-color" content="#E1251B">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Inter:wght@500;800;900&display=swap" rel="stylesheet">
+<style>
+  :root{--red:#E1251B;--paper:#F2ECE1;--ink:#111012}
+  *{margin:0;padding:0;box-sizing:border-box}
+  html,body{height:100%}
+  body{background:var(--red);color:var(--paper);font-family:Inter,system-ui,sans-serif;
+       display:flex;flex-direction:column;align-items:center;justify-content:center;
+       min-height:100svh;padding:6vh 6vw;text-align:center;overflow-x:hidden}
+  .kick{font-weight:900;font-size:clamp(11px,1.4vw,15px);letter-spacing:.32em;opacity:.85}
+  h1{font-family:"DM Serif Display",Georgia,serif;font-weight:400;line-height:.9;letter-spacing:-.02em;
+     font-size:clamp(84px,21vw,260px);margin:.14em 0 .38em}
+  .tag{font-weight:500;font-size:clamp(16px,2vw,22px);line-height:1.45;max-width:30em;opacity:.95;text-wrap:balance}
+  .btn{display:inline-flex;align-items:center;gap:.6em;margin-top:2.4em;background:var(--paper);color:var(--red);
+       font-weight:800;font-size:clamp(17px,1.9vw,21px);text-decoration:none;padding:.95em 1.6em;
+       transform:rotate(-2deg);box-shadow:0 8px 0 rgba(17,16,18,.25);transition:transform .15s ease,box-shadow .15s ease}
+  .btn:hover{transform:rotate(-2deg) translateY(-3px);box-shadow:0 11px 0 rgba(17,16,18,.25)}
+  footer{position:fixed;bottom:2.2vh;left:0;right:0;font-size:12px;letter-spacing:.14em;opacity:.7}
+  footer a{color:inherit}
+</style>
+</head>
+<body>
+  <div class="kick">NIEUWS VAN BINNEN DE A10</div>
+  <h1>Ringvrees</h1>
+  <p class="tag">Het Amsterdamse nieuws zoals het écht voelt binnen de A10. Buiten de ring? Nooit van gehoord.</p>
+  <a class="btn" href="https://www.instagram.com/ringvrees/" rel="noopener">
+    Volg @ringvrees op Instagram
+  </a>
+  <footer><a href="mailto:hallo@ringvrees.nl">HALLO@RINGVREES.NL</a></footer>
+</body>
+</html>
