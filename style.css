@@ -120,7 +120,7 @@ td:first-child{font-weight:800}
 
 a.kick:hover{background:var(--ink)}
 .card a:hover h3,.hero a:hover h1{text-decoration:underline;text-decoration-thickness:2px;text-underline-offset:4px}
-.intro{font:500 18px/1.5 Inter;color:var(--mute);margin:-6px 0 26px}
+.intro{font:500 18px/1.6 Inter;color:#2b2a2e;margin:-6px 0 30px;max-width:760px}
 .rubrieken{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;padding-bottom:60px}
 .rubrieken a{border:2px solid var(--ink);padding:20px;display:flex;flex-direction:column;gap:14px;align-items:flex-start;background:#F7F2E9}
 .rubrieken a:hover{background:#fff}

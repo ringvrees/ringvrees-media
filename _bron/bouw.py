@@ -406,6 +406,11 @@ def eerlijke_datum(urls, vandaag):
     return {u: v[1] for u, v in nieuw.items()}
 
 
+# Uitleg per rubriek (intro op de pagina en omschrijving voor Google). Nieuwe rubriek? Voeg hem toe in _bron/rubrieken.json.
+_rf = ROOT / "_bron" / "rubrieken.json"
+RUBRIEKEN = json.loads(_rf.read_text(encoding="utf-8")) if _rf.exists() else {}
+
+
 def rubrieken(alle, vandaag):
     per = {}
     for a in alle:
@@ -413,9 +418,11 @@ def rubrieken(alle, vandaag):
     for r, arts in per.items():
         d = ROOT / "rubriek" / rslug(r); d.mkdir(parents=True, exist_ok=True)
         grid = "<div class='grid'>" + "".join(kaart(a) for a in arts) + "</div>"
-        (d / "index.html").write_text(lijst_pagina(r, f"Al het nieuws van binnen de ring in de rubriek {r}.", rubriek_url(r), grid, vandaag,
+        info = RUBRIEKEN.get(r, {})
+        intro = info.get("intro") or f"Alle artikelen van Ringvrees in de rubriek {r}: echt Amsterdams nieuws, maar dan zoals het voelt binnen de ring A10."
+        (d / "index.html").write_text(lijst_pagina(r, intro, rubriek_url(r), grid, vandaag,
             seo_titel=f"{r}: satirisch nieuws uit Amsterdam | Ringvrees",
-            seo_beschrijving=f"Alle artikelen van Ringvrees in de rubriek {r}: echt Amsterdams nieuws, maar dan zoals het voelt binnen de ring A10. Droog, flauw en elke dag nieuw."), encoding="utf-8")
+            seo_beschrijving=info.get("omschrijving") or f"Alle artikelen van Ringvrees in de rubriek {r}: echt Amsterdams nieuws, maar dan zoals het voelt binnen de ring A10. Droog, flauw en elke dag nieuw."), encoding="utf-8")
     tegels = "<div class='rubrieken'>" + "".join(
         f"<a href='{rubriek_url(r)}'><span class='kick'>{esc(r)}</span><b>{len(v)} {'artikel' if len(v) == 1 else 'artikelen'}</b></a>"
         for r, v in sorted(per.items(), key=lambda x: (-len(x[1]), x[0]))) + "</div>"
