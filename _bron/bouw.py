@@ -91,7 +91,7 @@ def kop(titel, beschrijving, url, beeld=None, extra=""):
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/style.css">{extra}
 </head>
 <body>"""
@@ -117,12 +117,24 @@ VOET = """<footer><div class="wrap"><span>Ringvrees is satire. Alles is gebaseer
 """
 
 
-WEER = """<div class="weer" id="weer" hidden><div class="wrap"><span class="weer-k">Weer binnen de ring</span><span id="weerNu"></span><span class="weer-b" id="weerBuiten"></span></div></div>
+WEER = """<div class="weer" id="weer" hidden><div class="wrap weer-in">
+  <span class="weer-ic" id="weerIc"></span>
+  <div class="weer-kol"><span class="weer-k">Binnen de ring</span><span class="weer-t" id="weerT"></span><span class="weer-c" id="weerC"></span></div>
+  <div class="weer-kol weer-uit"><span class="weer-k">Buiten de ring</span><span class="weer-t">—</span><span class="weer-c" id="weerU"></span></div>
+  <p class="weer-zin" id="weerZin"></p>
+</div></div>
 <script>(function(){
-var t={0:["Zonnig","Buiten de ring waarschijnlijk ook zon, maar wie gaat dat checken?"],1:["Licht bewolkt","Buiten de ring: niet relevant."],2:["Half bewolkt","Buiten de ring: niet relevant."],3:["Bewolkt","Buiten de ring is het grijzer. Zeggen ze."],45:["Mist","Buiten de ring zie je nu helemaal niks. Dus niks veranderd."],48:["Mist","Buiten de ring zie je nu helemaal niks. Dus niks veranderd."],51:["Motregen","Buiten de ring regent het harder. Wij gaan niet kijken."],61:["Regen","Buiten de ring regent het harder. Wij gaan niet kijken."],71:["Sneeuw","Buiten de ring: wegen onbegaanbaar. Ook zonder sneeuw."],80:["Buien","Blijf binnen. Binnen de ring, bedoelen we."],95:["Onweer","Blijf binnen. Binnen de ring, bedoelen we."]};
+var I={zon:'<circle cx="16" cy="16" r="6"/><path d="M16 3v4M16 25v4M3 16h4M25 16h4M6.8 6.8l2.8 2.8M22.4 22.4l2.8 2.8M6.8 25.2l2.8-2.8M22.4 9.6l2.8-2.8"/>',
+wolk:'<path d="M9 24h14a5 5 0 0 0 0-10 7 7 0 0 0-13.5 1.5A4.3 4.3 0 0 0 9 24z"/>',
+regen:'<path d="M9 19h14a5 5 0 0 0 0-10 7 7 0 0 0-13.5 1.5A4.3 4.3 0 0 0 9 19z"/><path d="M11 23l-1.5 4M16 23l-1.5 4M21 23l-1.5 4"/>',
+mist:'<path d="M5 12h22M8 17h19M5 22h22M9 27h15"/>',
+sneeuw:'<path d="M9 19h14a5 5 0 0 0 0-10 7 7 0 0 0-13.5 1.5A4.3 4.3 0 0 0 9 19z"/><path d="M11 24v.1M16 26v.1M21 24v.1"/>',
+onweer:'<path d="M9 18h14a5 5 0 0 0 0-10 7 7 0 0 0-13.5 1.5A4.3 4.3 0 0 0 9 18z"/><path d="M17 20l-3 5h4l-3 5"/>'};
+var t={0:["Zonnig","zon","Waarschijnlijk ook zon, maar wie gaat dat checken?","Niet gecontroleerd"],1:["Licht bewolkt","wolk","Buiten de ring hebben ze vast ook iets van weer.","Niet relevant"],2:["Half bewolkt","wolk","Buiten de ring hebben ze vast ook iets van weer.","Niet relevant"],3:["Bewolkt","wolk","Buiten de ring schijnt het grijzer te zijn. Zeggen ze.","Niet relevant"],45:["Mist","mist","Buiten de ring zie je nu helemaal niks. Dus niks veranderd.","Niet zichtbaar"],48:["Mist","mist","Buiten de ring zie je nu helemaal niks. Dus niks veranderd.","Niet zichtbaar"],51:["Motregen","regen","Buiten de ring regent het harder. Wij gaan niet kijken.","Niet gemeten"],61:["Regen","regen","Buiten de ring regent het harder. Wij gaan niet kijken.","Niet gemeten"],71:["Sneeuw","sneeuw","Buiten de ring zijn de wegen onbegaanbaar. Ook zonder sneeuw.","Onbegaanbaar"],80:["Buien","regen","Blijf binnen. Binnen de ring, bedoelen we.","Niet gemeten"],95:["Onweer","onweer","Blijf binnen. Binnen de ring, bedoelen we.","Afgeraden"]};
 function zoek(c){var k=[95,80,71,61,51,48,45,3,2,1,0];for(var i=0;i<k.length;i++){if(c>=k[i])return t[k[i]];}return t[3];}
-fetch("https://api.open-meteo.com/v1/forecast?latitude=52.37&longitude=4.89&current=temperature_2m,weather_code,wind_speed_10m&timezone=Europe%2FAmsterdam").then(function(r){return r.json()}).then(function(j){var c=j.current,w=zoek(c.weather_code),b=w[1];if(c.wind_speed_10m>38)b="Harde wind. De pont naar Noord is nu een avontuur.";
-document.getElementById("weerNu").textContent=Math.round(c.temperature_2m)+"° · "+w[0];document.getElementById("weerBuiten").textContent=b;document.getElementById("weer").hidden=false;}).catch(function(){});
+fetch("https://api.open-meteo.com/v1/forecast?latitude=52.37&longitude=4.89&current=temperature_2m,weather_code,wind_speed_10m&timezone=Europe%2FAmsterdam").then(function(r){return r.json()}).then(function(j){var c=j.current,w=zoek(c.weather_code),zin=w[2];if(c.wind_speed_10m>38)zin="Harde wind. De pont naar Noord is nu een avontuur.";
+document.getElementById("weerIc").innerHTML='<svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">'+I[w[1]]+'</svg>';
+document.getElementById("weerT").textContent=Math.round(c.temperature_2m)+"°";document.getElementById("weerC").textContent=w[0];document.getElementById("weerU").textContent=w[3];document.getElementById("weerZin").textContent="‘"+zin+"’";document.getElementById("weer").hidden=false;}).catch(function(){});
 })();</script>"""
 
 
