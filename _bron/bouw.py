@@ -108,8 +108,7 @@ def balk(vandaag, home=False):
 </div></header>"""
 
 
-VOET = """<footer><div class="wrap"><span>Ringvrees is satire. Alles is gebaseerd op echt nieuws, maar dan zoals het écht voelt binnen de A10.</span><span><a id="m" href="#">HALLO [AT] RINGVREES [PUNT] NL</a></span></div></footer>
-<script>(function(){var u="hallo",d=["ringvrees","nl"].join("."),a=document.getElementById("m");a.textContent=u+"@"+d;a.href="mai"+"lto:"+u+"@"+d;})();</script>
+VOET = """<footer><div class="wrap"><span>Ringvrees is satire. Alles is gebaseerd op echt nieuws, maar dan zoals het écht voelt binnen de A10.</span></div></footer>
 </body>
 </html>
 """
