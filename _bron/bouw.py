@@ -212,7 +212,7 @@ def home(alle, vandaag):
         delen.append("<div class='sec' id='tijdloos'><h2 class='h'>Tijdloos</h2><span class='meta'>Voor altijd binnen de ring</span></div><div class='grid'>"
                      + "".join(kaart(a) for a in tijdloos) + "</div>")
     delen.append("</main>")
-    delen.append(band("Liever ook nooit de ring uit? Volg het nieuws waar je het al leest."))
+    delen.append(band("Liever ook nooit de ring uit?<br>Volg het nieuws waar je het al leest."))
     delen.append(VOET)
     return "\n".join(delen)
 
@@ -222,7 +222,7 @@ def lijst_pagina(titel, intro, url, items, vandaag):
 <main class="wrap"><div class="sec" style="margin-top:44px"><h1 class="h" style="font-size:44px">{esc(titel)}</h1></div>
 <p class="intro">{esc(intro)}</p>
 {items}
-</main>""" + band("Liever ook nooit de ring uit? Volg het nieuws waar je het al leest.") + VOET)
+</main>""" + band("Liever ook nooit de ring uit?<br>Volg het nieuws waar je het al leest.") + VOET)
 
 
 def rubrieken(alle, vandaag):
