@@ -58,7 +58,7 @@ def esc(s):
 
 
 def kop(titel, beschrijving, url, beeld=None, extra=""):
-    img = f'\n<meta property="og:image" content="{SITE}{beeld}">' if beeld else f'\n<meta property="og:image" content="{SITE}/icon-512.png">'
+    img = f'\n<meta property="og:image" content="{SITE}{beeld}">\n<meta property="og:image:width" content="1600">\n<meta property="og:image:height" content="900">\n<meta property="og:image:type" content="image/jpeg">' if beeld else f'\n<meta property="og:image" content="{SITE}/icon-512.png">'
     return f"""<!DOCTYPE html>
 <html lang="nl">
 <head>
@@ -70,6 +70,9 @@ def kop(titel, beschrijving, url, beeld=None, extra=""):
 <meta property="og:title" content="{esc(titel)}">
 <meta property="og:description" content="{esc(beschrijving)}">
 <meta property="og:site_name" content="Ringvrees">
+<meta property="og:type" content="{'article' if url.startswith('/nieuws/') else 'website'}">
+<meta property="og:locale" content="nl_NL">
+<meta name="twitter:card" content="summary_large_image">
 <meta property="og:url" content="{SITE}{url}">{img}
 <meta name="theme-color" content="#E1251B">
 <link rel="icon" href="/favicon.ico" sizes="any">
