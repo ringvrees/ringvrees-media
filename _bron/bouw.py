@@ -203,6 +203,11 @@ def kaart(a, groot=False):
     </div>"""
 
 
+DEF = ('<aside class="def"><b>ringvrees</b> <i>(de; v.)</i> de aanhoudende angst om de Amsterdamse ring A10 te verlaten. '
+       'Komt vooral voor bij mensen die alles wat ze nodig hebben op fietsafstand hebben. '
+       '<a href="/nieuws/symptomen-van-ringvrees/">Wat is ringvrees? Herken de symptomen →</a></aside>')
+
+
 def artikel_pagina(a, alle, vandaag):
     d = datetime.date.fromisoformat(a["datum"])
     url = url_van(a)
@@ -239,6 +244,7 @@ def artikel_pagina(a, alle, vandaag):
   {''.join(blok(b) for b in a['blokken'])}
   <div class="share"><b>{esc(a.get('doorstuur', 'Stuur door naar je huisgenoot'))}</b><a href="https://wa.me/?text={esc(a['titel'] + ' ' + SITE + url)}">WhatsApp</a>{ig}</div>
   {bron}
+  {DEF if a['slug'] != 'symptomen-van-ringvrees' else ''}
 </article>
 """ + meer_html + band("Morgen weer vers nieuws van binnen de ring.") + VOET)
 
@@ -284,7 +290,7 @@ def over(vandaag):
     extra = f'\n<script type="application/ld+json">{json.dumps(ld, ensure_ascii=False)}</script>'
     d = ROOT / "over"; d.mkdir(exist_ok=True)
     (d / "index.html").write_text(kop("Wat is Ringvrees? Satirisch nieuws uit Amsterdam | Ringvrees",
-        "Ringvrees is een satirisch nieuwsplatform uit Amsterdam. En ringvrees (de; v.) is de angst om de ring A10 te verlaten. Niet te verwarren met ringworm.",
+        "Ringvrees is een satirisch nieuwsplatform uit Amsterdam. En ringvrees (de; v.) is de angst om de ring A10 te verlaten.",
         "/over/", None, extra) + balk(vandaag) + f"""
 <article class="art">
   <span class="kick">Over ons</span>
@@ -293,7 +299,7 @@ def over(vandaag):
 </article>
 <article class="art body">
   <h2 class="h">Het woord</h2>
-  <p><b>ringvrees</b> (de; v.) is de aanhoudende angst om de Amsterdamse ring A10 te verlaten. Het treft vooral mensen die binnen de ring wonen en alles wat ze nodig hebben op fietsafstand hebben. Amstelveen voelt als buitenland, Almere als een expeditie. Niet te verwarren met ringworm: daar is een zalfje voor. Voor ringvrees niet.</p>
+  <p><b>ringvrees</b> (de; v.) is de aanhoudende angst om de Amsterdamse ring A10 te verlaten. Het treft vooral mensen die binnen de ring wonen en alles wat ze nodig hebben op fietsafstand hebben. Amstelveen voelt als buitenland, Almere als een expeditie. Er bestaat geen zalfje voor en de meeste patiënten willen er ook niet van af.</p>
   <p>Herkent u zichzelf? Lees dan <a href="/nieuws/symptomen-van-ringvrees/">de bijsluiter met alle symptomen</a>.</p>
   <h2 class="h">Het platform</h2>
   <p>Ringvrees neemt elke dag het grootste Amsterdamse nieuws en vertelt het zoals het binnen de A10 voelt. De feiten kloppen: elk stuk begint bij echt Amsterdams nieuws. We schrijven alles in eigen woorden en nemen geen teksten of foto’s over. De rest is satire. Verzonnen bronnen zijn altijd anoniem en echte mensen leggen we nooit woorden in de mond.</p>
@@ -363,9 +369,12 @@ def main():
         d.mkdir(parents=True, exist_ok=True)
         (d / "index.html").write_text(artikel_pagina(a, alle, vandaag), encoding="utf-8")
     extra = rubrieken(alle, vandaag) + over(vandaag) + test_pagina(vandaag) + afstand_pagina(vandaag) + weer_pagina(vandaag)
+    beelden = {url_van(a): [a["beeld"]] for a in alle}
+    beelden["/"] = [a["beeld"] for a in alle[:10]]
     urls = [("/", vandaag.isoformat())] + [(u, vandaag.isoformat()) for u in extra] + [(url_van(a), a["datum"]) for a in alle]
-    sm = "".join(f"  <url><loc>{SITE}{u}</loc><lastmod>{m}</lastmod></url>\n" for u, m in urls)
-    (ROOT / "sitemap.xml").write_text(f'<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n{sm}</urlset>\n', encoding="utf-8")
+    img = lambda u: "".join(f"<image:image><image:loc>{SITE}{b}</image:loc></image:image>" for b in beelden.get(u, []))
+    sm = "".join(f"  <url><loc>{SITE}{u}</loc><lastmod>{m}</lastmod>{img(u)}</url>\n" for u, m in urls)
+    (ROOT / "sitemap.xml").write_text(f'<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">\n{sm}</urlset>\n', encoding="utf-8")
     print(f"gebouwd: {len(alle)} artikelen")
 
 

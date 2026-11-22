@@ -171,3 +171,8 @@ footer a{text-decoration:underline}
 .weer-meer{margin-left:auto;font:800 12px Inter;letter-spacing:.12em;text-transform:uppercase;border-bottom:2px solid var(--red);padding-bottom:2px}
 @media (hover:hover){a.weer-in:hover .weer-meer{color:var(--red)}}
 @media (max-width:820px){.band-grid{grid-template-columns:1fr}.weer-in{flex-wrap:wrap;gap:14px 18px;padding:14px 20px}.weer-ic{width:34px;height:34px}.weer-t{font-size:28px}.weer-uit{padding-left:18px}.weer-meer{flex-basis:100%;margin:0;align-self:flex-start;width:max-content;flex:none}}
+
+/* definitie onder artikelen */
+.def{margin:26px 0 0;padding:16px 18px;background:#fff;border-left:4px solid var(--red);font:500 15px/1.55 Inter;color:#2b2a2e}
+.def b{font:400 20px 'DM Serif Display',serif;color:var(--ink)}
+.def a{display:inline-block;margin-top:6px;font-weight:700;color:var(--red);text-decoration:underline;text-underline-offset:3px}
