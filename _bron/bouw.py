@@ -86,11 +86,11 @@ def balk(vandaag):
     return f"""<div class="strip"><div class="wrap"><span>{nl_datum(vandaag, True)}</span><span><b>Satire</b> · Nieuws van binnen de A10</span></div></div>
 <header class="top"><div class="wrap">
   <a class="logo" href="/">RINGVREES</a>
-  <nav class="nav"><a class="hide" href="/#nieuws">Nieuws</a><a class="hide" href="/#tijdloos">Tijdloos</a><a class="ig" href="{IG}">Instagram →</a></nav>
+  <nav class="nav"><a class="hide" href="/#nieuws">Nieuws</a><a class="hide" href="/#tijdloos">Tijdloos</a><a class="hide" href="/rubrieken/">Rubrieken</a><a class="ig" href="{IG}">Instagram →</a></nav>
 </div></header>"""
 
 
-VOET = """<footer><div class="wrap"><span>Ringvrees is satire. Alles is gebaseerd op echt nieuws, maar dan zoals het écht voelt binnen de A10.</span><span><a href="/rubrieken/">Alle rubrieken</a> · <a id="m" href="#">HALLO [AT] RINGVREES [PUNT] NL</a></span></div></footer>
+VOET = """<footer><div class="wrap"><span>Ringvrees is satire. Alles is gebaseerd op echt nieuws, maar dan zoals het écht voelt binnen de A10.</span><span><a id="m" href="#">HALLO [AT] RINGVREES [PUNT] NL</a></span></div></footer>
 <script>(function(){var u="hallo",d=["ringvrees","nl"].join("."),a=document.getElementById("m");a.textContent=u+"@"+d;a.href="mai"+"lto:"+u+"@"+d;})();</script>
 </body>
 </html>
