@@ -101,14 +101,14 @@ def balk(vandaag, home=False):
     return f"""<div class="strip"><div class="wrap"><span>{nl_datum(vandaag, True)}</span><span><b>Satire</b> · Nieuws van binnen de A10</span></div></div>
 <header class="top"><div class="wrap">
   {logo}
-  <nav class="nav"><a class="hide" href="/#nieuws">Nieuws</a><a class="hide" href="/#tijdloos">Tijdloos</a><a class="hide" href="/rubrieken/">Rubrieken</a><a class="ig" href="{IG}">Instagram →</a>
+  <nav class="nav"><a class="hide" href="/#nieuws">Nieuws</a><a class="hide" href="/#tijdloos">Tijdloos</a><a class="hide" href="/rubrieken/">Rubrieken</a><a class="hide" href="/over/">Over</a><a class="ig" href="{IG}">Instagram →</a>
   <details class="menu"><summary aria-label="Menu"><span></span><span></span><span></span></summary>
    <div class="menu-paneel" onclick="this.parentNode.removeAttribute('open')"><a href="/#nieuws">Nieuws</a><a href="/#tijdloos">Tijdloos</a><a href="/rubrieken/">Rubrieken</a><a href="/over/">Over Ringvrees</a><a href="{IG}">Instagram</a><a href="{FB}">Facebook</a></div>
   </details></nav>
 </div></header>"""
 
 
-VOET = """<footer><div class="wrap"><span>Ringvrees is satire. Alles is gebaseerd op echt nieuws, maar dan zoals het écht voelt binnen de A10.</span><span><a href="/over/">Over Ringvrees</a> · <a id="m" href="#">HALLO [AT] RINGVREES [PUNT] NL</a></span></div></footer>
+VOET = """<footer><div class="wrap"><span>Ringvrees is satire. Alles is gebaseerd op echt nieuws, maar dan zoals het écht voelt binnen de A10.</span><span><a id="m" href="#">HALLO [AT] RINGVREES [PUNT] NL</a></span></div></footer>
 <script>(function(){var u="hallo",d=["ringvrees","nl"].join("."),a=document.getElementById("m");a.textContent=u+"@"+d;a.href="mai"+"lto:"+u+"@"+d;})();</script>
 </body>
 </html>
@@ -208,7 +208,7 @@ def artikel_pagina(a, alle, vandaag):
   <div class="share"><b>{esc(a.get('doorstuur', 'Stuur door naar je huisgenoot'))}</b><a href="https://wa.me/?text={esc(a['titel'] + ' ' + SITE + url)}">WhatsApp</a>{ig}</div>
   {bron}
 </article>
-""" + meer_html + band("Morgen om 17:00 weer vers nieuws van binnen de ring.") + VOET)
+""" + meer_html + band("Morgen weer vers nieuws van binnen de ring.") + VOET)
 
 
 def home(alle, vandaag):
@@ -225,7 +225,7 @@ def home(alle, vandaag):
     if nieuws:
         delen.append(kaart(nieuws[0], groot=True))
     if nieuws[1:]:
-        delen.append("<div class='sec' id='nieuws'><h2 class='h'>Meer nieuws</h2><span class='meta'>Elke dag om 17:00</span></div><div class='grid'>"
+        delen.append("<div class='sec' id='nieuws'><h2 class='h'>Meer nieuws</h2><span class='meta'>Elke dag vers</span></div><div class='grid'>"
                      + "".join(kaart(a) for a in nieuws[1:13]) + "</div>")
     if tijdloos:
         delen.append("<div class='sec' id='tijdloos'><h2 class='h'>Tijdloos</h2><span class='meta'>Voor altijd binnen de ring</span></div><div class='grid'>"
@@ -265,7 +265,7 @@ def over(vandaag):
   <p>Herkent u zichzelf? Lees dan <a href="/nieuws/symptomen-van-ringvrees/">de bijsluiter met alle symptomen</a>.</p>
   <h2 class="h">Het platform</h2>
   <p>Ringvrees neemt elke dag het grootste Amsterdamse nieuws en vertelt het zoals het binnen de A10 voelt. De feiten kloppen: elk stuk is gebaseerd op echt nieuws van onder meer AT5, Het Parool en NH Nieuws. De rest is satire. Verzonnen bronnen zijn altijd anoniem en echte mensen leggen we nooit woorden in de mond.</p>
-  <p>Je vindt Ringvrees op <a href="{IG}">Instagram (@ringvrees)</a>, op <a href="{FB}">Facebook</a> en hier op ringvrees.nl, met elke dag om 17:00 een nieuw verhaal.</p>
+  <p>Je vindt Ringvrees op <a href="{IG}">Instagram (@ringvrees)</a>, op <a href="{FB}">Facebook</a> en hier op ringvrees.nl, met elke dag een nieuw verhaal.</p>
   <h2 class="h">Contact</h2>
   <p>Tip, klacht of een buurman die nooit de ring uit gaat? Mail naar <a id="m2" href="#">hallo [at] ringvrees [punt] nl</a>.</p>
 </article>
