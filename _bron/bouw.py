@@ -188,7 +188,7 @@ def kaart(a, groot=False):
     <a class="heroimg" href="{url_van(a)}"><img src="{a['beeld']}" alt="{esc(a['beeld_alt'])}" width="1600" height="900" fetchpriority="high"></a>
     <div>
       <a class="kick" href="{rubriek_url(a['rubriek'])}">{esc(a['rubriek'])}</a>
-      <a href="{url_van(a)}"><h1 class="h">{esc(a['titel'])}</h1>
+      <a href="{url_van(a)}"><h2 class="h">{esc(a['titel'])}</h2>
       <p>{esc(a['lede'])}</p></a>
       <div class="meta">{meta}</div>
     </div>
@@ -205,6 +205,23 @@ def kaart(a, groot=False):
 DEF = ('<aside class="def"><b>ringvrees</b> <i>(de; v.)</i> de aanhoudende angst om de Amsterdamse ring A10 te verlaten. '
        'Komt vooral voor bij mensen die alles wat ze nodig hebben op fietsafstand hebben. '
        '<a href="/nieuws/symptomen-van-ringvrees/">Wat is ringvrees? Herken de symptomen →</a></aside>')
+
+
+def google_titel(titel):
+    """Google toont ongeveer 60 tekens. Is de kop te lang, neem dan het deel vóór de dubbele punt of komma."""
+    t = f"{titel} | Ringvrees"
+    if len(t) <= 62:
+        return t
+    for teken in (":", ",", " – "):
+        deel = titel.split(teken)[0].strip()
+        if 20 <= len(deel) and len(deel) + 12 <= 62:
+            return f"{deel} | Ringvrees"
+    woorden, uit = titel.split(), ""
+    for w in woorden:
+        if len(uit) + len(w) + 13 > 62:
+            break
+        uit = (uit + " " + w).strip()
+    return f"{uit} | Ringvrees"
 
 
 def artikel_pagina(a, alle, vandaag):
@@ -235,7 +252,7 @@ def artikel_pagina(a, alle, vandaag):
         meer_html = "<div class='wrap'><div class='sec'><h2 class='h'>Meer van binnen de ring</h2></div><div class='grid'>" + "".join(kaart(x) for x in meer) + "</div></div>"
     beeldbron = f"<figcaption>{esc(a['beeld_bron'])}</figcaption>" if a.get("beeld_bron") else ""
     meta = ("Bijgewerkt op " + nl_datum(datetime.date.fromisoformat(a.get("bijgewerkt") or a["datum"])) + " " + (a.get("bijgewerkt") or a["datum"])[:4]) if a["type"] == "tijdloos" else nl_datum(d, True)
-    return (kop(a.get("seo_titel") or f"{a['titel']} | Ringvrees", a.get("seo_beschrijving") or a["lede"], url, a["beeld"], extra) + balk(vandaag) + f"""
+    return (kop(a.get("seo_titel") or google_titel(a["titel"]), a.get("seo_beschrijving") or a["lede"], url, a["beeld"], extra) + balk(vandaag) + f"""
 <article class="art">
   <a class="kick" href="{rubriek_url(a['rubriek'])}">{esc(a['rubriek'])}</a>
   <h1 class="h">{esc(a['titel'])}</h1>
@@ -277,8 +294,8 @@ def home(alle, vandaag):
     return "\n".join(delen)
 
 
-def lijst_pagina(titel, intro, url, items, vandaag):
-    return (kop(f"{titel} | Ringvrees", intro, url) + balk(vandaag) + f"""
+def lijst_pagina(titel, intro, url, items, vandaag, seo_titel=None, seo_beschrijving=None):
+    return (kop(seo_titel or f"{titel} | Ringvrees", seo_beschrijving or intro, url) + balk(vandaag) + f"""
 <main class="wrap"><div class="sec" style="margin-top:44px"><h1 class="h" style="font-size:44px">{esc(titel)}</h1></div>
 <p class="intro">{esc(intro)}</p>
 {items}
@@ -336,7 +353,7 @@ def afstand_pagina(vandaag):
 def weer_pagina(vandaag):
     d = ROOT / "weer"; d.mkdir(exist_ok=True)
     inhoud = (ROOT / "_bron" / "weer.html").read_text(encoding="utf-8")
-    (d / "index.html").write_text(kop("Het weer binnen de ring: de komende dagen in Amsterdam | Ringvrees",
+    (d / "index.html").write_text(kop("Weer in Amsterdam: de komende dagen binnen de ring | Ringvrees",
         "Het weerbericht voor Amsterdam binnen de A10, voor de komende vijf dagen. Voor het weer buiten de ring zoekt u het zelf maar uit.",
         "/weer/") + balk(vandaag) + inhoud + band("Liever ook nooit de ring uit?<br>Volg het nieuws waar je het al leest.") + VOET, encoding="utf-8")
     return ["/weer/"]
@@ -396,12 +413,18 @@ def rubrieken(alle, vandaag):
     for r, arts in per.items():
         d = ROOT / "rubriek" / rslug(r); d.mkdir(parents=True, exist_ok=True)
         grid = "<div class='grid'>" + "".join(kaart(a) for a in arts) + "</div>"
-        (d / "index.html").write_text(lijst_pagina(r, f"Al het nieuws van binnen de ring in de rubriek {r}.", rubriek_url(r), grid, vandaag), encoding="utf-8")
+        (d / "index.html").write_text(lijst_pagina(r, f"Al het nieuws van binnen de ring in de rubriek {r}.", rubriek_url(r), grid, vandaag,
+            seo_titel=f"{r}: satirisch nieuws uit Amsterdam | Ringvrees",
+            seo_beschrijving=f"Alle artikelen van Ringvrees in de rubriek {r}: echt Amsterdams nieuws, maar dan zoals het voelt binnen de ring A10. Droog, flauw en elke dag nieuw."), encoding="utf-8")
     tegels = "<div class='rubrieken'>" + "".join(
         f"<a href='{rubriek_url(r)}'><span class='kick'>{esc(r)}</span><b>{len(v)} {'artikel' if len(v) == 1 else 'artikelen'}</b></a>"
         for r, v in sorted(per.items(), key=lambda x: (-len(x[1]), x[0]))) + "</div>"
     d = ROOT / "rubrieken"; d.mkdir(exist_ok=True)
-    (d / "index.html").write_text(lijst_pagina("Rubrieken", "Alle onderwerpen van binnen de A10 op een rij.", "/rubrieken/", tegels, vandaag), encoding="utf-8")
+    namen = sorted(per)
+    opsomming = ", ".join(namen[:-1]) + " en " + namen[-1] if len(namen) > 1 else namen[0]
+    (d / "index.html").write_text(lijst_pagina("Rubrieken", "Alle onderwerpen van binnen de A10 op een rij.", "/rubrieken/", tegels, vandaag,
+        seo_titel="Alle rubrieken: satirisch nieuws uit Amsterdam | Ringvrees",
+        seo_beschrijving=f"Alle rubrieken van Ringvrees op een rij: {opsomming}. Satirisch nieuws uit Amsterdam, gezien van binnen de ring A10."[:158]), encoding="utf-8")
     return ["/rubrieken/"] + [rubriek_url(r) for r in per]
 
 
