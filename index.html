@@ -33,12 +33,12 @@
    <div class="menu-paneel" onclick="this.parentNode.removeAttribute('open')"><a href="/#nieuws">Nieuws</a><a href="/#tijdloos">Tijdloos</a><a href="/rubrieken/">Rubrieken</a><a href="/over/">Over Ringvrees</a><a href="/test/">Heb jij ringvrees? De test</a><a href="/afstand/">Ring-afstandmeter</a><a href="https://www.instagram.com/ringvrees/">Instagram</a><a href="https://www.facebook.com/Ringvrees">Facebook</a></div>
   </details></nav>
 </div></header>
-<div class="weer" id="weer" hidden><div class="wrap weer-in">
+<div class="weer" id="weer" hidden><a class="wrap weer-in" href="/weer/">
   <span class="weer-ic" id="weerIc"></span>
   <div class="weer-kol"><span class="weer-k">Binnen de ring</span><span class="weer-t" id="weerT"></span><span class="weer-c" id="weerC"></span></div>
   <div class="weer-kol weer-uit"><span class="weer-k">Buiten de ring</span><span class="weer-t">—</span><span class="weer-c" id="weerU"></span></div>
-  <p class="weer-zin" id="weerZin"></p>
-</div></div>
+  <span class="weer-meer">Komende dagen →</span>
+</a></div>
 <script>(function(){
 var I={zon:'<circle cx="16" cy="16" r="6"/><path d="M16 3v4M16 25v4M3 16h4M25 16h4M6.8 6.8l2.8 2.8M22.4 22.4l2.8 2.8M6.8 25.2l2.8-2.8M22.4 9.6l2.8-2.8"/>',
 wolk:'<path d="M9 24h14a5 5 0 0 0 0-10 7 7 0 0 0-13.5 1.5A4.3 4.3 0 0 0 9 24z"/>',
@@ -50,7 +50,7 @@ var t={0:["Zonnig","zon","Waarschijnlijk ook zon, maar wie gaat dat checken?","N
 function zoek(c){var k=[95,80,71,61,51,48,45,3,2,1,0];for(var i=0;i<k.length;i++){if(c>=k[i])return t[k[i]];}return t[3];}
 fetch("https://api.open-meteo.com/v1/forecast?latitude=52.37&longitude=4.89&current=temperature_2m,weather_code,wind_speed_10m&timezone=Europe%2FAmsterdam").then(function(r){return r.json()}).then(function(j){var c=j.current,w=zoek(c.weather_code),zin=w[2];if(c.wind_speed_10m>38)zin="Harde wind. De pont naar Noord is nu een avontuur.";
 document.getElementById("weerIc").innerHTML='<svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">'+I[w[1]]+'</svg>';
-document.getElementById("weerT").textContent=Math.round(c.temperature_2m)+"°";document.getElementById("weerC").textContent=w[0];document.getElementById("weerU").textContent=w[3];document.getElementById("weerZin").textContent="‘"+zin+"’";document.getElementById("weer").hidden=false;}).catch(function(){});
+document.getElementById("weerT").textContent=Math.round(c.temperature_2m)+"°";document.getElementById("weerC").textContent=w[0];document.getElementById("weerU").textContent=w[3];document.getElementById("weer").hidden=false;}).catch(function(){});
 })();</script>
 <main class='wrap'>
 <div class="hero">

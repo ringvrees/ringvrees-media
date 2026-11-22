@@ -117,12 +117,12 @@ VOET = """<footer><div class="wrap"><span>Ringvrees is satire. Alles is gebaseer
 """
 
 
-WEER = """<div class="weer" id="weer" hidden><div class="wrap weer-in">
+WEER = """<div class="weer" id="weer" hidden><a class="wrap weer-in" href="/weer/">
   <span class="weer-ic" id="weerIc"></span>
   <div class="weer-kol"><span class="weer-k">Binnen de ring</span><span class="weer-t" id="weerT"></span><span class="weer-c" id="weerC"></span></div>
   <div class="weer-kol weer-uit"><span class="weer-k">Buiten de ring</span><span class="weer-t">—</span><span class="weer-c" id="weerU"></span></div>
-  <p class="weer-zin" id="weerZin"></p>
-</div></div>
+  <span class="weer-meer">Komende dagen →</span>
+</a></div>
 <script>(function(){
 var I={zon:'<circle cx="16" cy="16" r="6"/><path d="M16 3v4M16 25v4M3 16h4M25 16h4M6.8 6.8l2.8 2.8M22.4 22.4l2.8 2.8M6.8 25.2l2.8-2.8M22.4 9.6l2.8-2.8"/>',
 wolk:'<path d="M9 24h14a5 5 0 0 0 0-10 7 7 0 0 0-13.5 1.5A4.3 4.3 0 0 0 9 24z"/>',
@@ -134,7 +134,7 @@ var t={0:["Zonnig","zon","Waarschijnlijk ook zon, maar wie gaat dat checken?","N
 function zoek(c){var k=[95,80,71,61,51,48,45,3,2,1,0];for(var i=0;i<k.length;i++){if(c>=k[i])return t[k[i]];}return t[3];}
 fetch("https://api.open-meteo.com/v1/forecast?latitude=52.37&longitude=4.89&current=temperature_2m,weather_code,wind_speed_10m&timezone=Europe%2FAmsterdam").then(function(r){return r.json()}).then(function(j){var c=j.current,w=zoek(c.weather_code),zin=w[2];if(c.wind_speed_10m>38)zin="Harde wind. De pont naar Noord is nu een avontuur.";
 document.getElementById("weerIc").innerHTML='<svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">'+I[w[1]]+'</svg>';
-document.getElementById("weerT").textContent=Math.round(c.temperature_2m)+"°";document.getElementById("weerC").textContent=w[0];document.getElementById("weerU").textContent=w[3];document.getElementById("weerZin").textContent="‘"+zin+"’";document.getElementById("weer").hidden=false;}).catch(function(){});
+document.getElementById("weerT").textContent=Math.round(c.temperature_2m)+"°";document.getElementById("weerC").textContent=w[0];document.getElementById("weerU").textContent=w[3];document.getElementById("weer").hidden=false;}).catch(function(){});
 })();</script>"""
 
 
@@ -324,6 +324,15 @@ def afstand_pagina(vandaag):
     return ["/afstand/"]
 
 
+def weer_pagina(vandaag):
+    d = ROOT / "weer"; d.mkdir(exist_ok=True)
+    inhoud = (ROOT / "_bron" / "weer.html").read_text(encoding="utf-8")
+    (d / "index.html").write_text(kop("Het weer binnen de ring: de komende dagen in Amsterdam | Ringvrees",
+        "Het weerbericht voor Amsterdam binnen de A10, voor de komende vijf dagen. Voor het weer buiten de ring zoekt u het zelf maar uit.",
+        "/weer/") + balk(vandaag) + inhoud + band("Liever ook nooit de ring uit?<br>Volg het nieuws waar je het al leest.") + VOET, encoding="utf-8")
+    return ["/weer/"]
+
+
 def rubrieken(alle, vandaag):
     per = {}
     for a in alle:
@@ -353,7 +362,7 @@ def main():
         d = ROOT / "nieuws" / a["slug"]
         d.mkdir(parents=True, exist_ok=True)
         (d / "index.html").write_text(artikel_pagina(a, alle, vandaag), encoding="utf-8")
-    extra = rubrieken(alle, vandaag) + over(vandaag) + test_pagina(vandaag) + afstand_pagina(vandaag)
+    extra = rubrieken(alle, vandaag) + over(vandaag) + test_pagina(vandaag) + afstand_pagina(vandaag) + weer_pagina(vandaag)
     urls = [("/", vandaag.isoformat())] + [(u, vandaag.isoformat()) for u in extra] + [(url_van(a), a["datum"]) for a in alle]
     sm = "".join(f"  <url><loc>{SITE}{u}</loc><lastmod>{m}</lastmod></url>\n" for u, m in urls)
     (ROOT / "sitemap.xml").write_text(f'<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n{sm}</urlset>\n', encoding="utf-8")
