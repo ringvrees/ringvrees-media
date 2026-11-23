@@ -283,10 +283,10 @@ def home(alle, vandaag):
     if nieuws:
         delen.append(kaart(nieuws[0], groot=True))
     if nieuws[1:]:
-        delen.append("<div class='sec' id='nieuws'><h2 class='h'>Meer nieuws</h2><span class='meta'>Elke dag vers</span></div><div class='grid'>"
-                     + "".join(kaart(a, kort=True) for a in nieuws[1:4]) + "</div>")
-    if nieuws[4:]:
-        delen.append(eerder(nieuws[4:]))
+        delen.append("<div class='alleen-breed'><div class='sec' id='nieuws'><h2 class='h'>Meer nieuws</h2><span class='meta'>Elke dag vers</span></div><div class='grid'>"
+                     + "".join(kaart(a, kort=True) for a in nieuws[1:4]) + "</div></div>")
+        # mobiel: alles na het hoofdartikel in de lijst; op desktop staan de eerste drie al als kaart
+        delen.append(eerder(nieuws[1:], dubbel=3))
     if tijdloos:
         delen.append("<div class='sec' id='handboek'><h2 class='h'>Handboek</h2><span class='meta'>Alles wat je moet weten binnen de A10</span></div><div class='grid'>"
                      + "".join(kaart(a) for a in tijdloos) + "</div>")
@@ -296,15 +296,22 @@ def home(alle, vandaag):
     return "\n".join(delen)
 
 
-def eerder(items):
-    """Oudere nieuwsberichten als compacte lijst onder Meer nieuws, per dag een kopje (zoals een nieuwsoverzicht)."""
+def eerder(items, dubbel=0):
+    """Nieuwsberichten als compacte lijst, per dag een kopje (zoals een nieuwsoverzicht).
+    De eerste `dubbel` berichten staan op desktop al als kaart: die regels (en een dagkopje
+    met alleen zulke regels) zijn alleen op mobiel zichtbaar."""
+    dagen = {}
+    for i, a in enumerate(items):
+        dagen.setdefault(a["datum"], []).append(i)
     uit, dag = ["<div class='eerder'>"], None
-    for a in items:
+    for i, a in enumerate(items):
         if a["datum"] != dag:
             if dag: uit.append("</ul>")
             dag = a["datum"]
-            uit.append(f"<h3 class='e-dag'>{nl_datum(datetime.date.fromisoformat(dag), True)}</h3><ul class='e-lijst'>")
-        uit.append(f"""<li><a class="e-img" href="{url_van(a)}"><img src="{a['beeld']}" alt="{esc(a['beeld_alt'])}" width="1600" height="900" loading="lazy" decoding="async"></a>
+            mob = " alleen-mobiel" if all(j < dubbel for j in dagen[dag]) else ""
+            uit.append(f"<h3 class='e-dag{mob}'>{nl_datum(datetime.date.fromisoformat(dag), True)}</h3><ul class='e-lijst{mob}'>")
+        mob = " class='alleen-mobiel'" if i < dubbel else ""
+        uit.append(f"""<li{mob}><a class="e-img" href="{url_van(a)}"><img src="{a['beeld']}" alt="{esc(a['beeld_alt'])}" width="1600" height="900" loading="lazy" decoding="async"></a>
   <div><a class="kick" href="{rubriek_url(a['rubriek'])}">{esc(a['rubriek'])}</a>
   <a class="e-t" href="{url_van(a)}">{esc(a['titel'])}</a>
   <div class="meta">{a.get('tijd', '')}</div></div></li>""")
