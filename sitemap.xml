@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
-  <url><loc>https://ringvrees.nl/</loc><lastmod>2026-11-22</lastmod><image:image><image:loc>https://ringvrees.nl/img/artikelen/de-pont-naar-noord-amsterdam.jpg</image:loc></image:image><image:image><image:loc>https://ringvrees.nl/img/artikelen/parkeren-in-amsterdam-centrum.jpg</image:loc></image:image><image:image><image:loc>https://ringvrees.nl/img/artikelen/2026-11-22-wallen-kamerverfrisser.jpg</image:loc></image:image><image:image><image:loc>https://ringvrees.nl/img/artikelen/2026-11-22-don-melody-club-gta-vi.jpg</image:loc></image:image><image:image><image:loc>https://ringvrees.nl/img/artikelen/2026-11-21-ijtunnel-dicht-noord-buitenland.jpg</image:loc></image:image><image:image><image:loc>https://ringvrees.nl/img/artikelen/symptomen-van-ringvrees.jpg</image:loc></image:image></url>
-  <url><loc>https://ringvrees.nl/rubrieken/</loc><lastmod>2026-11-22</lastmod></url>
+  <url><loc>https://ringvrees.nl/</loc><lastmod>2026-11-23</lastmod><image:image><image:loc>https://ringvrees.nl/img/artikelen/2026-11-23-schaatsbaan-museumplein-korter.jpg</image:loc></image:image><image:image><image:loc>https://ringvrees.nl/img/artikelen/de-pont-naar-noord-amsterdam.jpg</image:loc></image:image><image:image><image:loc>https://ringvrees.nl/img/artikelen/parkeren-in-amsterdam-centrum.jpg</image:loc></image:image><image:image><image:loc>https://ringvrees.nl/img/artikelen/2026-11-22-wallen-kamerverfrisser.jpg</image:loc></image:image><image:image><image:loc>https://ringvrees.nl/img/artikelen/2026-11-22-don-melody-club-gta-vi.jpg</image:loc></image:image><image:image><image:loc>https://ringvrees.nl/img/artikelen/2026-11-21-ijtunnel-dicht-noord-buitenland.jpg</image:loc></image:image><image:image><image:loc>https://ringvrees.nl/img/artikelen/symptomen-van-ringvrees.jpg</image:loc></image:image></url>
+  <url><loc>https://ringvrees.nl/rubrieken/</loc><lastmod>2026-11-23</lastmod></url>
+  <url><loc>https://ringvrees.nl/rubriek/stad/</loc><lastmod>2026-11-23</lastmod></url>
   <url><loc>https://ringvrees.nl/rubriek/gids/</loc><lastmod>2026-11-22</lastmod></url>
   <url><loc>https://ringvrees.nl/rubriek/wallen/</loc><lastmod>2026-11-22</lastmod></url>
   <url><loc>https://ringvrees.nl/rubriek/cultuur/</loc><lastmod>2026-11-22</lastmod></url>
@@ -11,6 +12,7 @@
   <url><loc>https://ringvrees.nl/test/</loc><lastmod>2026-11-22</lastmod></url>
   <url><loc>https://ringvrees.nl/afstand/</loc><lastmod>2026-11-22</lastmod></url>
   <url><loc>https://ringvrees.nl/weer/</loc><lastmod>2026-11-23</lastmod></url>
+  <url><loc>https://ringvrees.nl/nieuws/2026-11-23-schaatsbaan-museumplein-korter/</loc><lastmod>2026-11-23</lastmod><image:image><image:loc>https://ringvrees.nl/img/artikelen/2026-11-23-schaatsbaan-museumplein-korter.jpg</image:loc></image:image></url>
   <url><loc>https://ringvrees.nl/nieuws/de-pont-naar-noord-amsterdam/</loc><lastmod>2026-11-22</lastmod><image:image><image:loc>https://ringvrees.nl/img/artikelen/de-pont-naar-noord-amsterdam.jpg</image:loc></image:image></url>
   <url><loc>https://ringvrees.nl/nieuws/parkeren-in-amsterdam-centrum/</loc><lastmod>2026-11-22</lastmod><image:image><image:loc>https://ringvrees.nl/img/artikelen/parkeren-in-amsterdam-centrum.jpg</image:loc></image:image></url>
   <url><loc>https://ringvrees.nl/nieuws/2026-11-22-wallen-kamerverfrisser/</loc><lastmod>2026-11-22</lastmod><image:image><image:loc>https://ringvrees.nl/img/artikelen/2026-11-22-wallen-kamerverfrisser.jpg</image:loc></image:image></url>
