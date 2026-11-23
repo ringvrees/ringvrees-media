@@ -36,7 +36,7 @@ Elk artikel is één JSON-bestand in _bron/artikelen/ met deze velden:
               (de site toont dan "Bijgewerkt op ..."; zonder dit veld geldt de datum)
   instagram   optioneel, url van de Instagram-post
 """
-import json, html, pathlib, datetime, re, unicodedata
+import json, html, pathlib, datetime, re, unicodedata, hashlib
 from zoneinfo import ZoneInfo
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
@@ -94,7 +94,7 @@ def kop(titel, beschrijving, url, beeld=None, extra=""):
 <meta name="robots" content="max-image-preview:large">
 <link rel="preload" href="/fonts/inter-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/fonts/dm-serif-display-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="/style.css">
+<link rel="stylesheet" href="/style.css?v={CSS_V}">
 <link rel="alternate" type="application/rss+xml" title="Ringvrees" href="/feed.xml">{extra}
 </head>
 <body>"""
@@ -446,6 +446,8 @@ def eerlijke_datum(urls, vandaag):
 
 
 # Uitleg per rubriek (intro op de pagina en omschrijving voor Google). Nieuwe rubriek? Voeg hem toe in _bron/rubrieken.json.
+# versie van style.css, zodat browsers na een wijziging meteen de nieuwe opmaak laden
+CSS_V = hashlib.sha1((ROOT / 'style.css').read_bytes()).hexdigest()[:8]
 _rf = ROOT / "_bron" / "rubrieken.json"
 RUBRIEKEN = json.loads(_rf.read_text(encoding="utf-8")) if _rf.exists() else {}
 
