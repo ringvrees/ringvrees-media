@@ -191,8 +191,8 @@ footer a{text-decoration:underline}
 
 /* Eerder nieuws: compacte lijst per dag */
 .e-dag{font:700 13px Inter;letter-spacing:.14em;text-transform:uppercase;padding:22px 0 14px;border-bottom:1px solid var(--line,#d9cfbf)}
-.e-lijst{list-style:none;margin:-28px 0 0;padding:0 0 56px}
-.e-lijst li:first-child{border-top:1px solid var(--line,#d9cfbf)}
+.eerder{margin-top:-28px;padding-bottom:56px}
+.e-lijst{list-style:none;margin:0;padding:0}
 .e-lijst li{display:flex;gap:22px;align-items:center;padding:16px 0;border-bottom:1px solid var(--line,#d9cfbf)}
 .e-img{flex:none;width:190px}
 .e-img img{width:190px;height:107px;object-fit:cover;display:block}
