@@ -188,3 +188,14 @@ footer a{text-decoration:underline}
 
 /* vaste afmetingen op beelden, hoogte volgt de css */
 .card img[width],.kopbeeld img[width]{height:auto}
+
+/* Eerder nieuws: compacte lijst per dag */
+.eerder{padding-bottom:56px}
+.e-dag{font:700 13px Inter;letter-spacing:.14em;text-transform:uppercase;padding:22px 0 14px;border-bottom:1px solid var(--line,#d9cfbf)}
+.e-lijst{list-style:none;margin:0;padding:0}
+.e-lijst li{display:flex;gap:22px;align-items:center;padding:16px 0;border-bottom:1px solid var(--line,#d9cfbf)}
+.e-img{flex:none;width:190px}
+.e-img img{width:190px;height:107px;object-fit:cover;display:block}
+.e-t{display:block;font-family:"DM Serif Display",DMSerif,serif;font-size:24px;line-height:1.15;margin:8px 0 6px}
+.e-t:hover{text-decoration:underline;text-decoration-thickness:2px;text-underline-offset:4px}
+@media (max-width:820px){.e-lijst li{gap:14px;align-items:flex-start}.e-img,.e-img img{width:112px}.e-img img{height:63px}.e-t{font-size:19px}}

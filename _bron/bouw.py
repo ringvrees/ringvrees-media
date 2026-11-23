@@ -284,7 +284,9 @@ def home(alle, vandaag):
         delen.append(kaart(nieuws[0], groot=True))
     if nieuws[1:]:
         delen.append("<div class='sec' id='nieuws'><h2 class='h'>Meer nieuws</h2><span class='meta'>Elke dag vers</span></div><div class='grid'>"
-                     + "".join(kaart(a) for a in nieuws[1:13]) + "</div>")
+                     + "".join(kaart(a) for a in nieuws[1:4]) + "</div>")
+    if nieuws[4:]:
+        delen.append(eerder(nieuws[4:]))
     if tijdloos:
         delen.append("<div class='sec' id='tijdloos'><h2 class='h'>Tijdloos</h2><span class='meta'>Voor altijd binnen de ring</span></div><div class='grid'>"
                      + "".join(kaart(a) for a in tijdloos) + "</div>")
@@ -292,6 +294,22 @@ def home(alle, vandaag):
     delen.append(band("Liever ook nooit de ring uit?<br>Volg het nieuws waar je het al leest."))
     delen.append(VOET)
     return "\n".join(delen)
+
+
+def eerder(items):
+    """Oudere nieuwsberichten als compacte lijst, per dag gegroepeerd (zoals een nieuwsoverzicht)."""
+    uit, dag = ["<section class='eerder'><div class='sec'><h2 class='h'>Eerder nieuws</h2><span class='meta'>Per dag</span></div>"], None
+    for a in items:
+        if a["datum"] != dag:
+            if dag: uit.append("</ul>")
+            dag = a["datum"]
+            uit.append(f"<h3 class='e-dag'>{nl_datum(datetime.date.fromisoformat(dag), True)}</h3><ul class='e-lijst'>")
+        uit.append(f"""<li><a class="e-img" href="{url_van(a)}"><img src="{a['beeld']}" alt="{esc(a['beeld_alt'])}" width="1600" height="900" loading="lazy" decoding="async"></a>
+  <div><a class="kick" href="{rubriek_url(a['rubriek'])}">{esc(a['rubriek'])}</a>
+  <a class="e-t" href="{url_van(a)}">{esc(a['titel'])}</a>
+  <div class="meta">{a.get('tijd', '')}</div></div></li>""")
+    uit.append("</ul></section>")
+    return "\n".join(uit)
 
 
 def lijst_pagina(titel, intro, url, items, vandaag, seo_titel=None, seo_beschrijving=None):
