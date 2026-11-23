@@ -297,20 +297,16 @@ def home(alle, vandaag):
 
 
 def eerder(items):
-    """Oudere nieuwsberichten als compacte lijst, per dag gegroepeerd (zoals een nieuwsoverzicht)."""
-    uit, dag = ["<section class='eerder'><div class='sec'><h2 class='h'>Eerder nieuws</h2><span class='meta'>Per dag</span></div>"], None
+    """Oudere nieuwsberichten als compacte lijst onder Meer nieuws (zoals een nieuwsoverzicht)."""
+    uit = ["<ul class='e-lijst'>"]
     for a in items:
-        if a["datum"] != dag:
-            if dag: uit.append("</ul>")
-            dag = a["datum"]
-            uit.append(f"<h3 class='e-dag'>{nl_datum(datetime.date.fromisoformat(dag), True)}</h3><ul class='e-lijst'>")
+        wanneer = nl_datum(datetime.date.fromisoformat(a["datum"]), True) + (f" · {a['tijd']}" if a.get("tijd") else "")
         uit.append(f"""<li><a class="e-img" href="{url_van(a)}"><img src="{a['beeld']}" alt="{esc(a['beeld_alt'])}" width="1600" height="900" loading="lazy" decoding="async"></a>
   <div><a class="kick" href="{rubriek_url(a['rubriek'])}">{esc(a['rubriek'])}</a>
   <a class="e-t" href="{url_van(a)}">{esc(a['titel'])}</a>
-  <div class="meta">{a.get('tijd', '')}</div></div></li>""")
-    uit.append("</ul></section>")
+  <div class="meta">{wanneer}</div></div></li>""")
+    uit.append("</ul>")
     return "\n".join(uit)
-
 
 def lijst_pagina(titel, intro, url, items, vandaag, seo_titel=None, seo_beschrijving=None):
     return (kop(seo_titel or f"{titel} | Ringvrees", seo_beschrijving or intro, url) + balk(vandaag) + f"""
