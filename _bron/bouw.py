@@ -104,7 +104,22 @@ def balk(vandaag, home=False):
     logo = '<a class="logo" href="/">RINGVREES</a>'
     if home:
         logo = '<h1 style="margin:0;font-size:inherit;font-weight:inherit;line-height:inherit">' + logo + '</h1>'
-    return f"""<div class="strip"><div class="wrap"><span>{nl_datum(vandaag, True)}</span><span><b>Satire</b> · Nieuws van binnen de A10</span></div></div>
+    return f"""<div class="strip"><div class="wrap"><span>{nl_datum(vandaag, True)}</span><span><button class="sat-knop" type="button" onclick="document.getElementById('verklaring').showModal()"><b>Satire</b></button> · Nieuws van binnen de A10</span></div></div>
+<dialog id="verklaring" class="verklaring" onclick="if(event.target===this)this.close()"><div class="vk-in">
+  <div class="vk-stempel">Officiële verklaring</div>
+  <p class="vk-kop">Alles op Ringvrees is satire.*</p>
+  <p class="vk-ster">* Behalve voor wie buiten de A10 woont. Voor hen is dit gewoon hoe het is.</p>
+  <p class="vk-uit">Of het voor jou satire is, hangt dus af van je postcode.</p>
+  <div class="vk-knoppen"><button type="button" class="vk-ok" onclick="this.closest('.vk-in').classList.add('stap2')">Begrepen</button><a class="vk-check" href="/afstand/">Ik woon buiten de ring →</a></div>
+  <div class="vk-voet">Ringvrees · Afdeling Juridische Zaken Binnen de Ring</div>
+  <div class="vk-twee">
+    <p class="vk-kop">Bedankt voor uw begrip.</p>
+    <p class="vk-ster">U ontvangt binnen 6 tot 8 weken een schriftelijke bevestiging. Per bakfiets.</p>
+    <p class="vk-uit">Woont u buiten de ring? Dan kan het iets langer duren.</p>
+    <div class="vk-afgehandeld">Afgehandeld</div>
+    <button type="button" class="vk-ok" onclick="if(location.pathname==='/'){{var d=this.closest('dialog');d.close();d.querySelector('.vk-in').classList.remove('stap2')}}else{{location.href='/'}}">Terug naar het nieuws</button>
+  </div>
+</div></dialog>
 <header class="top"><div class="wrap">
   {logo}
   <nav class="nav"><a class="hide" href="/#nieuws">Nieuws</a><a class="hide" href="/#handboek">Handboek</a><a class="hide" href="/rubrieken/">Rubrieken</a><a class="hide" href="/over/">Over</a><a class="ig" href="/test/">Doe de test →</a>

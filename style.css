@@ -212,3 +212,25 @@ footer a{text-decoration:underline}
 .e-dag{border-top:1px solid var(--line,#d9cfbf);margin-top:14px;padding:20px 0 4px}
 .e-lijst li,.e-lijst li:first-child{padding:8px 0}
 @media (max-width:820px){.eerder>.e-dag:first-child{border-top:none;margin-top:0;padding-top:6px}}
+
+/* Satire-verklaring */
+.sat-knop{background:none;border:0;padding:0;font:inherit;color:inherit;letter-spacing:inherit;text-transform:inherit;cursor:pointer;text-decoration:underline dotted;text-underline-offset:3px}
+.sat-knop:hover{text-decoration-style:solid}
+.verklaring{border:0;padding:0;background:transparent;max-width:460px;width:calc(100% - 48px);margin:auto;overflow:visible;inset:0;position:fixed}
+.verklaring::backdrop{background:rgba(17,16,18,.55)}
+.vk-in{position:relative;background:var(--paper,#F2ECE1);color:var(--ink,#111012);padding:38px 34px 26px;border:2px solid var(--ink,#111012);box-shadow:10px 10px 0 var(--red,#D7301F)}
+.vk-stempel{position:absolute;top:-16px;right:22px;transform:rotate(4deg);background:var(--red,#D7301F);color:#fff;font:800 12px Inter;letter-spacing:.18em;text-transform:uppercase;padding:7px 12px}
+.vk-kop{font:400 34px/1.1 "DM Serif Display",serif;margin:0 0 14px}
+.vk-ster{font:500 16px/1.5 Inter;margin:0 0 14px}
+.vk-uit{font:400 15px/1.5 Inter;color:var(--mute,#6b665e);margin:0 0 22px}
+.vk-knoppen{display:flex;gap:12px;flex-wrap:wrap;align-items:center}
+.vk-ok{background:var(--ink,#111012);color:#fff;border:0;font:800 13px Inter;letter-spacing:.12em;text-transform:uppercase;padding:13px 18px;cursor:pointer}
+.vk-check{color:var(--red,#D7301F);font:800 13px Inter;letter-spacing:.08em;text-transform:uppercase;text-decoration:underline;text-underline-offset:4px}
+.vk-voet{margin-top:22px;padding-top:12px;border-top:1px solid rgba(17,16,18,.15);font:600 10px Inter;letter-spacing:.14em;text-transform:uppercase;color:var(--mute,#6b665e)}
+
+.vk-twee{display:none}
+.vk-in.stap2>*:not(.vk-twee):not(.vk-stempel){display:none}
+.vk-in.stap2 .vk-twee{display:block;position:relative}
+.vk-afgehandeld{position:static;display:inline-block;margin:0 0 24px 6px;border:3px solid var(--red);color:var(--red);font:800 18px Inter;letter-spacing:.16em;text-transform:uppercase;padding:6px 12px;transform:rotate(-12deg);animation:stempel .35s cubic-bezier(.2,.8,.3,1.3) .25s both}
+@keyframes stempel{from{opacity:0;transform:rotate(-12deg) scale(2.4)}to{opacity:.9;transform:rotate(-12deg) scale(1)}}
+.vk-twee .vk-uit{margin-bottom:22px}
