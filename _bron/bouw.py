@@ -180,7 +180,7 @@ def blok(b):
     raise ValueError(f"onbekend blok: {b}")
 
 
-def kaart(a, groot=False):
+def kaart(a, groot=False, kort=False):
     d = datetime.date.fromisoformat(a["datum"])
     meta = ("Bijgewerkt " + nl_datum(datetime.date.fromisoformat(a.get("bijgewerkt") or a["datum"])) + " " + (a.get("bijgewerkt") or a["datum"])[:4]) if a["type"] == "tijdloos" else nl_datum(d)
     if groot:
@@ -197,7 +197,7 @@ def kaart(a, groot=False):
       <a class="beeld{' foto' if a.get('beeld_bron', '').startswith('Foto') else ''}" href="{url_van(a)}"><img src="{a['beeld']}" alt="{esc(a['beeld_alt'])}" width="1600" height="900" loading="lazy" decoding="async"></a>
       <a class="kick" href="{rubriek_url(a['rubriek'])}">{esc(a['rubriek'])}</a>
       <a href="{url_van(a)}"><h3 class="h">{esc(a['titel'])}</h3>
-      <p>{esc(a['lede'])}</p></a>
+      {'' if kort else '<p>' + esc(a['lede']) + '</p>'}</a>
       <div class="meta">{meta}</div>
     </div>"""
 
@@ -284,7 +284,7 @@ def home(alle, vandaag):
         delen.append(kaart(nieuws[0], groot=True))
     if nieuws[1:]:
         delen.append("<div class='sec' id='nieuws'><h2 class='h'>Meer nieuws</h2><span class='meta'>Elke dag vers</span></div><div class='grid'>"
-                     + "".join(kaart(a) for a in nieuws[1:4]) + "</div>")
+                     + "".join(kaart(a, kort=True) for a in nieuws[1:4]) + "</div>")
     if nieuws[4:]:
         delen.append(eerder(nieuws[4:]))
     if tijdloos:
