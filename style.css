@@ -205,3 +205,6 @@ footer a{text-decoration:underline}
 /* Homepage: desktop kaarten, mobiel één lijst per dag */
 @media (min-width:821px){.eerder .alleen-mobiel{display:none!important}}
 @media (max-width:820px){.alleen-breed{display:none}.eerder{margin-top:0;padding-top:12px}}
+/* Lijst rustiger: geen lijntjes, alleen witruimte en het dagkopje */
+.e-dag{border-bottom:none;padding:26px 0 6px}
+.e-lijst li,.e-lijst li:first-child{border:none;padding:12px 0}
