@@ -1,10 +1,14 @@
 {
  "/": [
-  "572e4fa705c5",
+  "1c39a0de9ac9",
   "2026-11-23"
  ],
  "/rubrieken/": [
-  "215274dd7f3f",
+  "6e953e60b180",
+  "2026-11-23"
+ ],
+ "/rubriek/verkeer/": [
+  "4a536ff05c50",
   "2026-11-23"
  ],
  "/rubriek/stad/": [
@@ -21,10 +25,6 @@
  ],
  "/rubriek/cultuur/": [
   "cebf5bfe3bca",
-  "2026-11-22"
- ],
- "/rubriek/verkeer/": [
-  "a27ece083f21",
   "2026-11-22"
  ],
  "/rubriek/bijsluiter/": [
