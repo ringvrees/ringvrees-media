@@ -138,6 +138,30 @@ def balk(vandaag, home=False):
 
 
 VOET = """<footer><div class="wrap"><span>Ringvrees is satire. Alles is gebaseerd op echt nieuws, maar dan zoals het écht voelt binnen de A10.</span></div></footer>
+<script>(function(){
+/* Paaseitje: typ ergens op de site "A10" en de pagina rijdt een rondje over de ring. */
+var b="";
+document.addEventListener("keydown",function(e){
+ var t=e.target;
+ if(e.metaKey||e.ctrlKey||e.altKey||(t&&(t.isContentEditable||/^(INPUT|TEXTAREA|SELECT)$/.test(t.tagName))))return;
+ b=(b+(e.key&&e.key.length===1?e.key:"")).toLowerCase().slice(-3);
+ if(b==="a10"){b="";rond();}
+});
+function rond(){
+ var h=document.documentElement;
+ if(h.classList.contains("rond")||document.querySelector(".ring-melding"))return;
+ var stil=window.matchMedia&&matchMedia("(prefers-reduced-motion: reduce)").matches;
+ if(!stil){document.body.style.transformOrigin="50% "+(window.scrollY+window.innerHeight/2)+"px";h.classList.add("rond");setTimeout(function(){h.classList.remove("rond");document.body.style.transformOrigin="";},1600);}
+ setTimeout(melding,stil?0:1500);
+}
+function melding(){
+ var d=document.createElement("div");d.className="ring-melding";d.setAttribute("role","status");
+ d.innerHTML='<span class="ring-stempel">Ring gerond</span><b>U heeft de ring gerond.</b><span>32 kilometer, nul keer de afslag gemist. Gefeliciteerd: u bent nu officieel Amsterdammer.</span>';
+ d.onclick=function(){d.remove()};
+ document.body.appendChild(d);
+ setTimeout(function(){d.classList.add("weg")},5200);setTimeout(function(){d.remove()},5800);
+}
+})();</script>
 </body>
 </html>
 """

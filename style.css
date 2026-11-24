@@ -234,3 +234,13 @@ footer a{text-decoration:underline}
 .vk-afgehandeld{position:static;display:inline-block;margin:0 0 24px 6px;border:3px solid var(--red);color:var(--red);font:800 18px Inter;letter-spacing:.16em;text-transform:uppercase;padding:6px 12px;transform:rotate(-12deg);animation:stempel .35s cubic-bezier(.2,.8,.3,1.3) .25s both}
 @keyframes stempel{from{opacity:0;transform:rotate(-12deg) scale(2.4)}to{opacity:.9;transform:rotate(-12deg) scale(1)}}
 .vk-twee .vk-uit{margin-bottom:22px}
+
+/* Paaseitje A10: rondje over de ring */
+html.rond{overflow:hidden}
+html.rond body{animation:ringrond 1.5s cubic-bezier(.65,0,.35,1)}
+@keyframes ringrond{from{transform:rotate(0)}to{transform:rotate(360deg)}}
+.ring-melding{position:fixed;left:50%;bottom:28px;transform:translateX(-50%);z-index:9999;width:min(440px,calc(100vw - 32px));background:var(--paper,#F2ECE1);color:var(--ink,#111012);border:2px solid var(--ink,#111012);box-shadow:6px 6px 0 var(--ink,#111012);padding:18px 22px 20px;font:500 16px/1.45 Inter,sans-serif;display:flex;flex-direction:column;gap:6px;cursor:pointer;animation:ringin .35s cubic-bezier(.2,.8,.3,1.2) both}
+.ring-melding b{font:400 26px/1.1 "DM Serif Display",serif}
+.ring-stempel{align-self:flex-start;border:3px solid var(--red,#E1251B);color:var(--red,#E1251B);font:800 13px Inter,sans-serif;letter-spacing:.16em;text-transform:uppercase;padding:4px 10px;transform:rotate(-6deg);margin-bottom:4px}
+.ring-melding.weg{opacity:0;transform:translate(-50%,12px);transition:.5s}
+@keyframes ringin{from{opacity:0;transform:translate(-50%,24px)}to{opacity:1;transform:translate(-50%,0)}}

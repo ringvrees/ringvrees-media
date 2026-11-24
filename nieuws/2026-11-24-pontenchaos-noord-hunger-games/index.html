@@ -24,7 +24,7 @@
 <meta name="robots" content="max-image-preview:large">
 <link rel="preload" href="/fonts/inter-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/fonts/dm-serif-display-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="/style.css?v=d0e91847">
+<link rel="stylesheet" href="/style.css?v=9ab16863">
 <link rel="alternate" type="application/rss+xml" title="Ringvrees" href="/feed.xml">
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "NewsArticle", "headline": "Twee ponten kapot: oversteek naar Amsterdam-Noord voelt als The Hunger Games", "description": "Door twee uitgevallen ponten is het achter Centraal Station dringen geblazen. Wie naar Noord wil, moet zich een plekje op het water bevechten.", "image": ["https://ringvrees.nl/img/artikelen/2026-11-24-pontenchaos-noord-hunger-games.jpg"], "datePublished": "2026-11-24T12:00:00+01:00", "dateModified": "2026-11-24T12:00:00+01:00", "inLanguage": "nl-NL", "genre": "satire", "articleSection": "Verkeer", "url": "https://ringvrees.nl/nieuws/2026-11-24-pontenchaos-noord-hunger-games/", "mainEntityOfPage": "https://ringvrees.nl/nieuws/2026-11-24-pontenchaos-noord-hunger-games/", "isAccessibleForFree": true, "contentLocation": {"@type": "Place", "name": "Amsterdam"}, "author": {"@type": "Organization", "name": "Redactie Ringvrees", "url": "https://ringvrees.nl/over/"}, "publisher": {"@type": "NewsMediaOrganization", "name": "Ringvrees", "alternateName": ["@ringvrees", "Ringvrees.nl"], "url": "https://ringvrees.nl/", "logo": {"@type": "ImageObject", "url": "https://ringvrees.nl/icon-512.png", "width": 512, "height": 512}, "description": "Satirisch nieuwsplatform uit Amsterdam. Dagelijks echt Amsterdams nieuws, maar dan zoals het écht voelt binnen de ring A10.", "email": "hallo@ringvrees.nl", "areaServed": "Amsterdam", "sameAs": ["https://www.instagram.com/ringvrees/", "https://www.facebook.com/Ringvrees"]}}</script>
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Ringvrees", "item": "https://ringvrees.nl/"}, {"@type": "ListItem", "position": 2, "name": "Verkeer", "item": "https://ringvrees.nl/rubriek/verkeer/"}, {"@type": "ListItem", "position": 3, "name": "Twee ponten kapot: oversteek naar Amsterdam-Noord voelt als The Hunger Games"}]}</script>
@@ -87,5 +87,29 @@
   <div class="h">Morgen weer vers nieuws van binnen de ring.</div>
   <a href="https://www.instagram.com/ringvrees/">Volg @ringvrees →</a>
 </div></section><footer><div class="wrap"><span>Ringvrees is satire. Alles is gebaseerd op echt nieuws, maar dan zoals het écht voelt binnen de A10.</span></div></footer>
+<script>(function(){
+/* Paaseitje: typ ergens op de site "A10" en de pagina rijdt een rondje over de ring. */
+var b="";
+document.addEventListener("keydown",function(e){
+ var t=e.target;
+ if(e.metaKey||e.ctrlKey||e.altKey||(t&&(t.isContentEditable||/^(INPUT|TEXTAREA|SELECT)$/.test(t.tagName))))return;
+ b=(b+(e.key&&e.key.length===1?e.key:"")).toLowerCase().slice(-3);
+ if(b==="a10"){b="";rond();}
+});
+function rond(){
+ var h=document.documentElement;
+ if(h.classList.contains("rond")||document.querySelector(".ring-melding"))return;
+ var stil=window.matchMedia&&matchMedia("(prefers-reduced-motion: reduce)").matches;
+ if(!stil){document.body.style.transformOrigin="50% "+(window.scrollY+window.innerHeight/2)+"px";h.classList.add("rond");setTimeout(function(){h.classList.remove("rond");document.body.style.transformOrigin="";},1600);}
+ setTimeout(melding,stil?0:1500);
+}
+function melding(){
+ var d=document.createElement("div");d.className="ring-melding";d.setAttribute("role","status");
+ d.innerHTML='<span class="ring-stempel">Ring gerond</span><b>U heeft de ring gerond.</b><span>32 kilometer, nul keer de afslag gemist. Gefeliciteerd: u bent nu officieel Amsterdammer.</span>';
+ d.onclick=function(){d.remove()};
+ document.body.appendChild(d);
+ setTimeout(function(){d.classList.add("weg")},5200);setTimeout(function(){d.remove()},5800);
+}
+})();</script>
 </body>
 </html>
