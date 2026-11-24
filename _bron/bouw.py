@@ -523,6 +523,23 @@ def komma_check(alle):
         for f in fouten: print("  -", f)
 
 
+def nieuws_sitemap(alle):
+    """Google News-sitemap: alleen nieuwsartikelen van de laatste 2 dagen (max 1000)."""
+    nu = datetime.datetime.now(ZoneInfo("Europe/Amsterdam"))
+    regels = []
+    for a in alle:
+        if a.get("type") == "tijdloos":
+            continue
+        pub = datetime.datetime.fromisoformat(f"{a['datum']}T{a.get('tijd') or '12:00'}").replace(tzinfo=ZoneInfo("Europe/Amsterdam"))
+        if pub > nu or nu - pub > datetime.timedelta(days=2):
+            continue
+        regels.append(f"  <url><loc>{SITE}{url_van(a)}</loc><news:news><news:publication><news:name>Ringvrees</news:name>"
+                      f"<news:language>nl</news:language></news:publication><news:publication_date>{pub.isoformat()}</news:publication_date>"
+                      f"<news:title>{esc(a['titel'])}</news:title></news:news></url>\n")
+    (ROOT / "news-sitemap.xml").write_text('<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" '
+        'xmlns:news="http://www.google.com/schemas/sitemap-news/0.9">\n' + "".join(regels[:1000]) + "</urlset>\n", encoding="utf-8")
+
+
 def main():
     vandaag = datetime.date.today()
     alle = [json.loads(p.read_text(encoding="utf-8")) for p in sorted((ROOT / "_bron/artikelen").glob("*.json"))]
@@ -547,6 +564,7 @@ def main():
     img = lambda u: "".join(f"<image:image><image:loc>{SITE}{b}</image:loc></image:image>" for b in beelden.get(u, []))
     sm = "".join(f"  <url><loc>{SITE}{u}</loc><lastmod>{m}</lastmod>{img(u)}</url>\n" for u, m in urls)
     (ROOT / "sitemap.xml").write_text(f'<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">\n{sm}</urlset>\n', encoding="utf-8")
+    nieuws_sitemap(alle)
     print(f"gebouwd: {len(alle)} artikelen")
 
 
