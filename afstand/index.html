@@ -255,7 +255,7 @@ function rond(){
 }
 function melding(){
  var d=document.createElement("div");d.className="ring-melding";d.setAttribute("role","status");
- d.innerHTML='<span class="ring-stempel">Ring gerond</span><b>U heeft de ring gerond.</b><span>32 kilometer, nul keer de afslag gemist. Gefeliciteerd: u bent nu officieel Amsterdammer.</span>';
+ d.innerHTML='<span class="ring-stempel">Rondje A10</span><b>U heeft de hele ring rondgereden.</b><span>32 kilometer, nul keer de afslag gemist. Gefeliciteerd: u bent nu officieel Amsterdammer.</span>';
  d.onclick=function(){d.remove()};
  document.body.appendChild(d);
  setTimeout(function(){d.classList.add("weg")},5200);setTimeout(function(){d.remove()},5800);
