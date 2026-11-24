@@ -244,3 +244,7 @@ html.rond body{animation:ringrond 1.5s cubic-bezier(.65,0,.35,1)}
 .ring-stempel{align-self:flex-start;border:3px solid var(--red,#E1251B);color:var(--red,#E1251B);font:800 13px Inter,sans-serif;letter-spacing:.16em;text-transform:uppercase;padding:4px 10px;transform:rotate(-6deg);margin-bottom:4px}
 .ring-melding.weg{opacity:0;transform:translate(-50%,12px);transition:.5s}
 @keyframes ringin{from{opacity:0;transform:translate(-50%,24px)}to{opacity:1;transform:translate(-50%,0)}}
+
+/* Geen foto tussen intro en tekst (bv. Over): witruimte niet optellen */
+.art:not(.body)+.art.body{padding-top:0}
+.art:not(.body)+.art.body>h2:first-child{margin-top:12px}
