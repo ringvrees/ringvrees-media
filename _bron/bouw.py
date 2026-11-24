@@ -476,6 +476,30 @@ def rubrieken(alle, vandaag):
     return ["/rubrieken/"] + [rubriek_url(r) for r in per]
 
 
+KOMMA_EN = re.compile(r"[,;]\s+en\b|\ben\s*,", re.I)
+
+
+def komma_check(alle):
+    """Huisregel: nooit een komma voor of na 'en'. Stopt de bouw bij een overtreding."""
+    fouten = []
+    def tekst(x):
+        if isinstance(x, str): yield x
+        elif isinstance(x, dict):
+            for v in x.values(): yield from tekst(v)
+        elif isinstance(x, list):
+            for v in x: yield from tekst(v)
+    for a in alle:
+        for veld in ("titel", "lede", "seo_titel", "seo_beschrijving", "beeld_alt", "doorstuur", "blokken"):
+            for t in tekst(a.get(veld, "")):
+                schoon = re.sub(r"<[^>]+>", "", t)
+                for m in KOMMA_EN.finditer(schoon):
+                    fouten.append(f"{a['slug']}: ...{schoon[max(0, m.start()-40):m.end()+25]}...")
+    if fouten:
+        print("KOMMA-FOUT: een komma voor of na 'en' is niet toegestaan. Herschrijf deze zinnen en bouw opnieuw:")
+        for f in fouten: print("  -", f)
+        raise SystemExit(1)
+
+
 def main():
     vandaag = datetime.date.today()
     alle = [json.loads(p.read_text(encoding="utf-8")) for p in sorted((ROOT / "_bron/artikelen").glob("*.json"))]
@@ -483,6 +507,7 @@ def main():
         for veld in ("slug", "datum", "type", "rubriek", "titel", "lede", "beeld", "beeld_alt", "blokken"):
             assert veld in a, f"{a.get('slug')}: veld {veld} ontbreekt"
         assert (ROOT / a["beeld"].lstrip("/")).exists(), f"{a['slug']}: beeld {a['beeld']} bestaat niet"
+    komma_check(alle)
     alle.sort(key=lambda a: (a["datum"], a.get("tijd", "17:00")), reverse=True)
     (ROOT / "index.html").write_text(home(alle, vandaag), encoding="utf-8")
     for a in alle:
