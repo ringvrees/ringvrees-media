@@ -22,5 +22,9 @@
  "Stad": {
   "intro": "Nieuws over de openbare ruimte van Amsterdam: pleinen, parken, ijsbanen, bankjes en alles wat de gemeente er neerzet of weer weghaalt. De feiten kloppen. De blik is die van iemand die al dertig jaar om het Museumplein heen fietst en er nog nooit een rondje op heeft geschaatst.",
   "omschrijving": "Satirisch nieuws over pleinen, parken en de openbare ruimte van Amsterdam. Echte feiten, gebracht met de droge blik van binnen de ring A10."
+ },
+ "Sport": {
+  "intro": "Nieuws over sport in Amsterdam: van Ajax tot een veldrit in het Amsterdamse Bos. De feiten kloppen. De blik is die van iemand die zijn dagelijkse sport beoefent op weg naar de bakker.",
+  "omschrijving": "Satirisch sportnieuws uit Amsterdam: echte feiten over clubs, wedstrijden en evenementen, met de droge blik van binnen de ring A10."
  }
 }
