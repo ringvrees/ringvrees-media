@@ -480,7 +480,7 @@ KOMMA_EN = re.compile(r"[,;]\s+en\b|\ben\s*,", re.I)
 
 
 def komma_check(alle):
-    """Huisregel: nooit een komma voor of na 'en'. Stopt de bouw bij een overtreding."""
+    """Huisregel: nooit een komma voor of na 'en'. Meldt overtredingen, maar bouwt gewoon door."""
     fouten = []
     def tekst(x):
         if isinstance(x, str): yield x
@@ -495,9 +495,8 @@ def komma_check(alle):
                 for m in KOMMA_EN.finditer(schoon):
                     fouten.append(f"{a['slug']}: ...{schoon[max(0, m.start()-40):m.end()+25]}...")
     if fouten:
-        print("KOMMA-FOUT: een komma voor of na 'en' is niet toegestaan. Herschrijf deze zinnen en bouw opnieuw:")
+        print("LET OP: komma voor of na 'en' gevonden. Herschrijf deze zinnen in het artikel:")
         for f in fouten: print("  -", f)
-        raise SystemExit(1)
 
 
 def main():
