@@ -11,7 +11,10 @@ Elk artikel is één JSON-bestand in _bron/artikelen/ met deze velden:
   rubriek     kort label, bv. "Wallen", "Verkeer", "Cultuur"
   titel       de kop (satirisch, met Amsterdam/onderwerp erin)
   lede        1 à 2 zinnen intro
-  beeld       pad naar header-afbeelding 1600x900 (bv. "/img/artikelen/<slug>.jpg"), zonder slide-info
+  beeld       pad naar header-afbeelding 1600x900 (bv. "/img/artikelen/<slug>.jpg"), zonder slide-info.
+              Foto uit de Unsplash-API: de volledige images.unsplash.com-link uit de API (met ixid),
+              met &w=1600&h=900&fit=crop&crop=entropy&q=80&fm=jpg erachter. Die wordt dan direct van
+              Unsplash getoond (hotlinken, verplicht volgens de API-richtlijnen); niet zelf opslaan.
   beeld_alt   korte feitelijke omschrijving van het beeld
   beeld_bron  bij een foto verplicht en beginnend met "Foto:" (dan toont de site hem in kaartjes als zwevende afdruk);
               bij een getekende graphic weglaten. Noem de fotograaf en licentie (bv. "Foto: Naam via Unsplash")
@@ -70,8 +73,13 @@ def esc(s):
     return html.escape(s, quote=True)
 
 
+def abs_beeld(b):
+    """Absolute URL van een beeld: externe Unsplash-links blijven zoals ze zijn."""
+    return b if b.startswith("http") else SITE + b
+
+
 def kop(titel, beschrijving, url, beeld=None, extra=""):
-    img = f'\n<meta property="og:image" content="{SITE}{beeld}">\n<meta property="og:image:width" content="1600">\n<meta property="og:image:height" content="900">\n<meta property="og:image:type" content="image/jpeg">' if beeld else f'\n<meta property="og:image" content="{SITE}/icon-512.png">'
+    img = f'\n<meta property="og:image" content="{esc(abs_beeld(beeld))}">\n<meta property="og:image:width" content="1600">\n<meta property="og:image:height" content="900">\n<meta property="og:image:type" content="image/jpeg">' if beeld else f'\n<meta property="og:image" content="{SITE}/icon-512.png">'
     return f"""<!DOCTYPE html>
 <html lang="nl">
 <head>
@@ -245,7 +253,7 @@ def artikel_pagina(a, alle, vandaag):
     tijd = a.get("tijd") or "12:00"
     pub = datetime.datetime.fromisoformat(f"{a['datum']}T{tijd}").replace(tzinfo=ZoneInfo("Europe/Amsterdam")).isoformat()
     ld = {"@context": "https://schema.org", "@type": "NewsArticle", "headline": a["titel"][:110],
-          "description": a["lede"], "image": [SITE + a["beeld"]], "datePublished": pub, "dateModified": (a.get("bijgewerkt") + "T12:00:00+01:00") if a.get("bijgewerkt") else pub,
+          "description": a["lede"], "image": [abs_beeld(a["beeld"])], "datePublished": pub, "dateModified": (a.get("bijgewerkt") + "T12:00:00+01:00") if a.get("bijgewerkt") else pub,
           "inLanguage": "nl-NL", "genre": "satire", "articleSection": a["rubriek"], "url": SITE + url,
           "mainEntityOfPage": SITE + url, "isAccessibleForFree": True,
           "contentLocation": {"@type": "Place", "name": "Amsterdam"},
@@ -418,7 +426,7 @@ def feed(alle):
         items += (f"<item><title>{esc(a['titel'])}</title><link>{SITE}{url_van(a)}</link><guid>{SITE}{url_van(a)}</guid>"
                   f"<pubDate>{format_datetime(dt)}</pubDate><category>{esc(a['rubriek'])}</category>"
                   f"<description>{esc(a['lede'])}</description>"
-                  f"<enclosure url=\"{SITE}{a['beeld']}\" type=\"image/jpeg\" length=\"{(ROOT / a['beeld'].lstrip('/')).stat().st_size}\"/></item>\n")
+                  f"<enclosure url=\"{esc(abs_beeld(a['beeld']))}\" type=\"image/jpeg\" length=\"{(ROOT / a['beeld'].lstrip('/')).stat().st_size if not a['beeld'].startswith('http') else 0}\"/></item>\n")
     (ROOT / "feed.xml").write_text(f"""<?xml version="1.0" encoding="UTF-8"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel>
 <title>Ringvrees</title><link>{SITE}/</link><language>nl-nl</language>
@@ -505,7 +513,10 @@ def main():
     for a in alle:
         for veld in ("slug", "datum", "type", "rubriek", "titel", "lede", "beeld", "beeld_alt", "blokken"):
             assert veld in a, f"{a.get('slug')}: veld {veld} ontbreekt"
-        assert (ROOT / a["beeld"].lstrip("/")).exists(), f"{a['slug']}: beeld {a['beeld']} bestaat niet"
+        if a["beeld"].startswith("http"):
+            assert a["beeld"].startswith("https://images.unsplash.com/"), f"{a['slug']}: extern beeld mag alleen van images.unsplash.com komen"
+        else:
+            assert (ROOT / a["beeld"].lstrip("/")).exists(), f"{a['slug']}: beeld {a['beeld']} bestaat niet"
     komma_check(alle)
     alle.sort(key=lambda a: (a["datum"], a.get("tijd", "17:00")), reverse=True)
     (ROOT / "index.html").write_text(home(alle, vandaag), encoding="utf-8")
@@ -520,7 +531,7 @@ def main():
     feed(alle)
     datums = eerlijke_datum(["/"] + extra, vandaag)
     urls = [(u, datums.get(u, vandaag.isoformat())) for u in ["/"] + extra] + [(url_van(a), a["datum"]) for a in alle]
-    img = lambda u: "".join(f"<image:image><image:loc>{SITE}{b}</image:loc></image:image>" for b in beelden.get(u, []))
+    img = lambda u: "".join(f"<image:image><image:loc>{esc(abs_beeld(b))}</image:loc></image:image>" for b in beelden.get(u, []))
     sm = "".join(f"  <url><loc>{SITE}{u}</loc><lastmod>{m}</lastmod>{img(u)}</url>\n" for u, m in urls)
     (ROOT / "sitemap.xml").write_text(f'<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">\n{sm}</urlset>\n', encoding="utf-8")
     print(f"gebouwd: {len(alle)} artikelen")
