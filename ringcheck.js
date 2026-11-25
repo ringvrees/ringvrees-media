@@ -9,8 +9,8 @@ function binnen(la,lo){var c=false;for(var i=0,j=RING.length-1;i<RING.length;j=i
 function km(a1,o1,a2,o2){var r=Math.PI/180,x=(o2-o1)*r*Math.cos((a1+a2)/2*r),y=(a2-a1)*r;return Math.sqrt(x*x+y*y)*6371;}
 function totRing(la,lo){var m=1e9;for(var i=0;i<RING.length;i++){var d=km(la,lo,RING[i][0],RING[i][1]);if(d<m)m=d;}return m;}
 function plek(la,lo){var b=null,m=1e9;for(var i=0;i<PLEK.length;i++){var d=km(la,lo,PLEK[i][1],PLEK[i][2]);if(d<m){m=d;b=PLEK[i];}}return {p:b,d:m};}
-function kaart(la,lo){var x=307.8+(lo-4.836)*3241,y=172.6+(52.400-la)*5304,cx=Math.max(20,Math.min(1060,x)),cy=Math.max(20,Math.min(580,y));
- return '<svg viewBox="200 40 700 560" class="rc-kaart" aria-hidden="true"><path d="'+IJ+'" fill="none" stroke="#9fb8c6" stroke-width="14" stroke-linecap="round"/><path d="'+A10+'" fill="rgba(225,37,27,.06)" stroke="#111012" stroke-width="7"/>'+
+function kaart(la,lo){var x=307.8+(lo-4.836)*3241,y=172.6+(52.400-la)*5304,cx=Math.max(110,Math.min(990,x)),cy=Math.max(-50,Math.min(730,y));
+ return '<svg viewBox="90 -70 920 820" class="rc-kaart" aria-hidden="true"><path d="'+IJ+'" fill="none" stroke="#9fb8c6" stroke-width="14" stroke-linecap="round"/><path d="'+A10+'" fill="rgba(225,37,27,.06)" stroke="#111012" stroke-width="7"/>'+
  ((x!=cx||y!=cy)?'<text x="'+cx+'" y="'+(cy-24)+'" text-anchor="middle" font-family="Inter" font-weight="800" font-size="44" fill="#E1251B">ver weg →</text>':'')+
  '<circle cx="'+cx+'" cy="'+cy+'" r="26" fill="#E1251B" opacity=".25"/><circle cx="'+cx+'" cy="'+cy+'" r="12" fill="#E1251B" stroke="#fff" stroke-width="4"/></svg>';}
 function kaartje(stempel,kop,tekst,extra){var o=document.querySelector('.rc-melding');if(o)o.remove();var e=document.createElement('div');e.className='ring-melding rc-melding';e.setAttribute('role','status');

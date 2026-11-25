@@ -124,7 +124,7 @@ def balk(vandaag, home=False):
   {logo}
   <nav class="nav"><a class="hide" href="/#nieuws">Nieuws</a><a class="hide" href="/#handboek">Handboek</a><a class="hide" href="/rubrieken/">Rubrieken</a><a class="hide" href="/over/">Over</a><a class="ig" href="/test/#vragen">Doe de test →</a>
   <details class="menu"><summary aria-label="Menu"><span></span><span></span><span></span></summary>
-   <div class="menu-paneel" onclick="this.parentNode.removeAttribute('open')"><a href="/#nieuws">Nieuws</a><a href="/#handboek">Handboek</a><a href="/rubrieken/">Rubrieken</a><a href="/over/">Over Ringvrees</a><a href="/test/#vragen">Heb jij ringvrees? De test</a><a href="/afstand/">Ring-afstandmeter</a><a href="{IG}">Instagram</a><a href="{FB}">Facebook</a></div>
+   <div class="menu-paneel" onclick="this.parentNode.removeAttribute('open')"><a href="/#nieuws">Nieuws</a><a href="/#handboek">Handboek</a><a href="/rubrieken/">Rubrieken</a><a href="/over/">Over Ringvrees</a><a href="/test/#vragen">Heb jij ringvrees? De test</a><a href="/afstand/">Ringcheck</a><a href="{IG}">Instagram</a><a href="{FB}">Facebook</a></div>
   </details></nav>
 </div></header>"""
 
@@ -418,8 +418,8 @@ def test_pagina(vandaag):
 def afstand_pagina(vandaag):
     d = ROOT / "afstand"; d.mkdir(exist_ok=True)
     inhoud = (ROOT / "_bron" / "afstand.html").read_text(encoding="utf-8")
-    (d / "index.html").write_text(kop("Hoe ver woon jij van de ring? De Ring-afstandmeter | Ringvrees",
-        "Vul je postcode in en zie hoeveel meter je binnen of buiten de Amsterdamse ring A10 woont. Plus wat dat over je zegt.",
+    (d / "index.html").write_text(kop("Sta jij binnen de ring? De Ringcheck | Ringvrees",
+        "Check met één tik of je binnen of buiten de Amsterdamse ring A10 staat. Plus wat dat over je zegt.",
         "/afstand/") + balk(vandaag) + inhoud + band("Liever ook nooit de ring uit?<br>Volg het nieuws waar je het al leest.") + VOET, encoding="utf-8")
     return ["/afstand/"]
 
