@@ -122,9 +122,9 @@ def balk(vandaag, home=False):
 </div></dialog>
 <header class="top"><div class="wrap">
   {logo}
-  <nav class="nav"><a class="hide" href="/#nieuws">Nieuws</a><a class="hide" href="/#handboek">Handboek</a><a class="hide" href="/rubrieken/">Rubrieken</a><a class="hide" href="/over/">Over</a><a class="ig" href="/test/">Doe de test →</a>
+  <nav class="nav"><a class="hide" href="/#nieuws">Nieuws</a><a class="hide" href="/#handboek">Handboek</a><a class="hide" href="/rubrieken/">Rubrieken</a><a class="hide" href="/over/">Over</a><a class="ig" href="/test/#vragen">Doe de test →</a>
   <details class="menu"><summary aria-label="Menu"><span></span><span></span><span></span></summary>
-   <div class="menu-paneel" onclick="this.parentNode.removeAttribute('open')"><a href="/#nieuws">Nieuws</a><a href="/#handboek">Handboek</a><a href="/rubrieken/">Rubrieken</a><a href="/over/">Over Ringvrees</a><a href="/test/">Heb jij ringvrees? De test</a><a href="/afstand/">Ring-afstandmeter</a><a href="{IG}">Instagram</a><a href="{FB}">Facebook</a></div>
+   <div class="menu-paneel" onclick="this.parentNode.removeAttribute('open')"><a href="/#nieuws">Nieuws</a><a href="/#handboek">Handboek</a><a href="/rubrieken/">Rubrieken</a><a href="/over/">Over Ringvrees</a><a href="/test/#vragen">Heb jij ringvrees? De test</a><a href="/afstand/">Ring-afstandmeter</a><a href="{IG}">Instagram</a><a href="{FB}">Facebook</a></div>
   </details></nav>
 </div></header>"""
 
@@ -438,7 +438,7 @@ def pagina_404(vandaag):
   <span class="kick">Fout 404</span>
   <h1 class="h" style="font-size:52px;margin:18px 0 16px">Deze pagina ligt buiten de ring</h1>
   <p style="font:500 19px/1.55 Inter;color:#2b2a2e;margin-bottom:28px">Wij gaan er ook niet heen. Misschien is de link verhuisd, misschien heeft hij nooit bestaan. Hoe dan ook: binnen de ring is genoeg te lezen.</p>
-  <p style="display:flex;gap:12px;flex-wrap:wrap"><a class="kick" style="font-size:14px;padding:12px 16px" href="/">Terug naar het nieuws →</a><a class="kick" style="font-size:14px;padding:12px 16px;background:var(--ink)" href="/test/">Doe de ringvrees-test →</a></p>
+  <p style="display:flex;gap:12px;flex-wrap:wrap"><a class="kick" style="font-size:14px;padding:12px 16px" href="/">Terug naar het nieuws →</a><a class="kick" style="font-size:14px;padding:12px 16px;background:var(--ink)" href="/test/#vragen">Doe de ringvrees-test →</a></p>
 </section>"""
     html = kop("Pagina niet gevonden | Ringvrees", "Deze pagina ligt buiten de ring.", "/404.html",
                extra='\n<meta name="robots" content="noindex">') + balk(vandaag) + inhoud + VOET

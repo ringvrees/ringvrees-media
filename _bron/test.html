@@ -96,6 +96,7 @@ const UITSLAGEN = [
 ];
 let i = 0, score = 0;
 const $ = id => document.getElementById(id);
+if(location.hash==='#vragen'){addEventListener('DOMContentLoaded',()=>{try{begin()}catch(e){}});}
 function toon(id){ ["start","vraag","uitslag"].forEach(s => $(s).classList.toggle("verborgen", s !== id)); window.scrollTo(0,0); const r=document.getElementById("ringtest"); r.style.transform="translateZ(0)"; requestAnimationFrame(()=>requestAnimationFrame(()=>{r.style.transform=""})); }
 function begin(){ i = 0; score = 0; toon("vraag"); vraag(); }
 function vraag(){
