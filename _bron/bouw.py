@@ -263,6 +263,14 @@ def google_titel(titel):
     return f"{uit} | Ringvrees"
 
 
+def seo_met_merk(t):
+    """Eigen seo_titel krijgt ook de merknaam, zoals Google aanraadt (als het binnen ~62 tekens past)."""
+    t = t.strip()
+    if t.endswith("| Ringvrees") or len(t) + 12 > 62:
+        return t
+    return f"{t} | Ringvrees"
+
+
 def artikel_pagina(a, alle, vandaag):
     d = datetime.date.fromisoformat(a["datum"])
     url = url_van(a)
@@ -273,7 +281,7 @@ def artikel_pagina(a, alle, vandaag):
           "inLanguage": "nl-NL", "genre": "satire", "articleSection": a["rubriek"], "url": SITE + url,
           "mainEntityOfPage": SITE + url, "isAccessibleForFree": True,
           "contentLocation": {"@type": "Place", "name": "Amsterdam"},
-          "author": {"@type": "Organization", "name": "Redactie Ringvrees", "url": SITE + "/over/"},
+          "author": {"@type": "Organization", "name": "Redactie Ringvrees", "url": SITE + "/over/#redactie"},
           "publisher": ORG}
     kruimel = {"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [
         {"@type": "ListItem", "position": 1, "name": "Ringvrees", "item": SITE + "/"},
@@ -291,7 +299,7 @@ def artikel_pagina(a, alle, vandaag):
         meer_html = "<div class='wrap'><div class='sec'><h2 class='h'>Meer van binnen de ring</h2></div><div class='grid'>" + "".join(kaart(x) for x in meer) + "</div></div>"
     beeldbron = f"<figcaption>{esc(a['beeld_bron'])}</figcaption>" if a.get("beeld_bron") else ""
     meta = ("Bijgewerkt op " + nl_datum(datetime.date.fromisoformat(a.get("bijgewerkt") or a["datum"])) + " " + (a.get("bijgewerkt") or a["datum"])[:4]) if a["type"] == "tijdloos" else nl_datum(d, True)
-    return (kop(a.get("seo_titel") or google_titel(a["titel"]), a.get("seo_beschrijving") or a["lede"], url, a["beeld"], extra) + balk(vandaag) + f"""
+    return (kop(seo_met_merk(a["seo_titel"]) if a.get("seo_titel") else google_titel(a["titel"]), a.get("seo_beschrijving") or a["lede"], url, a["beeld"], extra) + balk(vandaag) + f"""
 <article class="art">
   <a class="kick" href="{rubriek_url(a['rubriek'])}">{esc(a['rubriek'])}</a>
   <h1 class="h">{esc(a['titel'])}</h1>
@@ -387,6 +395,9 @@ def over(vandaag):
   <h2 class="h">Het platform</h2>
   <p>Ringvrees neemt elke dag het grootste Amsterdamse nieuws en vertelt het zoals het binnen de A10 voelt. De feiten kloppen: elk stuk begint bij echt Amsterdams nieuws. We schrijven alles in eigen woorden en nemen geen teksten of foto’s over. De rest is satire. Verzonnen bronnen zijn altijd anoniem en echte mensen leggen we nooit woorden in de mond.</p>
   <p>Je vindt Ringvrees op <a href="{IG}">Instagram (@ringvrees)</a>, op <a href="{FB}">Facebook</a> en hier op ringvrees.nl, met elke dag een nieuw verhaal.</p>
+  <h2 class="h" id="redactie">De redactie</h2>
+  <p>Alle stukken op ringvrees.nl komen van Redactie Ringvrees, een kleine redactie in Amsterdam. Elk artikel heeft een datum en begint bij echt nieuws uit de stad. Onder elk stuk staat wie het maakte en bij nieuws van één medium vermelden we de bron.</p>
+  <p>Alles op Ringvrees is satire. Dat staat bovenaan elke pagina en zo zijn de artikelen ook voor zoekmachines gemarkeerd. Klopt er iets niet aan de feiten waar een stuk op leunt? Mail ons, dan passen we het aan.</p>
   <h2 class="h">Contact</h2>
   <p>Tip, klacht of een buurman die nooit de ring uit gaat? Mail naar <a id="m2" href="#">hallo [at] ringvrees [punt] nl</a>.</p>
 </article>
