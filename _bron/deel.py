@@ -9,6 +9,11 @@ def _html(a):
     v = ROOT / "img" / "artikelen" / "v" / f"{a['slug']}-1600.webp"
     foto = v if v.exists() else ROOT / a["beeld"].lstrip("/")
     e = html.escape
+    import re
+    zinnen = [z.strip() for z in re.split(r"(?<=[.!?])\s+", a.get("lede", "").strip()) if z.strip()]
+    zin = a.get("deelzin") or (zinnen[-1] if zinnen else a["titel"])
+    if len(zin) > 170 or len(zin) < 25:
+        zin = a["titel"]
     passend = "" if a.get("beeld_bron", "").startswith("Foto") else ";object-fit:contain;transform:scale(1.3);transform-origin:60% 50%;background:#F2ECE1"
     return f"""<html><head><meta charset=utf-8><style>
 @font-face{{font-family:DMS;src:url({(F/'dm-serif-display-latin-400-normal.woff2').as_uri()})}}
@@ -20,11 +25,11 @@ def _html(a):
 .paneel::after{{content:"";position:absolute;right:-1px;top:0;bottom:0;width:6px;background:#111012}}
 .logo{{font:900 22px Int;letter-spacing:.22em}}
 .kick{{display:inline-block;background:#E1251B;color:#fff;font:900 18px Int;letter-spacing:.16em;padding:7px 12px;text-transform:uppercase}}
-h1{{font:400 54px/1.04 DMS;text-wrap:balance;margin-top:20px}}.voet{{font:600 17px Int;color:#6d665c;letter-spacing:.04em}}
+h1{{font:400 50px/1.08 DMS;text-wrap:balance;margin-top:24px}}.voet{{font:600 17px Int;color:#6d665c;letter-spacing:.04em}}
 </style></head><body><img class=foto style="{passend}" src="{foto.as_uri()}"><div class=paneel><div class=logo>RINGVREES</div>
-<div id=midden><span class=kick>{e(a['rubriek'])}</span><h1 id=kop>{e(a['titel'])}</h1></div>
+<div id=midden><span class=kick>{e(a['rubriek'])}</span><h1 id=kop>{e(zin)}</h1></div>
 <div class=voet>ringvrees.nl · Nieuws van binnen de A10</div></div>
-<script>var k=document.getElementById('kop'),s=54;document.fonts.ready.then(function(){{while(k.offsetHeight>330&&s>34){{s-=2;k.style.fontSize=s+'px'}}document.body.dataset.klaar=1}});</script></body></html>"""
+<script>var k=document.getElementById('kop'),s=50;document.fonts.ready.then(function(){{while(k.offsetHeight>340&&s>32){{s-=2;k.style.fontSize=s+'px'}}document.body.dataset.klaar=1}});</script></body></html>"""
 
 def maak_alle(alle):
     UIT.mkdir(parents=True, exist_ok=True)
