@@ -38,6 +38,9 @@ Elk artikel is één JSON-bestand in _bron/artikelen/ met deze velden:
 """
 import json, html, pathlib, datetime, re, unicodedata, hashlib
 from zoneinfo import ZoneInfo
+import sys as _sys
+_sys.path.insert(0, str(pathlib.Path(__file__).resolve().parent))
+import deel as DEEL
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
 SITE = "https://ringvrees.nl"
@@ -70,8 +73,11 @@ def esc(s):
     return html.escape(s, quote=True)
 
 
-def kop(titel, beschrijving, url, beeld=None, extra=""):
-    img = f'\n<meta property="og:image" content="{SITE}{beeld}">\n<meta property="og:image:width" content="1600">\n<meta property="og:image:height" content="900">\n<meta property="og:image:type" content="image/jpeg">' if beeld else f'\n<meta property="og:image" content="{SITE}/icon-512.png">'
+def kop(titel, beschrijving, url, beeld=None, extra="", deel=None):
+    if deel:
+        img = f'\n<meta property="og:image" content="{SITE}{deel}">\n<meta property="og:image:width" content="1200">\n<meta property="og:image:height" content="630">\n<meta property="og:image:type" content="image/jpeg">'
+    else:
+        img = f'\n<meta property="og:image" content="{SITE}{beeld}">\n<meta property="og:image:width" content="1600">\n<meta property="og:image:height" content="900">\n<meta property="og:image:type" content="image/jpeg">' if beeld else f'\n<meta property="og:image" content="{SITE}/icon-512.png">'
     return f"""<!DOCTYPE html>
 <html lang="nl">
 <head>
@@ -326,7 +332,7 @@ def artikel_pagina(a, alle, vandaag):
         meer_html = "<div class='wrap'><div class='sec'><h2 class='h'>Lees ook</h2></div><div class='grid'>" + "".join(kaart(x) for x in meer) + "</div></div>"
     beeldbron = f"<figcaption>{esc(a['beeld_bron'])}</figcaption>" if a.get("beeld_bron") else ""
     meta = ("Bijgewerkt op " + nl_datum(datetime.date.fromisoformat(a.get("bijgewerkt") or a["datum"])) + " " + (a.get("bijgewerkt") or a["datum"])[:4]) if a["type"] == "tijdloos" else nl_datum(d, True)
-    return (kop(seo_met_merk(a["seo_titel"]) if a.get("seo_titel") else google_titel(a["titel"]), a.get("seo_beschrijving") or a["lede"], url, a["beeld"], extra) + balk(vandaag) + f"""
+    return (kop(seo_met_merk(a["seo_titel"]) if a.get("seo_titel") else google_titel(a["titel"]), a.get("seo_beschrijving") or a["lede"], url, a["beeld"], extra, deel=DEEL.pad(a)) + balk(vandaag) + f"""
 <article class="art">
   <a class="kick" href="{rubriek_url(a['rubriek'])}">{esc(a['rubriek'])}</a>
   <h1 class="h">{esc(a['titel'])}</h1>
@@ -585,6 +591,10 @@ def main():
     import sys; sys.path.insert(0, str(ROOT / "_bron")); import beeld
     for a in alle:
         beeld.maak(a["slug"], a.get("beeld_bron", "").startswith("Foto"))
+    try:
+        DEEL.maak_alle(alle)
+    except Exception as fout:
+        print("deelbeeld overgeslagen:", fout)
     for a in alle:
         for veld in ("slug", "datum", "type", "rubriek", "titel", "lede", "beeld", "beeld_alt", "blokken"):
             assert veld in a, f"{a.get('slug')}: veld {veld} ontbreekt"
