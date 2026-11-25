@@ -276,7 +276,7 @@ def artikel_pagina(a, alle, vandaag):
     url = url_van(a)
     tijd = a.get("tijd") or "12:00"
     pub = datetime.datetime.fromisoformat(f"{a['datum']}T{tijd}").replace(tzinfo=ZoneInfo("Europe/Amsterdam")).isoformat()
-    ld = {"@context": "https://schema.org", "@type": "NewsArticle", "headline": a["titel"][:110],
+    ld = {"@context": "https://schema.org", "@type": ["NewsArticle", "SatiricalArticle"], "headline": a["titel"][:110],
           "description": a["lede"], "image": [SITE + a["beeld"]], "datePublished": pub, "dateModified": (a.get("bijgewerkt") + "T12:00:00+01:00") if a.get("bijgewerkt") else pub,
           "inLanguage": "nl-NL", "genre": "satire", "articleSection": a["rubriek"], "url": SITE + url,
           "mainEntityOfPage": SITE + url, "isAccessibleForFree": True,
