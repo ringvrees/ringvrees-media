@@ -393,13 +393,12 @@ def over(vandaag):
   <p><b>ringvrees</b> (de; v.) is de aanhoudende angst om de Amsterdamse ring A10 te verlaten. Het treft vooral mensen die binnen de ring wonen en alles wat ze nodig hebben op fietsafstand hebben. Amstelveen voelt als buitenland, Almere als een expeditie. Er bestaat geen zalfje voor en de meeste patiënten willen er ook niet van af.</p>
   <p>Herkent u zichzelf? Lees dan <a href="/nieuws/symptomen-van-ringvrees/">de bijsluiter met alle symptomen</a>.</p>
   <h2 class="h">Het platform</h2>
-  <p>Ringvrees neemt elke dag het grootste Amsterdamse nieuws en vertelt het zoals het binnen de A10 voelt. De feiten kloppen: elk stuk begint bij echt Amsterdams nieuws. We schrijven alles in eigen woorden en nemen geen teksten of foto’s over. De rest is satire. Verzonnen bronnen zijn altijd anoniem en echte mensen leggen we nooit woorden in de mond.</p>
-  <p>Je vindt Ringvrees op <a href="{IG}">Instagram (@ringvrees)</a>, op <a href="{FB}">Facebook</a> en hier op ringvrees.nl, met elke dag een nieuw verhaal.</p>
+  <p>Ringvrees neemt elke dag het grootste Amsterdamse nieuws en vertelt het zoals het binnen de A10 voelt. De feiten kloppen: elk nieuwsstuk begint bij echt Amsterdams nieuws. We schrijven alles in eigen woorden, nemen geen teksten over en gebruiken alleen rechtenvrije foto’s. De rest is satire. Verzonnen bronnen zijn altijd anoniem en echte mensen leggen we nooit woorden in de mond.</p>
+  <p>Je vindt Ringvrees op <a href="{IG}">Instagram (@ringvrees)</a>, op <a href="{FB}">Facebook</a> en hier op ringvrees.nl, met elke dag nieuwe verhalen.</p>
   <h2 class="h" id="redactie">De redactie</h2>
-  <p>Alle stukken op ringvrees.nl komen van Redactie Ringvrees, een kleine redactie in Amsterdam. Elk artikel heeft een datum en begint bij echt nieuws uit de stad. Onder elk stuk staat wie het maakte en bij nieuws van één medium vermelden we de bron.</p>
-  <p>Alles op Ringvrees is satire. Dat staat bovenaan elke pagina en zo zijn de artikelen ook voor zoekmachines gemarkeerd. Klopt er iets niet aan de feiten waar een stuk op leunt? Mail ons, dan passen we het aan.</p>
+  <p>Alle stukken op ringvrees.nl komen van Redactie Ringvrees, een kleine redactie in Amsterdam. Elk artikel heeft een datum en bij nieuws van één medium vermelden we de bron.</p>
   <h2 class="h">Contact</h2>
-  <p>Tip, klacht of een buurman die nooit de ring uit gaat? Mail naar <a id="m2" href="#">hallo [at] ringvrees [punt] nl</a>.</p>
+  <p>Tip, klacht of een buurman die nooit de ring uit gaat? Mail naar <a id="m2" href="#">hallo [at] ringvrees [punt] nl</a>. Zit er een fout in de feiten waar een stuk mee begint? Dan zetten we het recht, sneller dan de gemeente een brug repareert.</p>
 </article>
 <script>(function(){{var a=document.getElementById("m2"),e="hallo"+"@"+["ringvrees","nl"].join(".");a.textContent=e;a.href="mai"+"lto:"+e;}})();</script>
 """ + band("Liever ook nooit de ring uit?<br>Volg het nieuws waar je het al leest.") + VOET, encoding="utf-8")
