@@ -270,3 +270,31 @@ picture{display:contents}
 .share .kopieer svg{width:20px;height:20px}.share .kopieer .ic-ok{display:none}
 .share .kopieer.ok{background:var(--ink);color:var(--paper)}.share .kopieer.ok .ic-link{display:none}.share .kopieer.ok .ic-ok{display:block}
 .share .kopieer:hover{background:var(--ink);color:var(--paper)}
+/* ===== Het Ringbericht ===== */
+.rb{max-width:720px;margin:10px auto 40px;padding:0 24px}
+main .rb{max-width:none;padding:0;margin:0 0 56px}
+.rb-in{background:var(--ink);color:var(--paper);padding:30px 32px}
+.rb-kop{font:400 30px/1.15 'DM Serif Display',Georgia,serif;margin:14px 0 18px}
+.rb-klein{font:500 13px Inter;color:#bdb6ab;margin-top:10px}
+.rb-form{min-height:52px}
+.rb .inline-container,.rb .form-container,.rb .emailoctopus-form-wrapper{margin:0!important;padding:0!important;background:none!important;max-width:none!important}
+.rb .emailoctopus-form-wrapper{margin-top:0!important}
+.rb .main-form{display:flex;gap:10px;align-items:stretch}
+.rb .main-form [eo-form-fields-container]{flex:1;min-width:0}
+.rb .emailoctopus-form-row{margin:0!important}
+.rb .emailoctopus-form input.form-control{width:100%!important;height:52px!important;border:2px solid var(--paper)!important;border-radius:0!important;background:var(--paper)!important;color:var(--ink)!important;font:500 16px Inter!important;padding:0 14px!important;box-shadow:none!important}
+.rb .emailoctopus-form input[type=submit]{width:auto!important;height:52px!important;margin:0!important;border:2px solid var(--red)!important;border-radius:0!important;background:var(--red)!important;color:#fff!important;font:800 14px Inter!important;letter-spacing:.08em!important;text-transform:uppercase!important;padding:0 22px!important;cursor:pointer}
+.rb .emailoctopus-success-message{font:400 22px/1.3 'DM Serif Display',Georgia,serif!important;color:var(--paper)!important;margin:0!important}
+.rb .emailoctopus-error-message{font:600 14px Inter!important;color:#ff8a80!important;margin:0 0 8px!important}
+.rb .mastfoot{margin-top:8px!important;text-align:left!important}
+.rb .mastfoot p,.rb .mastfoot a{font:500 11px Inter!important;color:#8f887d!important;text-decoration:none!important}
+.rb [eo-block-container]{display:none}
+@media (max-width:760px){.rb .main-form{flex-direction:column}.rb .emailoctopus-form input[type=submit]{width:100%!important}.rb-kop{font-size:26px}.rb-in{padding:26px 22px}}
+.rb .rb-form .inline-container,.rb .rb-form .inline-container>div{max-width:none!important;width:100%!important}
+.rb .rb-form .main-form{display:flex!important;align-items:center!important;width:100%!important}
+.rb .rb-form [eo-form-fields-container]{display:block!important;flex:1 1 auto!important;width:auto!important;min-width:0!important}
+.rb .rb-form .emailoctopus-form-row{margin:0!important;width:100%!important}
+.rb .rb-form input[type=submit]{flex:0 0 auto!important}
+.rb .rb-form .text-center,.rb .rb-form .mastfoot{text-align:left!important}
+.rb .rb-form .mastfoot{opacity:.7}
+@media (max-width:760px){.rb .rb-form .main-form{flex-direction:column!important;align-items:stretch!important}.rb .rb-form [eo-form-fields-container]{width:100%!important}}

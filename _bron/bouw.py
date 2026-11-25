@@ -273,6 +273,17 @@ def editie(alle, vandaag):
 </div></div>"""
 
 
+EO_FORM = "8739ab38-e915-11f1-9a6f-81320acacb56"
+RINGBERICHT = """<section class="rb" id="ringbericht"><div class="rb-in">
+<span class="kick">Het Ringbericht</span>
+<p class="rb-kop">Elke vrijdag het beste van binnen de ring in je inbox.</p>
+<div class="rb-form" data-eo="8739ab38-e915-11f1-9a6f-81320acacb56"><noscript><a href="https://eomail5.com/form/8739ab38-e915-11f1-9a6f-81320acacb56">Meld je aan →</a></noscript></div>
+<p class="rb-klein">Gratis. Afmelden kan altijd, ook als je verhuist naar buiten de ring.</p>
+</div></section>
+<script>(function(){var v=document.querySelector('.rb-form[data-eo]');if(!v)return;function laad(){if(v.dataset.geladen)return;v.dataset.geladen=1;var s=document.createElement('script');s.async=true;s.src='https://eomail5.com/form/'+v.dataset.eo+'.js';s.setAttribute('data-form',v.dataset.eo);v.appendChild(s);}
+if('IntersectionObserver'in window){var o=new IntersectionObserver(function(e){if(e[0].isIntersecting){laad();o.disconnect();}},{rootMargin:'600px'});o.observe(v);}else{laad();}})();</script>"""
+
+
 DEF = ('<aside class="def"><b>ringvrees</b> <i>(de; v.)</i> de aanhoudende angst om de Amsterdamse ring A10 te verlaten. '
        'Komt vooral voor bij mensen die alles wat ze nodig hebben op fietsafstand hebben. '
        '<a href="/nieuws/symptomen-van-ringvrees/">Wat is ringvrees? Herken de symptomen →</a></aside>')
@@ -346,6 +357,7 @@ def artikel_pagina(a, alle, vandaag):
   {bron}
   {DEF if a['slug'] != 'symptomen-van-ringvrees' else ''}
 </article>
+{RINGBERICHT}
 """ + meer_html + band("Morgen weer vers nieuws van binnen de ring.") + VOET)
 
 
@@ -371,6 +383,7 @@ def home(alle, vandaag):
         delen.append("<div class='sec' id='handboek'><h2 class='h'>Handboek</h2><span class='meta'>Alles wat je moet weten binnen de A10</span></div><div class='grid'>"
                      + "".join(kaart(a) for a in tijdloos) + "</div>")
     delen.append("</main>")
+    delen.append(RINGBERICHT)
     delen.append(band("Liever ook nooit de ring uit?<br>Volg het nieuws waar je het al leest."))
     delen.append(VOET)
     return "\n".join(delen)
@@ -431,7 +444,7 @@ def over(vandaag):
   <h2 class="h" id="redactie">De redactie</h2>
   <p>Ringvrees wordt gemaakt door een kleine redactie die vergadert in een bakfiets ergens aan de gracht, veilig binnen de ring. In de bak passen precies drie redacteuren, dus groter dan dit worden we nooit. Elke ochtend begint met koffie van het tentje op de hoek en de vraag of iemand vandaag écht naar Noord moet. Het antwoord is altijd nee, maar voor de zekerheid volgen we de dienstregeling van de pont alsof het beurskoersen zijn. Onze verslaggevers komen nooit verder dan de A10 en een trip naar Sloterdijk geldt als dienstreis met gevarentoeslag. Alles wat we schrijven gaat langs een eindredacteur die Amstelveen nog steeds een verzonnen plaats noemt. Wel zo netjes: bij nieuws van één medium zetten we de bron eronder.</p>
   <h2 class="h" id="privacy">Privacy</h2>
-  <p>We tellen hoeveel mensen Ringvrees lezen met de bezoekersteller van Metricool. Die werkt zonder cookies, slaat niets op je apparaat op en volgt je niet over andere sites. Daarom zie je hier ook geen cookiebanner. De Ringcheck vraagt alleen om je locatie als je zelf op de knop drukt en bewaart niets.</p>
+  <p>We tellen hoeveel mensen Ringvrees lezen met de bezoekersteller van Metricool. Die werkt zonder cookies, slaat niets op je apparaat op en volgt je niet over andere sites. Daarom zie je hier ook geen cookiebanner. Meld je je aan voor Het Ringbericht, dan bewaart EmailOctopus je mailadres om je de nieuwsbrief te sturen. Afmelden kan in elke mail. De Ringcheck vraagt alleen om je locatie als je zelf op de knop drukt en bewaart niets.</p>
   <h2 class="h">Contact</h2>
   <p>Tip, klacht of een buurman die nooit de ring uit gaat? Mail naar <a id="m2" href="#">hallo [at] ringvrees [punt] nl</a>. Zit er een fout in de feiten waar een stuk mee begint? Dan zetten we het recht, sneller dan de gemeente een brug repareert.</p>
 </article>
