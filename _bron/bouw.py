@@ -129,7 +129,7 @@ def balk(vandaag, home=False):
 </div></header>"""
 
 
-VOET = """<footer><div class="wrap"><span>Ringvrees is satire. Alles is gebaseerd op echt nieuws, maar dan zoals het écht voelt binnen de A10.</span></div></footer>
+VOET = """<footer><div class="wrap"><div class="rc-voet"><button class="rc-knop" type="button" onclick="ringcheck()">📍 Ringcheck: sta ik binnen de A10?</button></div><span>Ringvrees is satire. Alles is gebaseerd op echt nieuws, maar dan zoals het écht voelt binnen de A10.</span></div></footer>
 <script>(function(){
 /* Paaseitje: typ ergens op de site "A10" en de pagina rijdt een rondje over de ring. */
 var b="";
@@ -154,6 +154,7 @@ function melding(){
  setTimeout(function(){d.classList.add("weg")},5200);setTimeout(function(){d.remove()},5800);
 }
 })();</script>
+<script src="/ringcheck.js" defer></script>
 </body>
 </html>
 """

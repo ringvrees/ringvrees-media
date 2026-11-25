@@ -21,7 +21,7 @@
 <meta name="robots" content="max-image-preview:large">
 <link rel="preload" href="/fonts/inter-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/fonts/dm-serif-display-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="/style.css?v=442c3bc9">
+<link rel="stylesheet" href="/style.css?v=a3adb11b">
 <link rel="alternate" type="application/rss+xml" title="Ringvrees" href="/feed.xml">
 </head>
 <body><div class="strip"><div class="wrap"><span>Woensdag 25 november</span><span><button class="sat-knop" type="button" onclick="document.getElementById('verklaring').showModal()"><b>Satire</b></button> · Nieuws van binnen de A10</span></div></div>
@@ -90,6 +90,7 @@
     <h1>Hoe ver woon jij van de ring?</h1>
     <p class="lede">Vul je postcode in en wij meten hoeveel meter je binnen of buiten de A10 woont. Plus wat dat over je zegt.</p>
     <form id="form"><input id="pc" placeholder="1012 AB" maxlength="7" autocomplete="postal-code" inputmode="text"><button class="btn" type="submit">Meet het →</button></form>
+    <p class="rc-mobiel"><button class="rc-knop" type="button" onclick="ringcheck()">📍 Of check waar je nu bent</button></p>
     <div class="fout" id="fout"></div>
     <p class="klein">We slaan je postcode nergens op. Hij gaat alleen naar de adresgegevens van de overheid (PDOK) om je plek op te zoeken. Alle afstanden zijn ongeveer, de rest is satire.</p>
   </section>
@@ -236,7 +237,7 @@ $("deelknop").onclick = async () => { const mld=$("melding");
 <section class="band"><div class="wrap">
   <div class="h">Liever ook nooit de ring uit?<br>Volg het nieuws waar je het al leest.</div>
   <a href="https://www.instagram.com/ringvrees/">Volg @ringvrees →</a>
-</div></section><footer><div class="wrap"><span>Ringvrees is satire. Alles is gebaseerd op echt nieuws, maar dan zoals het écht voelt binnen de A10.</span></div></footer>
+</div></section><footer><div class="wrap"><div class="rc-voet"><button class="rc-knop" type="button" onclick="ringcheck()">📍 Ringcheck: sta ik binnen de A10?</button></div><span>Ringvrees is satire. Alles is gebaseerd op echt nieuws, maar dan zoals het écht voelt binnen de A10.</span></div></footer>
 <script>(function(){
 /* Paaseitje: typ ergens op de site "A10" en de pagina rijdt een rondje over de ring. */
 var b="";
@@ -261,5 +262,6 @@ function melding(){
  setTimeout(function(){d.classList.add("weg")},5200);setTimeout(function(){d.remove()},5800);
 }
 })();</script>
+<script src="/ringcheck.js" defer></script>
 </body>
 </html>

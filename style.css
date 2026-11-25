@@ -248,3 +248,9 @@ html.rond body{animation:ringrond 1.5s cubic-bezier(.65,0,.35,1)}
 /* Geen foto tussen intro en tekst (bv. Over): witruimte niet optellen */
 .art:not(.body)+.art.body{padding-top:0}
 .art:not(.body)+.art.body>h2:first-child{margin-top:12px}
+
+/* Ringcheck (alleen mobiel) */
+.rc-kop{font:400 26px/1.1 'DM Serif Display',serif}.rc-klein{font-size:12px;color:#6D665C;margin-top:4px}.rc-kaart{width:100%;height:auto;max-height:190px;background:#fbf8f2;border:1px solid #d8d0c2;margin:4px 0 6px}
+.rc-balk span{text-wrap:balance;text-align:center}.rc-balk{position:sticky;top:0;z-index:9998;display:flex;justify-content:center;align-items:center;gap:16px;background:#E1251B;color:#fff;font:500 14px Inter,sans-serif;padding:9px 16px}.rc-balk button{background:none;border:0;color:#fff;font-size:20px;line-height:1;cursor:pointer}
+.rc-knop{display:inline-flex;align-items:center;gap:8px;background:#111012;color:#F2ECE1;border:0;font:800 13px Inter,sans-serif;letter-spacing:.12em;text-transform:uppercase;padding:10px 14px;cursor:pointer}.rc-knop:hover{background:#E1251B}
+.rc-voet,.rc-mobiel{display:none}.rc-voet{padding:4px 0 18px;text-align:center}.rc-mobiel{margin:14px 0 0}@media (max-width:760px){.rc-voet,.rc-mobiel{display:block}}
