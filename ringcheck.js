@@ -13,9 +13,9 @@ function kaart(la,lo){var x=307.8+(lo-4.836)*3241,y=172.6+(52.400-la)*5304,cx=Ma
  return '<svg viewBox="90 -70 920 820" class="rc-kaart" aria-hidden="true"><path d="'+IJ+'" fill="none" stroke="#9fb8c6" stroke-width="14" stroke-linecap="round"/><path d="'+A10+'" fill="rgba(225,37,27,.06)" stroke="#111012" stroke-width="7"/>'+
  ((x!=cx||y!=cy)?'<text x="'+cx+'" y="'+(cy-24)+'" text-anchor="middle" font-family="Inter" font-weight="800" font-size="44" fill="#E1251B">ver weg →</text>':'')+
  '<circle cx="'+cx+'" cy="'+cy+'" r="26" fill="#E1251B" opacity=".25"/><circle cx="'+cx+'" cy="'+cy+'" r="12" fill="#E1251B" stroke="#fff" stroke-width="4"/></svg>';}
-function kaartje(stempel,kop,tekst,extra){var o=document.querySelector('.rc-melding');if(o)o.remove();var e=document.createElement('div');e.className='ring-melding rc-melding';e.setAttribute('role','status');
+function kaartje(stempel,kop,tekst,extra){var o=document.querySelector('.rc-melding');if(o)o.remove();var sc=document.querySelector('.rc-scherm');if(!sc){sc=document.createElement('div');sc.className='rc-scherm';document.body.appendChild(sc);}var e=document.createElement('div');e.className='ring-melding rc-melding';e.setAttribute('role','status');
  e.innerHTML='<span class="ring-stempel">'+stempel+'</span>'+(extra||'')+'<b class="rc-kop">'+kop+'</b><span>'+tekst+'</span><span class="rc-klein">Je locatie is alleen in je eigen browser gebruikt en nergens naartoe gestuurd. Tik om te sluiten.</span>';
- e.onclick=function(){e.remove();};document.body.appendChild(e);}
+ var dicht=function(){e.remove();sc.remove();};e.onclick=dicht;sc.onclick=dicht;document.body.appendChild(e);}
 function balk(){if(document.querySelector('.rc-balk'))return;var b=document.createElement('div');b.className='rc-balk';b.innerHTML='<span><b>Lezer van buiten de ring gedetecteerd.</b> Gedraag u.</span><button aria-label="Sluiten">×</button>';b.querySelector('button').onclick=function(){b.remove();};document.body.prepend(b);}
 function uitslag(la,lo){var bi=binnen(la,lo),r=plek(la,lo),d=totRing(la,lo),k=kaart(la,lo),dt=d.toFixed(1).replace('.',',');
  if(bi){kaartje('Ringcheck: binnen','Welkom thuis.','Je bevindt je veilig binnen de A10'+(r.p&&r.p[3]==0&&r.d<3?', ergens rond '+r.p[0]:'')+'. Blijf vooral waar je bent.',k);return;}

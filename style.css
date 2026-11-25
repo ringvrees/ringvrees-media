@@ -257,3 +257,8 @@ html.rond body{animation:ringrond 1.5s cubic-bezier(.65,0,.35,1)}
 .rc-groot{font-size:15px;padding:16px 22px;margin:10px 0 4px}
 @keyframes rcin{from{opacity:0;transform:translate(-50%,calc(-50% + 24px))}to{opacity:1;transform:translate(-50%,-50%)}}
 @media (min-width:761px){.rc-melding{top:50%;bottom:auto;transform:translate(-50%,-50%);animation:rcin .35s cubic-bezier(.2,.8,.3,1.2) both}}
+
+.rc-scherm{position:fixed;inset:0;z-index:9998;background:rgba(17,16,18,.55);animation:rcfade .25s ease both}
+@keyframes rcfade{from{opacity:0}to{opacity:1}}
+.rc-melding{z-index:9999}
+@media (max-width:760px){.rc-melding{width:calc(100vw - 64px);bottom:32px}}
