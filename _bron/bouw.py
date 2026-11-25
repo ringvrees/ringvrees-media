@@ -225,7 +225,7 @@ def kaart(a, groot=False, kort=False):
     meta = ("Bijgewerkt " + nl_datum(datetime.date.fromisoformat(a.get("bijgewerkt") or a["datum"])) + " " + (a.get("bijgewerkt") or a["datum"])[:4]) if a["type"] == "tijdloos" else nl_datum(d)
     if groot:
         return f"""<div class="hero">
-    <a class="heroimg" href="{url_van(a)}"><img src="{a['beeld']}" alt="{esc(a['beeld_alt'])}" width="1600" height="900" fetchpriority="high"></a>
+    <a class="heroimg" href="{url_van(a)}">{img(a, "(max-width:760px) 100vw, 640px", 'fetchpriority="high"')}</a>
     <div>
       <a class="kick" href="{rubriek_url(a['rubriek'])}">{esc(a['rubriek'])}</a>
       <a href="{url_van(a)}"><h2 class="h">{esc(a['titel'])}</h2>
@@ -234,12 +234,36 @@ def kaart(a, groot=False, kort=False):
     </div>
   </div>"""
     return f"""<div class="card">
-      <a class="beeld{' foto' if a.get('beeld_bron', '').startswith('Foto') else ''}" href="{url_van(a)}"><img src="{a['beeld']}" alt="{esc(a['beeld_alt'])}" width="1600" height="900" loading="lazy" decoding="async"></a>
+      <a class="beeld{' foto' if a.get('beeld_bron', '').startswith('Foto') else ''}" href="{url_van(a)}">{img(a, "(max-width:760px) 100vw, 360px", 'loading="lazy" decoding="async"')}</a>
       <a class="kick" href="{rubriek_url(a['rubriek'])}">{esc(a['rubriek'])}</a>
       <a href="{url_van(a)}"><h3 class="h">{esc(a['titel'])}</h3>
       {'' if kort else '<p>' + esc(a['lede']) + '</p>'}</a>
       <div class="meta">{meta}</div>
     </div>"""
+
+
+def img(a, sizes, attrs):
+    """Kopbeeld als <picture> met de behandelde WebP-versies (1600 en 800) als die er zijn."""
+    v = ROOT / "img" / "artikelen" / "v" / f"{a['slug']}-800.webp"
+    tag = f"<img src=\"{a['beeld']}\" alt=\"{esc(a['beeld_alt'])}\" width=\"1600\" height=\"900\" {attrs}>"
+    if not v.exists():
+        return tag
+    b = f"/img/artikelen/v/{a['slug']}"
+    return f"<picture><source type=\"image/webp\" srcset=\"{b}-800.webp 800w, {b}-1600.webp 1600w\" sizes=\"{sizes}\">{tag}</picture>"
+
+
+def leestijd(a):
+    t = " ".join(str(b.get(k, "")) for b in a["blokken"] for k in ("p", "tekst", "citaat", "antwoord"))
+    return max(1, round(len(re.sub(r"<[^>]+>", " ", t).split()) / 200))
+
+
+def editie(alle, vandaag):
+    eerste = min(datetime.date.fromisoformat(a["datum"]) for a in alle)
+    nr = (vandaag - eerste).days + 1
+    return f"""<div class="editie"><div class="wrap">
+  <p class="ed-naam">Ringvrees</p>
+  <div class="ed-regel"><span>Vers om 08:00 · 12:00 · 19:00</span><span class="ed-nr">Editie nr. {nr}</span><span>Oplage: alleen binnen de A10</span></div>
+</div></div>"""
 
 
 DEF = ('<aside class="def"><b>ringvrees</b> <i>(de; v.)</i> de aanhoudende angst om de Amsterdamse ring A10 te verlaten. '
@@ -294,10 +318,11 @@ def artikel_pagina(a, alle, vandaag):
         b = f"<a href='{a['bron_url']}'>{esc(a['bron'])}</a>" if a.get("bron_url") else esc(a["bron"])
         bron = f"<p class='src'>Bron: {b}</p>"
     ig = ""
-    meer = [x for x in alle if x["slug"] != a["slug"]][:3]
+    rest = [x for x in alle if x["slug"] != a["slug"]]
+    meer = ([x for x in rest if x["rubriek"] == a["rubriek"]] + [x for x in rest if x["rubriek"] != a["rubriek"]])[:3]
     meer_html = ""
     if meer:
-        meer_html = "<div class='wrap'><div class='sec'><h2 class='h'>Meer van binnen de ring</h2></div><div class='grid'>" + "".join(kaart(x) for x in meer) + "</div></div>"
+        meer_html = "<div class='wrap'><div class='sec'><h2 class='h'>Lees ook</h2></div><div class='grid'>" + "".join(kaart(x) for x in meer) + "</div></div>"
     beeldbron = f"<figcaption>{esc(a['beeld_bron'])}</figcaption>" if a.get("beeld_bron") else ""
     meta = ("Bijgewerkt op " + nl_datum(datetime.date.fromisoformat(a.get("bijgewerkt") or a["datum"])) + " " + (a.get("bijgewerkt") or a["datum"])[:4]) if a["type"] == "tijdloos" else nl_datum(d, True)
     return (kop(seo_met_merk(a["seo_titel"]) if a.get("seo_titel") else google_titel(a["titel"]), a.get("seo_beschrijving") or a["lede"], url, a["beeld"], extra) + balk(vandaag) + f"""
@@ -307,7 +332,7 @@ def artikel_pagina(a, alle, vandaag):
   <p class="lede">{esc(a['lede'])}</p>
   <div class="meta">{meta} · Redactie Ringvrees</div>
 </article>
-<figure class="kopbeeld"><img src="{a['beeld']}" alt="{esc(a['beeld_alt'])}" width="1600" height="900" fetchpriority="high">{beeldbron}</figure>
+<figure class="kopbeeld"><div class="kb">{img(a, "(max-width:1040px) 100vw, 1000px", 'fetchpriority="high"')}</div>{beeldbron}</figure>
 <article class="art body">
   {''.join(blok(b) for b in a['blokken'])}
   <div class="share"><b>{esc(a.get('doorstuur', 'Stuur door naar je huisgenoot'))}</b><a href="https://wa.me/?text={esc(a['titel'] + ' ' + SITE + url)}">WhatsApp</a>{ig}</div>
@@ -554,6 +579,9 @@ def nieuws_sitemap(alle):
 def main():
     vandaag = datetime.date.today()
     alle = [json.loads(p.read_text(encoding="utf-8")) for p in sorted((ROOT / "_bron/artikelen").glob("*.json"))]
+    import sys; sys.path.insert(0, str(ROOT / "_bron")); import beeld
+    for a in alle:
+        beeld.maak(a["slug"], a.get("beeld_bron", "").startswith("Foto"))
     for a in alle:
         for veld in ("slug", "datum", "type", "rubriek", "titel", "lede", "beeld", "beeld_alt", "blokken"):
             assert veld in a, f"{a.get('slug')}: veld {veld} ontbreekt"

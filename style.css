@@ -262,3 +262,7 @@ html.rond body{animation:ringrond 1.5s cubic-bezier(.65,0,.35,1)}
 @keyframes rcfade{from{opacity:0}to{opacity:1}}
 .rc-melding{z-index:9999}
 @media (max-width:760px){.rc-melding{width:calc(100vw - 64px);bottom:32px}}
+/* ===== premium: beeld en artikel ===== */
+picture{display:contents}
+.art.body > p:first-of-type::first-letter{float:left;font:400 92px/.78 'DM Serif Display',Georgia,serif;margin:10px 12px 0 0;color:var(--red)}
+@media (max-width:760px){.art.body > p:first-of-type::first-letter{font-size:72px}}
