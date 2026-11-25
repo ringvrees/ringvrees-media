@@ -266,3 +266,7 @@ html.rond body{animation:ringrond 1.5s cubic-bezier(.65,0,.35,1)}
 picture{display:contents}
 .art.body > p:first-of-type::first-letter{float:left;font:400 92px/.78 'DM Serif Display',Georgia,serif;margin:10px 12px 0 0;color:var(--red)}
 @media (max-width:760px){.art.body > p:first-of-type::first-letter{font-size:72px}}
+.share .kopieer{display:inline-flex;align-items:center;justify-content:center;width:39px;height:39px;border:2px solid var(--ink);background:none;color:var(--ink);cursor:pointer;padding:0}
+.share .kopieer svg{width:20px;height:20px}.share .kopieer .ic-ok{display:none}
+.share .kopieer.ok{background:var(--ink);color:var(--paper)}.share .kopieer.ok .ic-link{display:none}.share .kopieer.ok .ic-ok{display:block}
+.share .kopieer:hover{background:var(--ink);color:var(--paper)}
