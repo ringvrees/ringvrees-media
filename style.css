@@ -255,3 +255,5 @@ html.rond body{animation:ringrond 1.5s cubic-bezier(.65,0,.35,1)}
 .rc-knop{display:inline-flex;align-items:center;gap:8px;background:#111012;color:#F2ECE1;border:0;font:800 13px Inter,sans-serif;letter-spacing:.12em;text-transform:uppercase;padding:10px 14px;cursor:pointer}.rc-knop:hover{background:#E1251B}
 .rc-voet,.rc-mobiel{display:none}.rc-voet{padding:4px 0 18px;text-align:center}.rc-mobiel{margin:14px 0 0}@media (max-width:760px){.rc-voet,.rc-mobiel{display:block}}
 .rc-groot{font-size:15px;padding:16px 22px;margin:10px 0 4px}
+@keyframes rcin{from{opacity:0;transform:translate(-50%,calc(-50% + 24px))}to{opacity:1;transform:translate(-50%,-50%)}}
+@media (min-width:761px){.rc-melding{top:50%;bottom:auto;transform:translate(-50%,-50%);animation:rcin .35s cubic-bezier(.2,.8,.3,1.2) both}}
