@@ -13,17 +13,52 @@
  "beeld_bron": "Foto: Fons Heijnsbroek via Unsplash",
  "doorstuur": "Stuur door naar die collega die elke dag uit Utrecht komt en dat ‘eigenlijk heel goed te doen’ noemt",
  "blokken": [
-  {"p": "Het is officieel: de trein wordt voorlopig niet duurder. De NS was van plan de prijzen volgend jaar met gemiddeld 4,7 procent te verhogen. Die stijging gaat tot zeker eind mei niet door. Voor heel Nederland is dat goed nieuws. Voor de Amsterdammer binnen de ring is het vooral nieuws uit het buitenland."},
-  {"tussenkop": "Een treinkaartje is een uitreisvisum"},
-  {"p": "Binnen de A10 neem je de fiets. Naar je werk, naar de Pijp, naar een verjaardag in Oost die je eigenlijk had willen overslaan. De trein is voor iets heel anders: de ring uit. Voor de gemiddelde grachtenbewoner is een treinkaartje daarom geen vervoersbewijs maar een uitreisvisum. Mooi dat het visum niet duurder wordt. Wie er een aanvraagt, wordt in de buurt nog steeds met enige argwaan bekeken."},
-  {"p": "Bij sommige Amsterdammers roept het woord Utrecht alleen al <a href=\"/nieuws/symptomen-van-ringvrees/\">de klassieke symptomen van ringvrees</a> op. Het is dezelfde groep die bij <a href=\"/nieuws/2026-11-23-streekbussen-staken-amsterdam/\">de staking van de streekbussen</a> pas iets merkte toen het op straat opvallend rustig werd."},
-  {"lijst": ["Schiphol, maar alleen als het vliegtuig daarna echt vertrekt", "Een bruiloft in Utrecht waar je niet meer onderuit kwam", "Zandvoort, één keer per zomer, om te controleren of de zee er nog ligt", "Een verjaardag in Haarlem die al drie keer was verzet"], "vinkjes": false},
-  {"p": "Dat zijn de vier reizen waarvoor een Amsterdammer de trein neemt. Voor alle vier geldt nu dezelfde prijs als vorig jaar. Voor al het andere pak je gewoon de fiets."},
-  {"tussenkop": "En na mei?"},
-  {"p": "Het geld voor de bevriezing komt uit een potje dat nog over was van het kortingsticket van afgelopen zomer. Daar zit 47 miljoen euro in. Dat is genoeg voor vijf maanden. Hoe de overige zeven maanden worden betaald, moet nog worden uitgezocht. Binnen de ring kennen we dat model: zo betaalt de gemiddelde Amsterdamse starter ook zijn huur. Eerst de spaarpot leeg en daarna vooral hopen."},
-  {"p": "Deskundigen waarschuwen dat de hele prijsstijging later alsnog in één keer kan komen. Dat kan veel reizigers de trein uit jagen. In Amsterdam ziet men dat met rust tegemoet. Wie op Centraal de trein uit wordt gejaagd, staat op het perron en is eindelijk thuis."},
-  {"citaat": "Ik heb nog saldo op mijn ov-chipkaart van een bruiloft in 2019. Fijn dat dat geld tot juni zijn waarde houdt.", "door": "Wessel J. (58), Jordaan"},
-  {"getal": "15.00", "tekst": "Tot minstens dat tijdstip rijden er vandaag door een seinstoring geen sprinters tussen Abcoude en Breukelen. De goedkoopste reis naar Utrecht is vandaag de reis die je niet maakt."},
-  {"p": "Voor de Amsterdammer binnen de ring blijft alles dus bij het oude. De trein blijft even duur, Utrecht blijft even ver weg en de mooiste reis vertrekt nog altijd niet van spoor 1 maar van je eigen voordeur."}
+  {
+   "p": "Het is officieel: de trein wordt voorlopig niet duurder. De NS was van plan de prijzen volgend jaar met gemiddeld 4,7 procent te verhogen. Die stijging gaat tot zeker eind mei niet door. Voor heel Nederland is dat goed nieuws. Voor de Amsterdammer binnen de ring is het vooral nieuws uit het buitenland."
+  },
+  {
+   "tussenkop": "Een treinkaartje is een uitreisvisum"
+  },
+  {
+   "p": "Binnen de A10 neem je de fiets. Naar je werk, naar de Pijp, naar een verjaardag in Oost die je eigenlijk had willen overslaan. De trein is voor iets heel anders: de ring uit. Voor de gemiddelde grachtenbewoner is een treinkaartje daarom geen vervoersbewijs maar een uitreisvisum. Mooi dat het visum niet duurder wordt. Wie er een aanvraagt, wordt in de buurt nog steeds met enige argwaan bekeken."
+  },
+  {
+   "p": "Bij sommige Amsterdammers roept het woord Utrecht alleen al <a href=\"/nieuws/symptomen-van-ringvrees/\">de klassieke symptomen van ringvrees</a> op. Het is dezelfde groep die bij <a href=\"/nieuws/2026-11-23-streekbussen-staken-amsterdam/\">de staking van de streekbussen</a> pas iets merkte toen het op straat opvallend rustig werd."
+  },
+  {
+   "lijst": [
+    "Schiphol, maar alleen als het vliegtuig daarna echt vertrekt",
+    "Een bruiloft in Utrecht waar je niet meer onderuit kwam",
+    "Zandvoort, één keer per zomer, om te controleren of de zee er nog ligt",
+    "Een verjaardag in Haarlem die al drie keer was verzet"
+   ],
+   "vinkjes": false
+  },
+  {
+   "p": "Dat zijn de vier reizen waarvoor een Amsterdammer de trein neemt. Voor alle vier geldt nu dezelfde prijs als vorig jaar. Voor al het andere pak je gewoon de fiets."
+  },
+  {
+   "p": "Wie zo zelden reist, merkt de bevriezing vooral aan zijn ov-chipkaart. Binnen de ring staat op menige kaart nog het saldo van de laatste keer dat iemand de stad uit moest."
+  },
+  {
+   "citaat": "Ik heb nog saldo op mijn ov-chipkaart van een bruiloft in 2019. Fijn dat dat geld tot juni zijn waarde houdt.",
+   "door": "Wessel J. (31), Jordaan"
+  },
+  {
+   "tussenkop": "En na mei?"
+  },
+  {
+   "p": "Het geld voor de bevriezing komt uit een potje dat nog over was van het kortingsticket van afgelopen zomer. Daar zit 47 miljoen euro in. Dat is genoeg voor vijf maanden. Hoe de overige zeven maanden worden betaald, moet nog worden uitgezocht. Binnen de ring kennen we dat model: zo betaalt de gemiddelde Amsterdamse starter ook zijn huur. Eerst de spaarpot leeg en daarna vooral hopen."
+  },
+  {
+   "p": "Deskundigen waarschuwen dat de hele prijsstijging later alsnog in één keer kan komen. Dat kan veel reizigers de trein uit jagen. In Amsterdam ziet men dat met rust tegemoet. Wie op Centraal de trein uit wordt gejaagd, staat op het perron en is eindelijk thuis."
+  },
+  {
+   "getal": "15.00",
+   "tekst": "Tot minstens dat tijdstip rijden er vandaag door een seinstoring geen sprinters tussen Abcoude en Breukelen. De goedkoopste reis naar Utrecht is vandaag de reis die je niet maakt."
+  },
+  {
+   "p": "Voor de Amsterdammer binnen de ring blijft alles dus bij het oude. De trein blijft even duur, Utrecht blijft even ver weg en de mooiste reis vertrekt nog altijd niet van spoor 1 maar van je eigen voordeur."
+  }
  ]
 }
