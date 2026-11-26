@@ -32,6 +32,9 @@ Elk artikel is één JSON-bestand in _bron/artikelen/ met deze velden:
   bron        alleen bij eigen onderzoek of exclusief nieuws van één medium (zoals "Via @..." in de caption):
               naam van het medium, bv. "AT5". Toont onderaan "Bron: AT5". Bij algemeen nieuws weglaten.
   bron_url    optioneel, link naar het bronartikel
+  ingepland   optioneel true: het artikel staat klaar maar is nog NIET zichtbaar (geen pagina, niet op de
+              homepagina, niet in sitemap of feed). De ronde van datum+tijd haalt het veld weg en bouwt.
+              Zie tools/regie.md in de werkplaats.
   bijgewerkt  optioneel "YYYY-MM-DD": bij tijdloze artikelen de datum van de laatste inhoudelijke update
               (de site toont dan "Bijgewerkt op ..."; zonder dit veld geldt de datum)
   instagram   optioneel, url van de Instagram-post
@@ -601,6 +604,12 @@ def nieuws_sitemap(alle):
 def main():
     vandaag = datetime.date.today()
     alle = [json.loads(p.read_text(encoding="utf-8")) for p in sorted((ROOT / "_bron/artikelen").glob("*.json"))]
+    wacht = [a["slug"] for a in alle if a.get("ingepland")]
+    if wacht:
+        print("ingepland, nog niet zichtbaar:", ", ".join(wacht))
+        for slug in wacht:  # een eerder gebouwde pagina van een ingepland artikel ook weghalen
+            import shutil; shutil.rmtree(ROOT / "nieuws" / slug, ignore_errors=True)
+    alle = [a for a in alle if not a.get("ingepland")]
     import sys; sys.path.insert(0, str(ROOT / "_bron")); import beeld
     for a in alle:
         beeld.maak(a["slug"], a.get("beeld_bron", "").startswith("Foto"))
