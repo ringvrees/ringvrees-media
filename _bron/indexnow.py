@@ -1,7 +1,8 @@
 """IndexNow: meldt nieuwe en gewijzigde pagina's bij Bing, Copilot, DuckDuckGo, Yandex, Seznam en Naver.
 Draai NA een geslaagde push naar gh-pages:  python3 _bron/indexnow.py
-Vergelijkt _bron/lastmod.json met de vorige commit (of met --sinds <commit>) en stuurt alleen de URL's
-waarvan de inhoud veranderde. Wacht eerst tot GitHub Pages de nieuwe pagina's serveert (max ~4 min).
+Vergelijkt _bron/lastmod.json en sitemap.xml met de vorige commit (of met --sinds <commit>) en stuurt
+alleen nieuwe pagina's en pagina's waarvan de inhoud veranderde. Een gewijzigd artikel (bv. nieuwe foto)
+meld je door de URL erachter te zetten. Wacht eerst tot GitHub Pages de nieuwe pagina's serveert (max ~4 min).
 Google doet niet mee; daarvoor blijft de news-sitemap."""
 import json, subprocess, sys, time, urllib.request
 SITE = "https://ringvrees.nl"
@@ -13,11 +14,24 @@ def oud_lastmod(ref):
     except Exception:
         return {}
 
+def locs(tekst):
+    import re
+    return set(re.findall(r"<loc>([^<]+)</loc>", tekst or ""))
+
+def oud_sitemap(ref):
+    try:
+        return subprocess.run(["git", "show", f"{ref}:sitemap.xml"], capture_output=True, text=True, check=True).stdout
+    except Exception:
+        return ""
+
 def main():
     ref = sys.argv[sys.argv.index("--sinds") + 1] if "--sinds" in sys.argv else "HEAD~1"
     nu = json.load(open("_bron/lastmod.json"))
     oud = oud_lastmod(ref)
     urls = [SITE + u for u, (h, _) in nu.items() if oud.get(u, [None])[0] != h]
+    # nieuwe pagina's (artikelen) uit de sitemap
+    urls += sorted(locs(open("sitemap.xml").read()) - locs(oud_sitemap(ref)) - set(urls))
+    urls += [a for a in sys.argv[1:] if a.startswith(SITE) and a not in urls]  # losse url's meegeven kan ook
     if not urls:
         print("indexnow: niets nieuws"); return
     # wacht tot de eerste artikelpagina (of anders de eerste url) live is
