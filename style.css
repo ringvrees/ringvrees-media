@@ -298,9 +298,6 @@ main .rb{max-width:none;padding:0;margin:0 0 56px}
 .rb .rb-form .text-center,.rb .rb-form .mastfoot{text-align:left!important}
 .rb .rb-form .mastfoot{opacity:.7}
 @media (max-width:760px){.rb .rb-form .main-form{flex-direction:column!important;align-items:stretch!important}.rb .rb-form [eo-form-fields-container]{width:100%!important}}
-/* Web-app: de zwarte balk loopt door onder de klok, ook tijdens het scrollen (geen grijze vervaging bovenin) */
-body{padding-left:env(safe-area-inset-left);padding-right:env(safe-area-inset-right)}
-@media (display-mode:standalone){
- body{padding-top:env(safe-area-inset-top)}
- body::before{content:"";position:fixed;top:0;left:0;right:0;height:env(safe-area-inset-top);background:var(--ink);z-index:1000;pointer-events:none}
-}
+/* Bovenkant: iOS kleurt de strook onder de klok met de achtergrond van html. Zwart, zodat hij naadloos overloopt in de Satire-balk */
+html{background:var(--ink)}
+body{min-height:100vh}
