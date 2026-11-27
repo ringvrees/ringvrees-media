@@ -3,8 +3,9 @@
    - Stijl, lettertypes, scripts en foto's: meteen uit de opslag, op de achtergrond ververst.
    - Andere domeinen (Metricool-teller, weer, Instagram) en /media/ (tijdelijke Instagram-slides) gaan er gewoon langs.
    Geen cookies, geen tracking: alles blijft op het toestel van de lezer.
-   Pushmeldingen komen hier later bij (OneSignal), nu nog niet. */
-const VERSIE = "rv-1";
+   Pushmeldingen: OneSignal draait mee in deze service worker (alleen gebruikt in de app op een telefoon). */
+try { importScripts("https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.sw.js"); } catch (fout) { /* zonder OneSignal blijft offline lezen werken */ }
+const VERSIE = "rv-2";
 const PAGINAS = VERSIE + "-paginas";
 const STATISCH = VERSIE + "-statisch";
 const BEELD = VERSIE + "-beeld";

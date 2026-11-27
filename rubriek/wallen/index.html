@@ -52,7 +52,7 @@
   <a class="logo" href="/">RINGVREES</a>
   <nav class="nav"><a class="hide" href="/#nieuws">Nieuws</a><a class="hide" href="/#handboek">Handboek</a><a class="hide" href="/rubrieken/">Rubrieken</a><a class="hide" href="/over/">Over</a><a class="ig" href="/test/#vragen">Doe de test →</a>
   <details class="menu"><summary aria-label="Menu"><span></span><span></span><span></span></summary>
-   <div class="menu-paneel" onclick="this.parentNode.removeAttribute('open')"><a href="/#nieuws">Nieuws</a><a href="/#handboek">Handboek</a><a href="/rubrieken/">Rubrieken</a><a href="/over/">Over Ringvrees</a><a href="/test/#vragen">Heb jij ringvrees? De test</a><a href="/afstand/">Ringcheck</a><a href="https://www.instagram.com/ringvrees/">Instagram</a><a href="https://www.facebook.com/Ringvrees">Facebook</a><a class="app-knop" href="#app" onclick="event.preventDefault();ringvreesApp()">Ringvrees als app</a></div>
+   <div class="menu-paneel" onclick="this.parentNode.removeAttribute('open')"><a href="/#nieuws">Nieuws</a><a href="/#handboek">Handboek</a><a href="/rubrieken/">Rubrieken</a><a href="/over/">Over Ringvrees</a><a href="/test/#vragen">Heb jij ringvrees? De test</a><a href="/afstand/">Ringcheck</a><a href="https://www.instagram.com/ringvrees/">Instagram</a><a href="https://www.facebook.com/Ringvrees">Facebook</a><a class="app-knop" href="#app" onclick="event.preventDefault();ringvreesApp()">Ringvrees als app</a><a class="meld-knop" href="#meldingen" hidden onclick="event.preventDefault();ringvreesMeld()">Meldingen aan</a></div>
   </details></nav>
 </div></header>
 <main class="wrap"><div class="sec" style="margin-top:44px"><h1 class="h" style="font-size:44px">Wallen</h1></div>
@@ -97,7 +97,7 @@ function melding(){
   <p class="vk-kop">Ringvrees op je beginscherm</p>
   <p class="vk-ster app-ios" hidden>Tik op het deelicoon (het vierkantje met de pijl omhoog) en kies <b>Zet op beginscherm</b>.</p>
   <p class="vk-ster app-rest" hidden>Open het menu van je browser en kies <b>App installeren</b> of <b>Toevoegen aan startscherm</b>.</p>
-  <p class="vk-uit">Daarna open je Ringvrees met één tik, zonder adresbalk. Scheelt een omweg. En omwegen eindigen nog weleens buiten de ring.</p>
+  <p class="vk-uit">Daarna open je Ringvrees met één tik, zonder adresbalk. Scheelt een omweg. En omwegen eindigen nog weleens buiten de ring. Op je telefoon kun je in de app ook meldingen aanzetten voor groot nieuws.</p>
   <div class="vk-knoppen"><button type="button" class="vk-ok app-nu" hidden>Installeer de app</button><button type="button" class="vk-ok" style="background:transparent;color:var(--ink);border:2px solid var(--ink)" onclick="this.closest('dialog').close()">Sluiten</button></div>
   <div class="vk-voet">Ringvrees · Afdeling Digitale Zaken Binnen de Ring</div>
 </div></dialog>
@@ -115,6 +115,37 @@ d.querySelector(".app-nu").onclick=function(){if(!vraag)return;vraag.prompt();vr
 if("serviceWorker" in navigator)addEventListener("load",function(){navigator.serviceWorker.register("/sw.js").catch(function(){});});
 /* Een app ververst niet vanzelf: wie na een kwartier terugkomt krijgt de nieuwste versie. */
 if(los){var weg=0;document.addEventListener("visibilitychange",function(){if(document.hidden)weg=Date.now();else if(weg&&Date.now()-weg>9e5)location.reload();});}
+})();</script>
+<dialog id="meld" class="verklaring" onclick="if(event.target===this)this.close()"><div class="vk-in">
+  <div class="vk-stempel">Meldingen</div>
+  <p class="vk-kop meld-kop">Meldingen staan aan</p>
+  <p class="vk-ster meld-tekst">Je krijgt een seintje als er groot nieuws is van binnen de ring. Niet vaker dan nodig.</p>
+  <p class="vk-uit meld-uit">Liever niet meer? Zet ze hier uit. Je kunt ze altijd weer aanzetten via het menu.</p>
+  <div class="vk-knoppen"><button type="button" class="vk-ok meld-actie">Meldingen uit</button><button type="button" class="vk-ok" style="background:transparent;color:var(--ink);border:2px solid var(--ink)" onclick="this.closest('dialog').close()">Sluiten</button></div>
+  <div class="vk-voet">Ringvrees · Afdeling Seintjes Binnen de Ring</div>
+</div></dialog>
+<script>(function(){
+/* Pushmeldingen via OneSignal: ALLEEN in de geïnstalleerde app op een telefoon. In de browser en op de computer laadt OneSignal nooit.
+   Toestemming wordt pas gevraagd als iemand zelf op "Meldingen aan" tikt (auto-prompt staat uit in OneSignal). */
+var los=(window.matchMedia&&matchMedia("(display-mode: standalone)").matches)||navigator.standalone===true;
+var tel=/Android|iPhone|iPad|iPod/i.test(navigator.userAgent)||(navigator.platform==="MacIntel"&&navigator.maxTouchPoints>1);
+if(!los||!tel||!("serviceWorker" in navigator))return;
+var OS=null,d=document.getElementById("meld"),k=document.querySelector(".meld-knop");
+function aan(){return !!(OS&&OS.Notifications.permission&&OS.User.PushSubscription.optedIn);}
+function toon(){if(!k)return;k.hidden=false;k.textContent=aan()?"Meldingen staan aan":"Meldingen aan";}
+window.OneSignalDeferred=window.OneSignalDeferred||[];
+OneSignalDeferred.push(async function(O){
+ await O.init({appId:"39e0fae8-3bbe-4536-9c69-5a9974c4283a",serviceWorkerPath:"sw.js",serviceWorkerParam:{scope:"/"}});
+ OS=O;toon();O.User.PushSubscription.addEventListener("change",toon);O.Notifications.addEventListener("permissionChange",toon);
+});
+var s=document.createElement("script");s.src="https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js";s.defer=true;document.head.appendChild(s);
+window.ringvreesMeld=function(){
+ if(!OS)return;
+ if(aan()){d.querySelector(".meld-kop").textContent="Meldingen staan aan";d.querySelector(".meld-tekst").textContent="Je krijgt een seintje als er groot nieuws is van binnen de ring. Niet vaker dan nodig.";d.querySelector(".meld-uit").hidden=false;var b=d.querySelector(".meld-actie");b.hidden=false;b.onclick=function(){OS.User.PushSubscription.optOut();d.close();};d.showModal();return;}
+ if(OS.Notifications.permission){OS.User.PushSubscription.optIn();return;}
+ if(OS.Notifications.permissionNative==="denied"){d.querySelector(".meld-kop").textContent="Meldingen staan uit";d.querySelector(".meld-tekst").textContent="Je hebt eerder nee gezegd. Zet ze aan via de instellingen van je telefoon: Meldingen, dan Ringvrees.";d.querySelector(".meld-uit").hidden=true;d.querySelector(".meld-actie").hidden=true;d.showModal();return;}
+ OS.Notifications.requestPermission();
+};
 })();</script>
 <script src="/ringcheck.js" defer></script>
 <script>function loadScript(a){var b=document.getElementsByTagName("head")[0],c=document.createElement("script");c.type="text/javascript",c.src="https://tracker.metricool.com/resources/be.js",c.onreadystatechange=a,c.onload=a,b.appendChild(c)}loadScript(function(){beTracker.t({hash:"28d8b3fef356e6ce2be2234c8ee31417"})});</script>
