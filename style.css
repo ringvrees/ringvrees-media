@@ -298,6 +298,7 @@ main .rb{max-width:none;padding:0;margin:0 0 56px}
 .rb .rb-form .text-center,.rb .rb-form .mastfoot{text-align:left!important}
 .rb .rb-form .mastfoot{opacity:.7}
 @media (max-width:760px){.rb .rb-form .main-form{flex-direction:column!important;align-items:stretch!important}.rb .rb-form [eo-form-fields-container]{width:100%!important}}
-/* Bovenkant: iOS kleurt de strook onder de klok met de achtergrond van html. Zwart, zodat hij naadloos overloopt in de Satire-balk */
-html{background:var(--ink)}
-body{min-height:100vh}
+/* Bovenkant (iOS 26): Safari kleurt de strook onder de klok alleen effen in als er een sticky of fixed element tegen de bovenrand zit.
+   Anders legt hij glas over de content. Daarom blijft de zwarte Satire-balk vast bovenin staan. */
+.strip{position:sticky;top:0;z-index:900}
+html{scroll-padding-top:34px}
