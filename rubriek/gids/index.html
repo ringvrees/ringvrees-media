@@ -120,7 +120,7 @@ window.ringvreesApp=function(){
 d.querySelector(".app-nu").onclick=function(){if(!vraag)return;vraag.prompt();vraag.userChoice.then(function(){vraag=null;d.close();});};
 if("serviceWorker" in navigator)addEventListener("load",function(){navigator.serviceWorker.register("/sw.js").catch(function(){});});
 /* Een app ververst niet vanzelf: wie na een kwartier terugkomt krijgt de nieuwste versie. */
-if(los){var weg=0;document.addEventListener("visibilitychange",function(){if(document.hidden)weg=Date.now();else if(weg&&Date.now()-weg>9e5)location.reload();});}
+if(los){var weg=0;document.addEventListener("visibilitychange",function(){if(document.hidden)weg=Date.now();else if(weg&&Date.now()-weg>(location.pathname.indexOf("/nieuws/")===0?9e5:6e4))location.reload();});}
 })();</script>
 <dialog id="meld" class="verklaring" onclick="if(event.target===this)this.close()"><div class="vk-in">
   <div class="vk-stempel">Meldingen</div>

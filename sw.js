@@ -5,7 +5,7 @@
    Geen cookies, geen tracking: alles blijft op het toestel van de lezer.
    Pushmeldingen: OneSignal draait mee in deze service worker (alleen gebruikt in de app op een telefoon). */
 try { importScripts("https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.sw.js"); } catch (fout) { /* zonder OneSignal blijft offline lezen werken */ }
-const VERSIE = "rv-2";
+const VERSIE = "rv-3";
 const PAGINAS = VERSIE + "-paginas";
 const STATISCH = VERSIE + "-statisch";
 const BEELD = VERSIE + "-beeld";
@@ -41,7 +41,8 @@ async function snoei(naam, max) {
 async function pagina(req) {
   const c = await caches.open(PAGINAS);
   try {
-    const res = await fetch(req);
+    /* no-cache: altijd even bij de server navragen of er een nieuwere versie is (anders kan de browser tot 10 minuten een oude voorpagina tonen) */
+    const res = await fetch(new Request(req.url, { cache: "no-cache", credentials: "same-origin", redirect: "manual" }));
     if (res.ok) { c.put(req, res.clone()).then(() => snoei(PAGINAS, MAX_PAGINAS)); }
     return res;
   } catch (fout) {
