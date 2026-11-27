@@ -85,7 +85,7 @@ def kop(titel, beschrijving, url, beeld=None, extra="", deel=None):
 <html lang="nl">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>{esc(titel)}</title>
 <meta name="description" content="{esc(beschrijving)}">
 <link rel="canonical" href="{SITE}{url}">
@@ -104,7 +104,7 @@ def kop(titel, beschrijving, url, beeld=None, extra="", deel=None):
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-title" content="Ringvrees">
-<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="robots" content="max-image-preview:large">
 <link rel="preload" href="/fonts/inter-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/fonts/dm-serif-display-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
