@@ -330,11 +330,14 @@ def kaart(a, groot=False, kort=False):
 def img(a, sizes, attrs):
     """Kopbeeld als <picture> met de behandelde WebP-versies (1600 en 800) als die er zijn."""
     v = ROOT / "img" / "artikelen" / "v" / f"{a['slug']}-800.webp"
-    tag = f"<img src=\"{a['beeld']}\" alt=\"{esc(a['beeld_alt'])}\" width=\"1600\" height=\"900\" {attrs}>"
+    # ?v=<inhoudshash>: verandert alleen als de foto verandert, zodat de app een vervangen foto niet uit zijn opslag blijft tonen
+    bron = ROOT / a['beeld'].lstrip("/")
+    h = hashlib.md5(bron.read_bytes()).hexdigest()[:8] if bron.exists() else "0"
+    tag = f"<img src=\"{a['beeld']}?v={h}\" alt=\"{esc(a['beeld_alt'])}\" width=\"1600\" height=\"900\" {attrs}>"
     if not v.exists():
         return tag
     b = f"/img/artikelen/v/{a['slug']}"
-    return f"<picture><source type=\"image/webp\" srcset=\"{b}-800.webp 800w, {b}-1600.webp 1600w\" sizes=\"{sizes}\">{tag}</picture>"
+    return f"<picture><source type=\"image/webp\" srcset=\"{b}-800.webp?v={h} 800w, {b}-1600.webp?v={h} 1600w\" sizes=\"{sizes}\">{tag}</picture>"
 
 
 def leestijd(a):
