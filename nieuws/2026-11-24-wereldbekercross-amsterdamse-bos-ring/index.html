@@ -153,7 +153,7 @@ if(los){var weg=0;document.addEventListener("visibilitychange",function(){if(doc
   <p class="vk-kop meld-kop">Meldingen staan aan</p>
   <p class="vk-ster meld-tekst">Je krijgt een seintje als er groot nieuws is van binnen de ring. Niet vaker dan nodig.</p>
   <p class="vk-uit meld-uit">Liever niet meer? Zet ze hier uit. Je kunt ze altijd weer aanzetten via het menu.</p>
-  <div class="vk-knoppen"><button type="button" class="vk-ok meld-actie">Meldingen uit</button><button type="button" class="vk-ok" style="background:transparent;color:var(--ink);border:2px solid var(--ink)" onclick="this.closest('dialog').close()">Sluiten</button></div>
+  <div class="vk-knoppen"><button type="button" class="vk-ok meld-actie">Meldingen uit</button><button type="button" class="vk-ok meld-nee" style="background:transparent;color:var(--ink);border:2px solid var(--ink)" onclick="this.closest('dialog').close()">Sluiten</button></div>
   <div class="vk-voet">Ringvrees · Afdeling Seintjes Binnen de Ring</div>
 </div></dialog>
 <script>(function(){
@@ -169,10 +169,25 @@ window.OneSignalDeferred=window.OneSignalDeferred||[];
 OneSignalDeferred.push(async function(O){
  await O.init({appId:"39e0fae8-3bbe-4536-9c69-5a9974c4283a",serviceWorkerPath:"sw.js",serviceWorkerParam:{scope:"/"}});
  OS=O;toon();O.User.PushSubscription.addEventListener("change",toon);O.Notifications.addEventListener("permissionChange",toon);
+ eersteKeer();
 });
+/* Eerste keer dat de app opent: meteen de vraag. iOS staat de toestemmingsvraag alleen toe na een tik,
+   daarom eerst ons eigen venster; "Ja, graag" opent daarna de echte vraag van de telefoon. */
+function eersteKeer(){
+ var al=null;try{al=localStorage.getItem("rv-meld-gevraagd");}catch(e){}
+ if(al||aan()||OS.Notifications.permissionNative!=="default")return;
+ try{localStorage.setItem("rv-meld-gevraagd","1");}catch(e){}
+ d.querySelector(".meld-kop").textContent="Wil je berichten ontvangen?";
+ d.querySelector(".meld-tekst").textContent="Dan krijg je een seintje zodra er nieuws is van binnen de ring.";
+ var u=d.querySelector(".meld-uit");u.hidden=false;u.textContent="Uitzetten kan altijd weer via het menu.";
+ var b=d.querySelector(".meld-actie");b.hidden=false;b.textContent="Ja, graag";b.onclick=function(){d.close();OS.Notifications.requestPermission();};
+ d.querySelector(".meld-nee").textContent="Nee, ik check het zelf";
+ setTimeout(function(){if(!d.open&&!document.querySelector("dialog[open]"))d.showModal();},1200);
+}
 var s=document.createElement("script");s.src="https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js";s.defer=true;document.head.appendChild(s);
 window.ringvreesMeld=function(){
  if(!OS)return;
+ d.querySelector(".meld-actie").textContent="Meldingen uit";d.querySelector(".meld-nee").textContent="Sluiten";d.querySelector(".meld-uit").textContent="Liever niet meer? Zet ze hier uit. Je kunt ze altijd weer aanzetten via het menu.";
  if(aan()){d.querySelector(".meld-kop").textContent="Meldingen staan aan";d.querySelector(".meld-tekst").textContent="Je krijgt een seintje als er groot nieuws is van binnen de ring. Niet vaker dan nodig.";d.querySelector(".meld-uit").hidden=false;var b=d.querySelector(".meld-actie");b.hidden=false;b.onclick=function(){OS.User.PushSubscription.optOut();d.close();};d.showModal();return;}
  if(OS.Notifications.permission){OS.User.PushSubscription.optIn();return;}
  if(OS.Notifications.permissionNative==="denied"){d.querySelector(".meld-kop").textContent="Meldingen staan uit";d.querySelector(".meld-tekst").textContent="Je hebt eerder nee gezegd. Zet ze aan via de instellingen van je telefoon: Meldingen, dan Ringvrees.";d.querySelector(".meld-uit").hidden=true;d.querySelector(".meld-actie").hidden=true;d.showModal();return;}
