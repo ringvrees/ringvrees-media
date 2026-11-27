@@ -26,5 +26,9 @@
  "Sport": {
   "intro": "Nieuws over sport in Amsterdam: van Ajax tot een veldrit in het Amsterdamse Bos. De feiten kloppen. De blik is die van iemand die zijn dagelijkse sport beoefent op weg naar de bakker.",
   "omschrijving": "Satirisch sportnieuws uit Amsterdam: echte feiten over clubs, wedstrijden en evenementen, met de droge blik van binnen de ring A10."
+ },
+ "Vastgoed": {
+  "intro": "Nieuws over Amsterdamse gebouwen, verkopen, leegstand en de plannen die er ooit mee komen. De feiten kloppen. De blik is die van iemand die al dertig jaar langs dezelfde lege etalages fietst en nog steeds op een huurwoning wacht.",
+  "omschrijving": "Satirisch nieuws over Amsterdams vastgoed: verkochte panden, leegstand en plannen. Echte feiten, gebracht met de droge blik van binnen de ring A10."
  }
 }
