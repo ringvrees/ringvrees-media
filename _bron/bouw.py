@@ -446,6 +446,7 @@ def over(vandaag):
   <p>Je vindt Ringvrees op <a href="{IG}">Instagram (@ringvrees)</a>, op <a href="{FB}">Facebook</a> en hier op ringvrees.nl, met elke dag nieuwe verhalen.</p>
   <h2 class="h" id="redactie">De redactie</h2>
   <p>Ringvrees wordt gemaakt door een kleine redactie die vergadert in een bakfiets ergens aan de gracht, veilig binnen de ring. In de bak passen precies drie redacteuren, dus groter dan dit worden we nooit. Elke ochtend begint met koffie van het tentje op de hoek en de vraag of iemand vandaag écht naar Noord moet. Het antwoord is altijd nee, maar voor de zekerheid volgen we de dienstregeling van de pont alsof het beurskoersen zijn. Onze verslaggevers komen nooit verder dan de A10 en een trip naar Sloterdijk geldt als dienstreis met gevarentoeslag. Alles wat we schrijven gaat langs een eindredacteur die Amstelveen nog steeds een verzonnen plaats noemt. Wel zo netjes: bij nieuws van één medium zetten we de bron eronder.</p>
+  <p>Gemaakt met hulp van software, eindredactie Ringvrees.</p>
   <h2 class="h" id="privacy">Privacy</h2>
   <p>We tellen hoeveel mensen Ringvrees lezen met de bezoekersteller van Metricool. Die werkt zonder cookies, slaat niets op je apparaat op en volgt je niet over andere sites. Daarom zie je hier ook geen cookiebanner. Meld je je aan voor Het Ringbericht, dan bewaart EmailOctopus je mailadres om je de nieuwsbrief te sturen. Afmelden kan in elke mail. De Ringcheck vraagt alleen om je locatie als je zelf op de knop drukt en bewaart niets.</p>
   <h2 class="h">Contact</h2>
