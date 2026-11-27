@@ -1,0 +1,25 @@
+{
+  "id": "/",
+  "name": "Ringvrees",
+  "short_name": "Ringvrees",
+  "description": "Het Amsterdamse nieuws zoals het écht voelt binnen de A10.",
+  "lang": "nl",
+  "dir": "ltr",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#E1251B",
+  "theme_color": "#E1251B",
+  "categories": ["news", "entertainment"],
+  "icons": [
+    {"src": "/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any"},
+    {"src": "/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any"},
+    {"src": "/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable"}
+  ],
+  "shortcuts": [
+    {"name": "Doe de ringvrees-test", "short_name": "Test", "url": "/test/#vragen", "icons": [{"src": "/icon-192.png", "sizes": "192x192"}]},
+    {"name": "Ringcheck: sta ik binnen de A10?", "short_name": "Ringcheck", "url": "/afstand/", "icons": [{"src": "/icon-192.png", "sizes": "192x192"}]},
+    {"name": "Weer binnen de ring", "short_name": "Weer", "url": "/weer/", "icons": [{"src": "/icon-192.png", "sizes": "192x192"}]}
+  ]
+}

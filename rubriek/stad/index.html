@@ -21,6 +21,11 @@
 <link rel="icon" href="/favicon.ico" sizes="any">
 <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="manifest" href="/manifest.webmanifest">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Ringvrees">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
 <meta name="robots" content="max-image-preview:large">
 <link rel="preload" href="/fonts/inter-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/fonts/dm-serif-display-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
@@ -47,7 +52,7 @@
   <a class="logo" href="/">RINGVREES</a>
   <nav class="nav"><a class="hide" href="/#nieuws">Nieuws</a><a class="hide" href="/#handboek">Handboek</a><a class="hide" href="/rubrieken/">Rubrieken</a><a class="hide" href="/over/">Over</a><a class="ig" href="/test/#vragen">Doe de test →</a>
   <details class="menu"><summary aria-label="Menu"><span></span><span></span><span></span></summary>
-   <div class="menu-paneel" onclick="this.parentNode.removeAttribute('open')"><a href="/#nieuws">Nieuws</a><a href="/#handboek">Handboek</a><a href="/rubrieken/">Rubrieken</a><a href="/over/">Over Ringvrees</a><a href="/test/#vragen">Heb jij ringvrees? De test</a><a href="/afstand/">Ringcheck</a><a href="https://www.instagram.com/ringvrees/">Instagram</a><a href="https://www.facebook.com/Ringvrees">Facebook</a></div>
+   <div class="menu-paneel" onclick="this.parentNode.removeAttribute('open')"><a href="/#nieuws">Nieuws</a><a href="/#handboek">Handboek</a><a href="/rubrieken/">Rubrieken</a><a href="/over/">Over Ringvrees</a><a href="/test/#vragen">Heb jij ringvrees? De test</a><a href="/afstand/">Ringcheck</a><a href="https://www.instagram.com/ringvrees/">Instagram</a><a href="https://www.facebook.com/Ringvrees">Facebook</a><a class="app-knop" href="#app" onclick="event.preventDefault();ringvreesApp()">Ringvrees als app</a></div>
   </details></nav>
 </div></header>
 <main class="wrap"><div class="sec" style="margin-top:44px"><h1 class="h" style="font-size:44px">Stad</h1></div>
@@ -122,6 +127,30 @@ function melding(){
  document.body.appendChild(d);
  setTimeout(function(){d.classList.add("weg")},5200);setTimeout(function(){d.remove()},5800);
 }
+})();</script>
+<dialog id="app" class="verklaring" onclick="if(event.target===this)this.close()"><div class="vk-in">
+  <div class="vk-stempel">Aanvraag</div>
+  <p class="vk-kop">Ringvrees op je beginscherm</p>
+  <p class="vk-ster app-ios" hidden>Tik op het deelicoon (het vierkantje met de pijl omhoog) en kies <b>Zet op beginscherm</b>.</p>
+  <p class="vk-ster app-rest" hidden>Open het menu van je browser en kies <b>App installeren</b> of <b>Toevoegen aan startscherm</b>.</p>
+  <p class="vk-uit">Daarna open je Ringvrees met één tik, zonder adresbalk. Scheelt een omweg. En omwegen eindigen nog weleens buiten de ring.</p>
+  <div class="vk-knoppen"><button type="button" class="vk-ok app-nu" hidden>Installeer de app</button><button type="button" class="vk-ok" style="background:transparent;color:var(--ink);border:2px solid var(--ink)" onclick="this.closest('dialog').close()">Sluiten</button></div>
+  <div class="vk-voet">Ringvrees · Afdeling Digitale Zaken Binnen de Ring</div>
+</div></dialog>
+<script>(function(){
+/* Web-app: service worker, installeren en verversen. Geen cookies, geen pushmeldingen (nog niet). */
+var los=(window.matchMedia&&matchMedia("(display-mode: standalone)").matches)||navigator.standalone===true,vraag=null,d=document.getElementById("app");
+if(los){document.documentElement.classList.add("als-app");[].forEach.call(document.querySelectorAll(".app-knop"),function(a){a.remove()});}
+addEventListener("beforeinstallprompt",function(e){e.preventDefault();vraag=e;});
+addEventListener("appinstalled",function(){vraag=null;if(d.open)d.close();});
+window.ringvreesApp=function(){
+ var ios=/iPhone|iPad|iPod/.test(navigator.userAgent)||(navigator.platform==="MacIntel"&&navigator.maxTouchPoints>1);
+ d.querySelector(".app-ios").hidden=!ios;d.querySelector(".app-rest").hidden=ios||!!vraag;d.querySelector(".app-nu").hidden=!vraag;d.showModal();
+};
+d.querySelector(".app-nu").onclick=function(){if(!vraag)return;vraag.prompt();vraag.userChoice.then(function(){vraag=null;d.close();});};
+if("serviceWorker" in navigator)addEventListener("load",function(){navigator.serviceWorker.register("/sw.js").catch(function(){});});
+/* Een app ververst niet vanzelf: wie na een kwartier terugkomt krijgt de nieuwste versie. */
+if(los){var weg=0;document.addEventListener("visibilitychange",function(){if(document.hidden)weg=Date.now();else if(weg&&Date.now()-weg>9e5)location.reload();});}
 })();</script>
 <script src="/ringcheck.js" defer></script>
 <script>function loadScript(a){var b=document.getElementsByTagName("head")[0],c=document.createElement("script");c.type="text/javascript",c.src="https://tracker.metricool.com/resources/be.js",c.onreadystatechange=a,c.onload=a,b.appendChild(c)}loadScript(function(){beTracker.t({hash:"28d8b3fef356e6ce2be2234c8ee31417"})});</script>

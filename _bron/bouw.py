@@ -100,6 +100,11 @@ def kop(titel, beschrijving, url, beeld=None, extra="", deel=None):
 <link rel="icon" href="/favicon.ico" sizes="any">
 <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="manifest" href="/manifest.webmanifest">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Ringvrees">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
 <meta name="robots" content="max-image-preview:large">
 <link rel="preload" href="/fonts/inter-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/fonts/dm-serif-display-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
@@ -133,7 +138,7 @@ def balk(vandaag, home=False):
   {logo}
   <nav class="nav"><a class="hide" href="/#nieuws">Nieuws</a><a class="hide" href="/#handboek">Handboek</a><a class="hide" href="/rubrieken/">Rubrieken</a><a class="hide" href="/over/">Over</a><a class="ig" href="/test/#vragen">Doe de test →</a>
   <details class="menu"><summary aria-label="Menu"><span></span><span></span><span></span></summary>
-   <div class="menu-paneel" onclick="this.parentNode.removeAttribute('open')"><a href="/#nieuws">Nieuws</a><a href="/#handboek">Handboek</a><a href="/rubrieken/">Rubrieken</a><a href="/over/">Over Ringvrees</a><a href="/test/#vragen">Heb jij ringvrees? De test</a><a href="/afstand/">Ringcheck</a><a href="{IG}">Instagram</a><a href="{FB}">Facebook</a></div>
+   <div class="menu-paneel" onclick="this.parentNode.removeAttribute('open')"><a href="/#nieuws">Nieuws</a><a href="/#handboek">Handboek</a><a href="/rubrieken/">Rubrieken</a><a href="/over/">Over Ringvrees</a><a href="/test/#vragen">Heb jij ringvrees? De test</a><a href="/afstand/">Ringcheck</a><a href="{IG}">Instagram</a><a href="{FB}">Facebook</a><a class="app-knop" href="#app" onclick="event.preventDefault();ringvreesApp()">Ringvrees als app</a></div>
   </details></nav>
 </div></header>"""
 
@@ -162,6 +167,30 @@ function melding(){
  document.body.appendChild(d);
  setTimeout(function(){d.classList.add("weg")},5200);setTimeout(function(){d.remove()},5800);
 }
+})();</script>
+<dialog id="app" class="verklaring" onclick="if(event.target===this)this.close()"><div class="vk-in">
+  <div class="vk-stempel">Aanvraag</div>
+  <p class="vk-kop">Ringvrees op je beginscherm</p>
+  <p class="vk-ster app-ios" hidden>Tik op het deelicoon (het vierkantje met de pijl omhoog) en kies <b>Zet op beginscherm</b>.</p>
+  <p class="vk-ster app-rest" hidden>Open het menu van je browser en kies <b>App installeren</b> of <b>Toevoegen aan startscherm</b>.</p>
+  <p class="vk-uit">Daarna open je Ringvrees met één tik, zonder adresbalk. Scheelt een omweg. En omwegen eindigen nog weleens buiten de ring.</p>
+  <div class="vk-knoppen"><button type="button" class="vk-ok app-nu" hidden>Installeer de app</button><button type="button" class="vk-ok" style="background:transparent;color:var(--ink);border:2px solid var(--ink)" onclick="this.closest('dialog').close()">Sluiten</button></div>
+  <div class="vk-voet">Ringvrees · Afdeling Digitale Zaken Binnen de Ring</div>
+</div></dialog>
+<script>(function(){
+/* Web-app: service worker, installeren en verversen. Geen cookies, geen pushmeldingen (nog niet). */
+var los=(window.matchMedia&&matchMedia("(display-mode: standalone)").matches)||navigator.standalone===true,vraag=null,d=document.getElementById("app");
+if(los){document.documentElement.classList.add("als-app");[].forEach.call(document.querySelectorAll(".app-knop"),function(a){a.remove()});}
+addEventListener("beforeinstallprompt",function(e){e.preventDefault();vraag=e;});
+addEventListener("appinstalled",function(){vraag=null;if(d.open)d.close();});
+window.ringvreesApp=function(){
+ var ios=/iPhone|iPad|iPod/.test(navigator.userAgent)||(navigator.platform==="MacIntel"&&navigator.maxTouchPoints>1);
+ d.querySelector(".app-ios").hidden=!ios;d.querySelector(".app-rest").hidden=ios||!!vraag;d.querySelector(".app-nu").hidden=!vraag;d.showModal();
+};
+d.querySelector(".app-nu").onclick=function(){if(!vraag)return;vraag.prompt();vraag.userChoice.then(function(){vraag=null;d.close();});};
+if("serviceWorker" in navigator)addEventListener("load",function(){navigator.serviceWorker.register("/sw.js").catch(function(){});});
+/* Een app ververst niet vanzelf: wie na een kwartier terugkomt krijgt de nieuwste versie. */
+if(los){var weg=0;document.addEventListener("visibilitychange",function(){if(document.hidden)weg=Date.now();else if(weg&&Date.now()-weg>9e5)location.reload();});}
 })();</script>
 <script src="/ringcheck.js" defer></script>
 <script>function loadScript(a){var b=document.getElementsByTagName("head")[0],c=document.createElement("script");c.type="text/javascript",c.src="https://tracker.metricool.com/resources/be.js",c.onreadystatechange=a,c.onload=a,b.appendChild(c)}loadScript(function(){beTracker.t({hash:"28d8b3fef356e6ce2be2234c8ee31417"})});</script>
@@ -448,7 +477,7 @@ def over(vandaag):
   <p>Ringvrees wordt gemaakt door een kleine redactie die vergadert in een bakfiets ergens aan de gracht, veilig binnen de ring. In de bak passen precies drie redacteuren, dus groter dan dit worden we nooit. Elke ochtend begint met koffie van het tentje op de hoek en de vraag of iemand vandaag écht naar Noord moet. Het antwoord is altijd nee, maar voor de zekerheid volgen we de dienstregeling van de pont alsof het beurskoersen zijn. Onze verslaggevers komen nooit verder dan de A10 en een trip naar Sloterdijk geldt als dienstreis met gevarentoeslag. Alles wat we schrijven gaat langs een eindredacteur die Amstelveen nog steeds een verzonnen plaats noemt. Wel zo netjes: bij nieuws van één medium zetten we de bron eronder.</p>
   <p>Gemaakt met hulp van software, eindredactie Ringvrees.</p>
   <h2 class="h" id="privacy">Privacy</h2>
-  <p>We tellen hoeveel mensen Ringvrees lezen met de bezoekersteller van Metricool. Die werkt zonder cookies, slaat niets op je apparaat op en volgt je niet over andere sites. Daarom zie je hier ook geen cookiebanner. Meld je je aan voor Het Ringbericht, dan bewaart EmailOctopus je mailadres om je de nieuwsbrief te sturen. Afmelden kan in elke mail. De Ringcheck vraagt alleen om je locatie als je zelf op de knop drukt en bewaart niets.</p>
+  <p>We tellen hoeveel mensen Ringvrees lezen met de bezoekersteller van Metricool. Die werkt zonder cookies, slaat niets op je apparaat op en volgt je niet over andere sites. Daarom zie je hier ook geen cookiebanner. Meld je je aan voor Het Ringbericht, dan bewaart EmailOctopus je mailadres om je de nieuwsbrief te sturen. Afmelden kan in elke mail. De Ringcheck vraagt alleen om je locatie als je zelf op de knop drukt en bewaart niets. Zet je Ringvrees als app op je beginscherm, dan bewaart je telefoon de laatst gelezen pagina’s zodat ze ook zonder bereik openen. Dat blijft op je eigen toestel en gaat nergens heen.</p>
   <h2 class="h">Contact</h2>
   <p>Tip, klacht of een buurman die nooit de ring uit gaat? Mail naar <a id="m2" href="#">hallo [at] ringvrees [punt] nl</a>. Zit er een fout in de feiten waar een stuk mee begint? Dan zetten we het recht, sneller dan de gemeente een brug repareert.</p>
 </article>
@@ -494,6 +523,19 @@ def pagina_404(vandaag):
     html = kop("Pagina niet gevonden | Ringvrees", "Deze pagina ligt buiten de ring.", "/404.html",
                extra='\n<meta name="robots" content="noindex">') + balk(vandaag) + inhoud + VOET
     (ROOT / "404.html").write_text(html, encoding="utf-8")
+
+
+def pagina_offline(vandaag):
+    """Wat de web-app laat zien als er geen bereik is en de pagina nog niet bewaard was."""
+    inhoud = """<section class="wrap" style="padding:70px 24px 80px;max-width:760px">
+  <span class="kick">Geen verbinding</span>
+  <h1 class="h" style="font-size:52px;margin:18px 0 16px">Je staat buiten de ring</h1>
+  <p style="font:500 19px/1.55 Inter;color:#2b2a2e;margin-bottom:28px">Tenminste, zo voelt het: er is geen internet. Waarschijnlijk zit je in de IJtunnel of op de pont naar Noord. Stukken die je eerder las kun je gewoon openen. Zodra je weer bereik hebt, is het nieuws er ook weer.</p>
+  <p style="display:flex;gap:12px;flex-wrap:wrap"><a class="kick" style="font-size:14px;padding:12px 16px" href="/" onclick="event.preventDefault();location.reload()">Probeer opnieuw →</a></p>
+</section>"""
+    d = ROOT / "offline"; d.mkdir(exist_ok=True)
+    (d / "index.html").write_text(kop("Geen verbinding | Ringvrees", "Je staat buiten de ring. Of je hebt geen bereik.", "/offline/",
+        extra='\n<meta name="robots" content="noindex">') + balk(vandaag) + inhoud + VOET, encoding="utf-8")
 
 
 def feed(alle):
@@ -633,6 +675,7 @@ def main():
     beelden = {url_van(a): [a["beeld"]] for a in alle}
     beelden["/"] = [a["beeld"] for a in alle[:10]]
     pagina_404(vandaag)
+    pagina_offline(vandaag)
     feed(alle)
     datums = eerlijke_datum(["/"] + extra, vandaag)
     urls = [(u, datums.get(u, vandaag.isoformat())) for u in ["/"] + extra] + [(url_van(a), a["datum"]) for a in alle]
